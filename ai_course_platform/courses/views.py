@@ -228,7 +228,9 @@ class LessonDetailView(DetailView, QuizParsingMixin):
 
     def render_lesson_content(self, lesson):
         """Read and render markdown content, excluding daily quiz if it exists."""
-        file_path = settings.CURRICULUM_DIR / lesson.file_path
+        # Normalize path for Linux compatibility (handle Windows backslashes from DB)
+        normalized_path = lesson.file_path.replace('\\', '/')
+        file_path = settings.CURRICULUM_DIR / normalized_path
         
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -267,7 +269,9 @@ class LessonDetailView(DetailView, QuizParsingMixin):
 
     def parse_daily_quiz(self, lesson):
         """Detect and parse daily quiz section from regular lesson markdown."""
-        file_path = settings.CURRICULUM_DIR / lesson.file_path
+        # Normalize path for Linux compatibility
+        normalized_path = lesson.file_path.replace('\\', '/')
+        file_path = settings.CURRICULUM_DIR / normalized_path
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
@@ -303,7 +307,9 @@ class AssessmentView(DetailView, QuizParsingMixin):
         lesson = self.object
         
         # Parse quiz questions from markdown
-        file_path = settings.CURRICULUM_DIR / lesson.file_path
+        # Normalize path for Linux compatibility
+        normalized_path = lesson.file_path.replace('\\', '/')
+        file_path = settings.CURRICULUM_DIR / normalized_path
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()

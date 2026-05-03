@@ -36,22 +36,22 @@ Today, we're going to build a crystal-clear mental model using concepts you alre
 
 Just like the OSI model has layers, AI terminology has a hierarchy:
 
-```
-┌─────────────────────────────────────────────┐
-│         ARTIFICIAL INTELLIGENCE              │
-│     (Broadest category - any "smart" system) │
-│  ┌───────────────────────────────────────┐  │
-│  │       MACHINE LEARNING                 │  │
-│  │    (AI that learns from data)          │  │
-│  │  ┌────────────────────────────────┐   │  │
-│  │  │       DEEP LEARNING             │   │  │
-│  │  │   (ML using neural networks)    │   │  │
-│  │  └────────────────────────────────┘   │  │
-│  └───────────────────────────────────────┘  │
-└─────────────────────────────────────────────┘
-
-   AUTOMATION (Separate - rule-based, not AI)
-```
+<div class="mermaid">
+graph TD
+    subgraph AI[Artificial Intelligence]
+        subgraph ML[Machine Learning]
+            subgraph DL[Deep Learning]
+                GenAI[Generative AI]
+            end
+        end
+    end
+    Automation[Traditional Automation]
+    style AI fill:#f8fafc,stroke:#334155,stroke-width:2px
+    style ML fill:#f0fdf4,stroke:#16a34a,stroke-width:2px
+    style DL fill:#eff6ff,stroke:#2563eb,stroke-width:2px
+    style GenAI fill:#faf5ff,stroke:#9333ea,stroke-width:2px
+    style Automation fill:#fef2f2,stroke:#dc2626,stroke-width:2px
+</div>
 
 Let's break each one down.
 

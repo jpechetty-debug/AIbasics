@@ -41,10 +41,23 @@ AI is different. It's like having a junior engineer who learns on the job. At fi
 |------------------------|-------------------------|
 | "If CPU > 90%, send alert" | "Learn what normal CPU patterns look like and alert only when something is actually wrong" |
 | Fixed rules you wrote | Discovers patterns on its own |
-| Does exactly what you programmed | Can handle situations you didn't anticipate |
 | Never improves unless you update it | Gets better with more data |
 
+> [!AI] **Pro-Tip for Admins:** When a vendor claims "Zero-Touch AI," always ask about the **training period**. Real AI needs to see your network's peaks (monthly backups, patch Tuesdays) to distinguish a legitimate load from an attack. "Instant" AI is often just a fancy set of predefined rules.
+
 ### Breaking Down the Concept
+
+To understand how AI works under the hood, consider this simplified flow of a learning system:
+
+<div class="mermaid">
+graph LR
+    A[Data Ingestion] --> B(Pattern Recognition)
+    B --> C{Decision Logic}
+    C --> D[Result/Action]
+    D -.->|Feedback Loop| B
+    style B fill:#f0fdfa,stroke:#0d9488,stroke-width:2px
+    style C fill:#f0fdfa,stroke:#0d9488,stroke-width:2px
+</div>
 
 Let's use a practical example you'll relate to: **Network Intrusion Detection**
 

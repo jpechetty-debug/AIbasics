@@ -83,42 +83,60 @@
                 </ol>
             </nav>
 
-            <!-- Lesson Content -->
-            <article class="relative">
-                <!-- Decorative accent -->
-                <div
-                    class="absolute -left-16 top-0 w-1 h-32 bg-gradient-to-b from-netadmin-400 to-transparent rounded-full hidden xl:block">
-                </div>
-
-                <header class="mb-16">
-                    <h1 class="text-4xl md:text-6xl font-black text-netadmin-900 mb-6 leading-tight tracking-tight">
-                        {{ lesson.title }}
-                    </h1>
-                    <div class="flex flex-wrap items-center gap-6 text-sm">
-                        <div class="flex items-center gap-2 text-slate-500">
-                            <svg class="w-5 h-5 text-netadmin-400" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <span class="font-bold">{{ lesson.duration|default:"30-60 min" }}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="flex items-center gap-2 px-3 py-1 rounded-lg {% if lesson.difficulty == 'Beginner' %}bg-emerald-50 text-emerald-600{% elif lesson.difficulty == 'Intermediate' %}bg-blue-50 text-blue-600{% else %}bg-rose-50 text-rose-600{% endif %}">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <!-- Lesson Summary / Quick Look -->
+            <div class="mb-16 bg-gradient-to-br from-netadmin-900 to-slate-800 rounded-[2.5rem] p-8 lg:p-12 shadow-2xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-netadmin-400/10 blur-3xl rounded-full -mr-20 -mt-20 group-hover:bg-netadmin-400/20 transition-all duration-700"></div>
+                <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h1 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight">
+                            {{ lesson.title }}
+                        </h1>
+                        <div class="flex flex-wrap items-center gap-4 text-sm mb-8">
+                            <div class="flex items-center gap-2 px-3 py-1 bg-white/10 rounded-lg text-slate-300 font-bold">
+                                <svg class="w-4 h-4 text-netadmin-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
-                                <span class="font-black uppercase text-[0.65rem] tracking-widest">{{ lesson.difficulty|default:"General" }}</span>
+                                {{ lesson.duration|default:"30-60 min" }}
+                            </div>
+                            <div class="px-3 py-1 bg-netadmin-400/20 text-netadmin-400 border border-netadmin-400/30 rounded-lg font-black uppercase text-[0.65rem] tracking-widest">
+                                {{ lesson.difficulty|default:"Standard" }}
                             </div>
                         </div>
-                        <div class="hidden sm:flex items-center gap-2 text-slate-400">
-                            <span class="w-1 h-1 rounded-full bg-slate-200"></span>
-                            <span class="font-bold italic">Module {{ lesson.module.order }} / Day {{ lesson.order }}</span>
-                        </div>
+                        <p class="text-slate-400 font-bold text-lg leading-relaxed mb-0">
+                            Master the core principles of {{ lesson.title }} and apply them to your IT infrastructure.
+                        </p>
                     </div>
-                </header>
+                    <div class="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-sm">
+                        <h3 class="text-[0.65rem] font-black text-netadmin-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                            <span class="w-2 h-2 bg-netadmin-400 rounded-full animate-pulse"></span>
+                            Mission Objectives
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1 w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-3 h-3 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                </div>
+                                <span class="text-slate-300 text-sm font-medium">Core concept implementation</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1 w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-3 h-3 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                </div>
+                                <span class="text-slate-300 text-sm font-medium">Real-world workflow application</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1 w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-3 h-3 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                </div>
+                                <span class="text-slate-300 text-sm font-medium">Infrastructure security validation</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Lesson Content -->
+            <article class="relative">
                 <div class="prose prose-slate prose-lg max-w-none">
                     {{ content_html|safe }}
                 </div>
@@ -272,49 +290,168 @@
         </div>
     </main>
 </div>
+
+<!-- AI Tutor Sidebar -->
+<div id="ai-tutor-panel" class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-500 ease-in-out border-l border-slate-100 flex flex-col">
+    <div class="bg-netadmin-900 p-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-netadmin-400 rounded-xl flex items-center justify-center shadow-lg">
+                <svg class="w-6 h-6 text-netadmin-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+            </div>
+            <div>
+                <h3 class="text-white font-black tracking-tight leading-none">AI Study Buddy</h3>
+                <span class="text-netadmin-400/60 text-[0.6rem] font-black uppercase tracking-widest">Active Intelligence</span>
+            </div>
+        </div>
+        <button id="close-ai-tutor" class="text-white/50 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+    </div>
+    
+    <div class="flex-1 overflow-y-auto p-6 space-y-6" id="ai-chat-messages">
+        <!-- AI Welcome Message -->
+        <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-netadmin-400/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-netadmin-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+            <div class="bg-slate-50 p-4 rounded-2xl rounded-tl-none border border-slate-100">
+                <p class="text-sm text-slate-700 font-bold leading-relaxed">
+                    Hello! I'm your AI Study Buddy. I've analyzed this lesson on <span class="text-netadmin-900">{{ lesson.title }}</span>. How can I help you today?
+                </p>
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <button class="ai-suggestion-btn text-[0.65rem] font-black uppercase tracking-widest bg-white border border-slate-200 px-3 py-2 rounded-lg hover:border-netadmin-400 transition-colors">Explain concepts</button>
+                    <button class="ai-suggestion-btn text-[0.65rem] font-black uppercase tracking-widest bg-white border border-slate-200 px-3 py-2 rounded-lg hover:border-netadmin-400 transition-colors">Quick summary</button>
+                    <button class="ai-suggestion-btn text-[0.65rem] font-black uppercase tracking-widest bg-white border border-slate-200 px-3 py-2 rounded-lg hover:border-netadmin-400 transition-colors">Real-world usage</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="p-6 border-t border-slate-100 bg-slate-50/50">
+        <form id="ai-chat-form" class="relative">
+            <input type="text" id="ai-chat-input" placeholder="Ask me anything about this lesson..." class="w-full bg-white border-2 border-slate-100 rounded-2xl py-4 pl-6 pr-14 font-bold text-sm focus:border-netadmin-400 outline-none transition-all placeholder:text-slate-300">
+            <button type="submit" class="absolute right-3 top-3 w-10 h-10 bg-netadmin-900 text-netadmin-400 rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+            </button>
+        </form>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Initialize Daily Quiz if it exists
-        const dailyQuizData = {{ daily_quiz_json| safe }};
-    if (dailyQuizData) {
-        new QuizHandler({
-            questions: dailyQuizData,
-            submitUrl: '{% url "courses:submit_quiz" lesson.pk %}',
-            csrfToken: '{{ csrf_token }}',
-            isAssessment: false
-        });
-    }
+        // AI Tutor Sidebar Logic
+        const tutorPanel = document.getElementById('ai-tutor-panel');
+        const tutorTrigger = document.getElementById('ai-tutor-trigger');
+        const closeTutor = document.getElementById('close-ai-tutor');
+        const chatForm = document.getElementById('ai-chat-form');
+        const chatInput = document.getElementById('ai-chat-input');
+        const chatMessages = document.getElementById('ai-chat-messages');
 
-    const markCompleteBtn = document.getElementById('mark-complete-btn');
-    if (markCompleteBtn && !markCompleteBtn.disabled) {
-        markCompleteBtn.addEventListener('click', function () {
-            fetch('{% url "courses:mark_complete" lesson.pk %}', {
+        tutorTrigger.addEventListener('click', () => {
+            tutorPanel.classList.remove('translate-x-full');
+        });
+
+        closeTutor.addEventListener('click', () => {
+            tutorPanel.classList.add('translate-x-full');
+        });
+
+        const addMessage = (text, isUser = false) => {
+            const div = document.createElement('div');
+            div.className = `flex items-start gap-3 ${isUser ? 'flex-row-reverse' : ''}`;
+            div.innerHTML = `
+                <div class="w-8 h-8 rounded-lg ${isUser ? 'bg-netadmin-900' : 'bg-netadmin-400/20'} flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 h-4 ${isUser ? 'text-white' : 'text-netadmin-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        ${isUser ? '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>' : '<path d="M13 10V3L4 14h7v7l9-11h-7z"></path>'}
+                    </svg>
+                </div>
+                <div class="${isUser ? 'bg-netadmin-900 text-white rounded-tr-none' : 'bg-slate-50 text-slate-700 rounded-tl-none border border-slate-100'} p-4 rounded-2xl">
+                    <p class="text-sm font-bold leading-relaxed">${text}</p>
+                </div>
+            `;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = chatInput.value.trim();
+            if (!text) return;
+            
+            addMessage(text, true);
+            chatInput.value = '';
+            
+            // Fetch AI Response from Backend
+            fetch('{% url "courses:ai_tutor" lesson.pk %}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ query: text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    addMessage(data.response);
+                } else {
+                    addMessage("I'm sorry, I'm having trouble connecting to my brain right now. Please try again later.");
                 }
             })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessage("Connection error. Please check your network.");
+            });
+        });
+
+        document.querySelectorAll('.ai-suggestion-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                chatInput.value = btn.innerText;
+                chatForm.dispatchEvent(new Event('submit'));
+            });
+        });
+
+        // Initialize Daily Quiz
+        const dailyQuizData = {{ daily_quiz_json|safe }};
+        if (dailyQuizData) {
+            new QuizHandler({
+                questions: dailyQuizData,
+                submitUrl: '{% url "courses:submit_quiz" lesson.pk %}',
+                csrfToken: '{{ csrf_token }}',
+                isAssessment: false
+            });
+        }
+
+        const markCompleteBtn = document.getElementById('mark-complete-btn');
+        if (markCompleteBtn && !markCompleteBtn.disabled) {
+            markCompleteBtn.addEventListener('click', function () {
+                fetch('{% url "courses:mark_complete" lesson.pk %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         markCompleteBtn.innerHTML = `
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                </svg>
-                                Validated
-                            `;
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            Validated
+                        `;
                         markCompleteBtn.classList.remove('bg-netadmin-900', 'hover:bg-slate-800');
                         markCompleteBtn.classList.add('bg-emerald-500', 'cursor-default');
                         markCompleteBtn.disabled = true;
                     }
                 })
                 .catch(error => { console.error('Error:', error); });
-        });
-    }
+            });
+        }
     });
 </script>
 {% endblock %}

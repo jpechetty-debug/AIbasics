@@ -247,8 +247,71 @@
             background: #94a3b8;
         }
 
-        html {
-            scroll-behavior: smooth;
+        /* AI Insight Callout */
+        .ai-insight {
+            background: #f0fdfa;
+            border: 1px solid #99f6e4;
+            border-left: 6px solid #0d9488;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin: 3rem 0;
+            position: relative;
+            box-shadow: 0 10px 15px -3px rgba(13, 148, 136, 0.05);
+        }
+
+        .ai-insight::before {
+            content: 'AI Pro Tip';
+            position: absolute;
+            top: -12px;
+            left: 2rem;
+            background: #0d9488;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px -1px rgba(13, 148, 136, 0.2);
+        }
+
+        .ai-insight p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* AI Tutor Floating Widget */
+        #ai-tutor-trigger {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            width: 64px;
+            height: 64px;
+            background: #0f172a;
+            color: #22d3ee;
+            border-radius: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 0 0 4px rgba(34, 211, 238, 0.1);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #ai-tutor-trigger:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: #1e293b;
+            box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.4), 0 0 0 6px rgba(34, 211, 238, 0.2);
+        }
+
+        .fade-up {
+            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
     {% block extra_css %}{% endblock %}
@@ -340,6 +403,13 @@
         {% block content %}{% endblock %}
     </main>
 
+    <!-- AI Tutor Button -->
+    <div id="ai-tutor-trigger" title="Ask AI Tutor">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-netadmin-900 text-slate-500 py-16 mt-24 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -347,16 +417,14 @@
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center">
                         <svg class="w-4 h-4 text-netadmin-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
                     <span class="text-white font-black tracking-tighter">AI Course for Beginners</span>
                 </div>
                 <div class="text-center md:text-right">
                     <p class="font-bold">&copy; 2026 AI Training Suite. Enterprise Edition.</p>
-                    <p class="text-xs font-black uppercase tracking-widest mt-2">Accelerated Learning for IT
-                        Infrastructure</p>
+                    <p class="text-xs font-black uppercase tracking-widest mt-2">Accelerated Learning for IT Infrastructure</p>
                 </div>
             </div>
         </div>

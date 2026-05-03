@@ -22,4 +22,5 @@ urlpatterns = [
     # API endpoints
     path('api/lesson/<int:pk>/complete/', views.mark_lesson_complete, name='mark_complete'),
     path('api/quiz/<int:pk>/submit/', views.submit_quiz, name='submit_quiz'),
+    path('api/lesson/<int:pk>/ai-tutor/', views.AITutorView.as_view(), name='ai_tutor'),
 ]

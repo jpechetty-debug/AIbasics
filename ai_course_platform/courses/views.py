@@ -21,6 +21,32 @@ from django.core.cache import cache
 from .models import Module, Lesson, UserProgress, QuizAttempt
 
 
+class AITutorView(LoginRequiredMixin, View):
+    """Handle chat queries for the AI Tutor."""
+    def post(self, request, pk):
+        try:
+            data = json.loads(request.body)
+            query = data.get('query', '')
+            lesson = get_object_or_404(Lesson, pk=pk)
+            
+            # Simulated AI logic - can be replaced with real LLM API call
+            responses = [
+                f"That's a great question about {lesson.title}! In a professional environment, this usually involves identifying the core data flow first.",
+                "I've analyzed the curriculum data. This concept relates strongly to the performance optimizations we discuss in the advanced modules.",
+                "Let me clarify that for you. Think of it like a network switch routing packets—the logic follows a strict priority queue.",
+                "From an architectural standpoint, this approach minimizes latency while maintaining data integrity. It's a standard practice in AI-native systems."
+            ]
+            import random
+            response_text = random.choice(responses)
+            
+            return JsonResponse({
+                'success': True,
+                'response': response_text
+            })
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)
+
+
 class CourseMixin:
     """Shared logic for curriculum data."""
     def get_grouped_modules(self, user=None):
@@ -283,6 +309,22 @@ class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
             
             # Remove the first H1 header from the markdown to prevent duplication
             content = re.sub(r'^#\s+.+?(\r?\n|$)', '', content.strip(), count=1)
+            
+            # Support for [!AI] callouts: > [!AI] message
+            def replace_ai_callout(match):
+                block = match.group(0)
+                if '[!AI]' in block:
+                    # Strip leading '>' and '[!AI]'
+                    lines = [re.sub(r'^>\s*', '', line) for line in block.split('\n')]
+                    content_lines = [re.sub(r'^\[!AI\]\s*', '', line, flags=re.IGNORECASE) for line in lines]
+                    inner_html = '\n'.join(content_lines).strip()
+                    return f'<div class="ai-insight">\n{inner_html}\n</div>'
+                return block
+
+            # Match consecutive blockquote lines
+            content = re.split(r'(\n\n)', content)
+            content = [re.sub(r'(^>.*(?:\n>.*)*)', replace_ai_callout, part, flags=re.MULTILINE) for part in content]
+            content = ''.join(content)
             
             # Convert markdown to HTML
             md = markdown.Markdown(extensions=[

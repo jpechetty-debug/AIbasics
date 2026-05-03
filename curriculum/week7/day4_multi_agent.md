@@ -1,3 +1,14 @@
+---
+difficulty: Advanced
+duration: ~60 minutes
+tags:
+- prompting
+- python
+- agents
+title: 'Week 7 - Day 4: Multi-Agent Patterns in Low-Code'
+week: 7
+---
+
 # Week 7 - Day 4: Multi-Agent Patterns in Low-Code
 
 ## Overview

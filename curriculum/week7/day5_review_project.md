@@ -1,3 +1,14 @@
+---
+difficulty: Advanced
+duration: ~90 minutes
+tags:
+- prompting
+- rag
+- agents
+title: 'Week 7 - Day 5: Review & Mini-Project'
+week: 7
+---
+
 # Week 7 - Day 5: Review & Mini-Project
 
 ## Overview

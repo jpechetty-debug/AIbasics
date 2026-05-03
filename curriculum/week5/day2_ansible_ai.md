@@ -1,3 +1,13 @@
+---
+difficulty: Intermediate
+duration: ~60 minutes
+tags:
+- prompting
+- python
+title: 'Week 5 - Day 2: AI for Ansible Playbooks'
+week: 5
+---
+
 # Week 5 - Day 2: AI for Ansible Playbooks
 
 ## Overview

@@ -1,3 +1,15 @@
+---
+difficulty: Intermediate
+duration: ~90 minutes
+tags:
+- prompting
+- python
+- agents
+- automation
+title: 'Week 5 - Day 5: Review & Mini-Project'
+week: 5
+---
+
 # Week 5 - Day 5: Review & Mini-Project
 
 ## Overview

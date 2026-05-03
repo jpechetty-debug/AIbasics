@@ -1,3 +1,15 @@
+---
+difficulty: Intermediate
+duration: ~60 minutes
+tags:
+- prompting
+- python
+- rag
+- automation
+title: 'Week 3 - Day 3: The Extractor Pattern'
+week: 3
+---
+
 # Week 3 - Day 3: The Extractor Pattern
 
 ## Overview

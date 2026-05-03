@@ -1,3 +1,12 @@
+---
+difficulty: Intermediate
+duration: ~60 minutes
+tags:
+- prompting
+title: 'Week 3 - Day 2: The Summarizer Pattern'
+week: 3
+---
+
 # Week 3 - Day 2: The Summarizer Pattern
 
 ## Overview

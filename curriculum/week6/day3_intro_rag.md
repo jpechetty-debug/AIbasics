@@ -1,3 +1,13 @@
+---
+difficulty: Advanced
+duration: ~60 minutes
+tags:
+- prompting
+- rag
+title: 'Week 6 - Day 3: Intro to RAG (Chat with Data)'
+week: 6
+---
+
 # Week 6 - Day 3: Intro to RAG (Chat with Data)
 
 ## Overview

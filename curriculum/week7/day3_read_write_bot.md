@@ -1,3 +1,12 @@
+---
+difficulty: Advanced
+duration: ~60 minutes
+tags:
+- agents
+title: 'Week 7 - Day 3: Building a "Ticket Master" Bot'
+week: 7
+---
+
 # Week 7 - Day 3: Building a "Ticket Master" Bot
 
 ## Overview

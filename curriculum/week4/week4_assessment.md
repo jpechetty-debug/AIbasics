@@ -1,3 +1,15 @@
+---
+difficulty: Intermediate
+duration: 30-60 min
+tags:
+- prompting
+- python
+- agents
+- assessment
+title: Week 4 - Weekly Interactive Assessment
+week: 4
+---
+
 # Week 4 - Weekly Interactive Assessment
 
 ## Advanced Prompting Quiz

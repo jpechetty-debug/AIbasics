@@ -1,3 +1,13 @@
+---
+difficulty: Advanced
+duration: ~90 minutes
+tags:
+- prompting
+- rag
+title: 'Week 8 - Day 2: Building the Knowledge Base'
+week: 8
+---
+
 # Week 8 - Day 2: Building the Knowledge Base
 
 ## Overview

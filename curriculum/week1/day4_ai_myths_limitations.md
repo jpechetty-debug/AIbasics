@@ -1,3 +1,13 @@
+---
+difficulty: Beginner
+duration: ~60 minutes
+tags:
+- rag
+- automation
+title: 'Week 1 - Day 4: AI Myths, Limitations, and Realistic Expectations'
+week: 1
+---
+
 # Week 1 - Day 4: AI Myths, Limitations, and Realistic Expectations
 
 ## Overview

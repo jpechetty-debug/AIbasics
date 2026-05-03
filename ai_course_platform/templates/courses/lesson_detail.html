@@ -14,32 +14,47 @@
                 Operations Guide
             </h3>
 
-            {% for module in all_modules %}
-            <div class="mb-8">
-                <div class="flex items-center gap-3 mb-4 group cursor-pointer">
-                    <div
-                        class="w-8 h-8 rounded-lg {% if module == lesson.module %}bg-netadmin-900 text-netadmin-400{% else %}bg-slate-50 text-slate-400{% endif %} flex items-center justify-center font-black text-xs shadow-sm transition-all group-hover:scale-110">
-                        {{ module.order }}
-                    </div>
-                    <a href="{% url 'courses:module_detail' module.slug %}"
-                        class="text-sm font-black {% if module == lesson.module %}text-netadmin-900{% else %}text-slate-500 hover:text-netadmin-900 transition-colors{% endif %}">
-                        {{ module.title }}
-                    </a>
+            {% for phase in phases %}
+            <div class="mb-10">
+                <div class="flex items-center gap-3 mb-6 px-2">
+                    <span class="text-[0.6rem] font-black text-blue-500 uppercase tracking-[0.2em] bg-blue-50 px-2 py-1 rounded">
+                        Section {{ forloop.counter }}
+                    </span>
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-widest truncate">{{ phase.title }}</h4>
                 </div>
 
-                {% if module == lesson.module %}
-                <div class="ml-4 pl-4 border-l-2 border-slate-100 space-y-2">
-                    {% for mod_lesson in module.lessons.all %}
-                    <a href="{% if mod_lesson.content_type == 'assessment' %}{% url 'courses:assessment' mod_lesson.pk %}{% else %}{% url 'courses:lesson_detail' mod_lesson.pk %}{% endif %}"
-                        class="flex items-center gap-3 p-3 rounded-xl text-sm transition-all group {% if mod_lesson == lesson %}bg-netadmin-900 text-white shadow-xl translate-x-1{% else %}text-slate-500 hover:bg-slate-50 hover:text-netadmin-900{% endif %}">
-                        <div
-                            class="w-2 h-2 rounded-full {% if mod_lesson == lesson %}bg-netadmin-400{% else %}bg-slate-300 group-hover:bg-netadmin-400{% endif %} transition-colors">
+                <div class="space-y-4">
+                    {% for item in phase.modules %}
+                    {% with module=item.module %}
+                    <div class="mb-4">
+                        <div class="flex items-center gap-3 group cursor-pointer">
+                            <div
+                                class="w-8 h-8 rounded-lg {% if module == lesson.module %}bg-netadmin-900 text-netadmin-400{% else %}bg-slate-50 text-slate-400{% endif %} flex items-center justify-center font-black text-xs shadow-sm transition-all group-hover:scale-110">
+                                {{ module.order }}
+                            </div>
+                            <a href="{% url 'courses:module_detail' module.slug %}"
+                                class="text-sm font-black {% if module == lesson.module %}text-netadmin-900{% else %}text-slate-500 hover:text-netadmin-900 transition-colors{% endif %}">
+                                {{ module.title }}
+                            </a>
                         </div>
-                        <span class="truncate font-bold">{{ mod_lesson.title|truncatechars:28 }}</span>
-                    </a>
+        
+                        {% if module == lesson.module %}
+                        <div class="ml-4 pl-4 border-l-2 border-slate-100 space-y-2 mt-3">
+                            {% for mod_lesson in module.lessons.all %}
+                            <a href="{% if mod_lesson.content_type == 'assessment' %}{% url 'courses:assessment' mod_lesson.pk %}{% else %}{% url 'courses:lesson_detail' mod_lesson.pk %}{% endif %}"
+                                class="flex items-center gap-3 p-3 rounded-xl text-sm transition-all group {% if mod_lesson == lesson %}bg-netadmin-900 text-white shadow-xl translate-x-1{% else %}text-slate-500 hover:bg-slate-50 hover:text-netadmin-900{% endif %}">
+                                <div
+                                    class="w-2 h-2 rounded-full {% if mod_lesson == lesson %}bg-netadmin-400{% else %}bg-slate-300 group-hover:bg-netadmin-400{% endif %} transition-colors">
+                                </div>
+                                <span class="truncate font-bold">{{ mod_lesson.title|truncatechars:28 }}</span>
+                            </a>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endwith %}
                     {% endfor %}
                 </div>
-                {% endif %}
             </div>
             {% endfor %}
         </div>
@@ -79,22 +94,27 @@
                     <h1 class="text-4xl md:text-6xl font-black text-netadmin-900 mb-6 leading-tight tracking-tight">
                         {{ lesson.title }}
                     </h1>
-                    <div class="flex items-center gap-6 text-sm">
+                    <div class="flex flex-wrap items-center gap-6 text-sm">
                         <div class="flex items-center gap-2 text-slate-500">
                             <svg class="w-5 h-5 text-netadmin-400" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <span class="font-bold">15 min read</span>
+                            <span class="font-bold">{{ lesson.duration|default:"30-60 min" }}</span>
                         </div>
-                        <div class="flex items-center gap-2 text-slate-500">
-                            <svg class="w-5 h-5 text-netadmin-400" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <span class="font-bold">Module Verified</span>
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-2 px-3 py-1 rounded-lg {% if lesson.difficulty == 'Beginner' %}bg-emerald-50 text-emerald-600{% elif lesson.difficulty == 'Intermediate' %}bg-blue-50 text-blue-600{% else %}bg-rose-50 text-rose-600{% endif %}">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="font-black uppercase text-[0.65rem] tracking-widest">{{ lesson.difficulty|default:"General" }}</span>
+                            </div>
+                        </div>
+                        <div class="hidden sm:flex items-center gap-2 text-slate-400">
+                            <span class="w-1 h-1 rounded-full bg-slate-200"></span>
+                            <span class="font-bold italic">Module {{ lesson.module.order }} / Day {{ lesson.order }}</span>
                         </div>
                     </div>
                 </header>

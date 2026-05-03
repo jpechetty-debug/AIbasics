@@ -1,3 +1,14 @@
+---
+difficulty: Intermediate
+duration: ~90 minutes
+tags:
+- prompting
+- python
+- agents
+title: 'Week 3 - Day 5: Review and Application'
+week: 3
+---
+
 # Week 3 - Day 5: Review and Application
 
 ## Overview

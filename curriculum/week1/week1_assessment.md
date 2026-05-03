@@ -1,3 +1,13 @@
+---
+difficulty: Beginner
+duration: 30-60 min
+tags:
+- automation
+- assessment
+title: Week 1 - Weekly Interactive Assessment
+week: 1
+---
+
 # Week 1 - Weekly Interactive Assessment
 
 ## AI Foundations Comprehensive Quiz

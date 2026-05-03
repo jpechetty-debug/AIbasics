@@ -1,3 +1,14 @@
+---
+difficulty: Advanced
+duration: ~60 minutes
+tags:
+- prompting
+- python
+- rag
+title: 'Week 8 - Day 1: Capstone Project Kickoff'
+week: 8
+---
+
 # Week 8 - Day 1: Capstone Project Kickoff
 
 ## Overview

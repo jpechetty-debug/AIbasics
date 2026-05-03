@@ -1,3 +1,11 @@
+---
+difficulty: Advanced
+duration: ~60 minutes
+tags: []
+title: 'Week 7 - Day 2: Connecting Bots to APIs'
+week: 7
+---
+
 # Week 7 - Day 2: Connecting Bots to APIs
 
 ## Overview

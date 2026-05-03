@@ -1,3 +1,13 @@
+---
+difficulty: Intermediate
+duration: ~60 minutes
+tags:
+- prompting
+- python
+title: 'Week 4 - Day 1: The Power of Examples (Few-Shot)'
+week: 4
+---
+
 # Week 4 - Day 1: The Power of Examples (Few-Shot)
 
 ## Overview

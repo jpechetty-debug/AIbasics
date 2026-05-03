@@ -1,3 +1,16 @@
+---
+difficulty: Advanced
+duration: ~90 minutes
+tags:
+- prompting
+- python
+- rag
+- agents
+- automation
+title: 'Week 8 - Day 5: Career & The Future of Network Admin'
+week: 8
+---
+
 # Week 8 - Day 5: Career & The Future of Network Admin
 
 ## Overview

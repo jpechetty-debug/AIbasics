@@ -1,3 +1,13 @@
+---
+difficulty: Beginner
+duration: 30-60 min
+tags:
+- prompting
+- assessment
+title: Week 2 - Weekly Interactive Assessment
+week: 2
+---
+
 # Week 2 - Weekly Interactive Assessment
 
 ## How AI Works Comprehensive Quiz

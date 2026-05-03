@@ -1,3 +1,15 @@
+---
+difficulty: Intermediate
+duration: ~60 minutes
+tags:
+- prompting
+- python
+- agents
+- automation
+title: 'Week 5 - Day 4: AI for Documentation'
+week: 5
+---
+
 # Week 5 - Day 4: AI for Documentation
 
 ## Overview

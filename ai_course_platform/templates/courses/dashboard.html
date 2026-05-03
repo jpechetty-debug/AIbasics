@@ -149,94 +149,108 @@
         </div>
     </div>
 
-    <!-- Course Modules -->
-    <div class="flex items-center justify-between mb-8 overflow-hidden">
-        <h2 class="text-3xl font-black text-slate-900 flex items-center gap-4">
-            <span class="w-12 h-1 bg-netadmin-400 rounded-full inline-block"></span>
-            Curriculum Path
-        </h2>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {% for item in modules_with_progress %}
-        <div class="module-card group">
-            <a href="{% url 'courses:module_detail' item.module.slug %}"
-                class="block relative h-full bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100 transition-all duration-300 hover:ring-4 hover:ring-blue-500/10">
-                <!-- Decorative element -->
-                <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <span class="text-8xl font-black">{{ item.module.order }}</span>
+    <!-- Course Phases -->
+    {% for phase in phases %}
+    <div class="mb-20">
+        <div class="flex items-center gap-6 mb-10">
+            <div class="flex-none">
+                <div class="w-16 h-16 bg-netadmin-900 rounded-2xl flex items-center justify-center shadow-xl border border-white/10">
+                    <span class="text-netadmin-400 font-black text-2xl italic">{{ forloop.counter }}</span>
                 </div>
-
-                <!-- Progress Header -->
-                <div class="h-3 bg-slate-100 relative">
-                    <div class="absolute h-full bg-gradient-to-r from-netadmin-400 to-blue-500 transition-all duration-1000"
-                        style="width:{{ item.progress }}%"></div>
+            </div>
+            <div class="flex-1">
+                <h2 class="text-3xl font-black text-slate-900 leading-none mb-2">
+                    {{ phase.title }}
+                </h2>
+                <div class="flex items-center gap-4">
+                    <span class="text-xs font-black uppercase tracking-widest text-slate-400">Section {{ forloop.counter }} of {{ phases|length }}</span>
+                    <span class="w-2 h-2 rounded-full bg-slate-200"></span>
+                    <span class="text-xs font-bold text-blue-500">{{ phase.modules|length }} Modules</span>
                 </div>
+            </div>
+        </div>
 
-                <div class="p-8">
-                    <div class="flex justify-between items-start mb-6">
-                        <div
-                            class="text-xs font-black tracking-[0.2em] text-blue-600 uppercase bg-blue-50 px-3 py-1 rounded-lg">
-                            Week {{ item.module.order }}
-                        </div>
-                        <div class="text-slate-400">
-                            {% if item.progress == 100 %}
-                            <svg class="w-6 h-6 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            {% else %}
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-                                </path>
-                            </svg>
-                            {% endif %}
-                        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {% for item in phase.modules %}
+            <div class="module-card group">
+                <a href="{% url 'courses:module_detail' item.module.slug %}"
+                    class="block relative h-full bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100 transition-all duration-300 hover:ring-4 hover:ring-blue-500/10">
+                    <!-- Decorative element -->
+                    <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <span class="text-8xl font-black">{{ item.module.order }}</span>
                     </div>
 
-                    <!-- Module Title -->
-                    <h3
-                        class="text-xl font-bold text-slate-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors">
-                        {{ item.module.title }}
-                    </h3>
+                    <!-- Progress Header -->
+                    <div class="h-3 bg-slate-100 relative">
+                        <div class="absolute h-full bg-gradient-to-r from-netadmin-400 to-blue-500 transition-all duration-1000"
+                            style="width:{{ item.progress }}%"></div>
+                    </div>
 
-                    <!-- Lesson Count -->
-                    <p class="text-slate-500 text-sm font-medium mb-8">
-                        {{ item.total }} Specialized Lessons
-                    </p>
-
-                    <!-- Progress Text -->
-                    <div class="flex items-end justify-between">
-                        <div>
-                            <p class="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Status
-                            </p>
-                            <p class="text-sm font-black text-slate-900">
-                                {% if item.progress == 100 %}COMPLETED{% elif item.progress > 0 %}IN PROGRESS{% else
-                                %}NOT STARTED{% endif %}
-                            </p>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-6">
+                            <div
+                                class="text-[0.6rem] font-black tracking-[0.2em] text-blue-600 uppercase bg-blue-50 px-3 py-1 rounded-lg">
+                                Week {{ item.module.order }}
+                            </div>
+                            <div class="text-slate-400">
+                                {% if item.progress == 100 %}
+                                <svg class="w-6 h-6 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                {% else %}
+                                <svg class="w-6 h-6 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                    </path>
+                                </svg>
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="text-right">
-                            <p class="text-2xl font-black text-slate-900">{{ item.progress }}<span
-                                    class="text-slate-400 text-xs">%</span></p>
+
+                        <!-- Module Title -->
+                        <h3
+                            class="text-xl font-bold text-slate-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors">
+                            {{ item.module.title }}
+                        </h3>
+
+                        <!-- Lesson Count -->
+                        <p class="text-slate-500 text-sm font-medium mb-8">
+                            {{ item.total }} Specialized Sessions
+                        </p>
+
+                        <!-- Progress Text -->
+                        <div class="flex items-end justify-between">
+                            <div>
+                                <p class="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Status
+                                </p>
+                                <p class="text-xs font-black text-slate-900">
+                                    {% if item.progress == 100 %}COMPLETED{% elif item.progress > 0 %}IN PROGRESS{% else %}NOT STARTED{% endif %}
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-2xl font-black text-slate-900">{{ item.progress }}<span
+                                        class="text-slate-400 text-xs">%</span></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
+            {% endfor %}
         </div>
-        {% empty %}
-        <div class="col-span-full text-center py-20 glass rounded-[3rem] border border-slate-100">
-            <svg class="w-24 h-24 text-slate-200 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-                </path>
-            </svg>
-            <p class="text-slate-600 text-xl font-bold">The lab is currently empty.</p>
-            <p class="text-slate-400 mt-2">Initialize the curriculum to begin your training.</p>
-        </div>
-        {% endfor %}
     </div>
+    {% empty %}
+    <div class="col-span-full text-center py-20 glass rounded-[3rem] border border-slate-100">
+        <svg class="w-24 h-24 text-slate-200 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+            </path>
+        </svg>
+        <p class="text-slate-600 text-xl font-bold">The lab is currently empty.</p>
+        <p class="text-slate-400 mt-2">Initialize the curriculum to begin your training.</p>
+    </div>
+    {% endfor %}
 </div>
 
 </div>

@@ -1,3 +1,14 @@
+---
+difficulty: Beginner
+duration: ~75 minutes
+tags:
+- prompting
+- rag
+- automation
+title: 'Week 2 - Day 2: Large Language Models (LLMs) & Generative AI'
+week: 2
+---
+
 # Week 2 - Day 2: Large Language Models (LLMs) & Generative AI
 
 ## Overview

@@ -1,3 +1,13 @@
+---
+difficulty: Beginner
+duration: ~60 minutes
+tags:
+- prompting
+- python
+title: 'Week 2 - Day 4: Advanced Prompting - System Prompts and Chaining'
+week: 2
+---
+
 # Week 2 - Day 4: Advanced Prompting - System Prompts and Chaining
 
 ## Overview

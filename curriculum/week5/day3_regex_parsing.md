@@ -1,3 +1,13 @@
+---
+difficulty: Intermediate
+duration: ~60 minutes
+tags:
+- prompting
+- python
+title: 'Week 5 - Day 3: AI for Regex & Parsing (The Extractor Pattern II)'
+week: 5
+---
+
 # Week 5 - Day 3: AI for Regex & Parsing (The Extractor Pattern II)
 
 ## Overview

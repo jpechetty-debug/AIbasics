@@ -1,3 +1,13 @@
+---
+difficulty: Intermediate
+duration: ~60 minutes
+tags:
+- prompting
+- python
+title: 'Week 3 - Day 4: The Generator Pattern'
+week: 3
+---
+
 # Week 3 - Day 4: The Generator Pattern
 
 ## Overview

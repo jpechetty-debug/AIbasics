@@ -1,3 +1,15 @@
+---
+difficulty: Advanced
+duration: ~60 minutes
+tags:
+- prompting
+- python
+- rag
+- agents
+title: 'Week 6 - Day 1: Introduction to Low-Code AI'
+week: 6
+---
+
 # Week 6 - Day 1: Introduction to Low-Code AI
 
 ## Overview

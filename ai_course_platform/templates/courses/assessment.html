@@ -28,13 +28,21 @@
         </div>
 
         <div class="relative">
-            <div class="flex items-center gap-4 mb-6">
+            <div class="flex flex-wrap items-center gap-4 mb-6">
                 <span
-                    class="bg-purple-500/20 text-purple-300 px-4 py-2 rounded-xl text-xs font-black tracking-widest uppercase border border-purple-500/20">
+                    class="bg-purple-500/20 text-purple-300 px-4 py-2 rounded-xl text-[0.65rem] font-black tracking-widest uppercase border border-purple-500/20">
                     Week {{ lesson.module.order }} Milestone
                 </span>
-                <span class="text-slate-500 font-bold">•</span>
-                <span class="text-blue-200 font-medium text-sm tracking-wide">High Complexity Lab</span>
+                <span
+                    class="bg-blue-500/20 text-blue-300 px-4 py-2 rounded-xl text-[0.65rem] font-black tracking-widest uppercase border border-blue-500/20">
+                    {{ lesson.difficulty|default:"Advanced" }}
+                </span>
+                <div class="flex items-center gap-2 text-slate-400 text-xs font-bold px-2">
+                    <svg class="w-4 h-4 text-netadmin-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>{{ lesson.duration|default:"30-60 min" }}</span>
+                </div>
             </div>
             <h1 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight max-w-4xl">
                 {{ lesson.title }}

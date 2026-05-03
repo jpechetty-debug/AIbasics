@@ -1,3 +1,12 @@
+---
+difficulty: Beginner
+duration: ~75 minutes
+tags:
+- automation
+title: 'Week 1 - Day 2: AI vs Machine Learning vs Deep Learning vs Automation'
+week: 1
+---
+
 # Week 1 - Day 2: AI vs Machine Learning vs Deep Learning vs Automation
 
 ## Overview

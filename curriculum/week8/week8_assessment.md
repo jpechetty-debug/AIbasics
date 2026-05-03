@@ -1,3 +1,17 @@
+---
+difficulty: Advanced
+duration: 30-60 min
+tags:
+- prompting
+- python
+- rag
+- agents
+- automation
+- assessment
+title: Week 8 - Final Assessment
+week: 8
+---
+
 # Week 8 - Final Assessment
 
 ## Capstone & Course Final Exam

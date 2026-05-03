@@ -1,3 +1,14 @@
+---
+difficulty: Beginner
+duration: ~60 minutes
+tags:
+- prompting
+- python
+- rag
+title: 'Week 2 - Day 3: Prompt Engineering Fundamentals - The New Syntax'
+week: 2
+---
+
 # Week 2 - Day 3: Prompt Engineering Fundamentals - The New Syntax
 
 ## Overview

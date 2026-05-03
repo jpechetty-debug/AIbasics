@@ -1,3 +1,14 @@
+---
+difficulty: Advanced
+duration: ~90 minutes
+tags:
+- prompting
+- python
+- rag
+title: 'Week 6 - Day 5: Deployment & Review'
+week: 6
+---
+
 # Week 6 - Day 5: Deployment & Review
 
 ## Overview

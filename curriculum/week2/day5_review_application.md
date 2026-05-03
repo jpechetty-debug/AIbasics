@@ -1,3 +1,13 @@
+---
+difficulty: Beginner
+duration: ~90 minutes
+tags:
+- prompting
+- python
+title: 'Week 2 - Day 5: Review and Practical Application'
+week: 2
+---
+
 # Week 2 - Day 5: Review and Practical Application
 
 ## Overview

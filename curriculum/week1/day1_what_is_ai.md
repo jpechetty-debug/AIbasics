@@ -1,3 +1,13 @@
+---
+difficulty: Beginner
+duration: ~60 minutes
+tags:
+- agents
+- automation
+title: 'Week 1 - Day 1: What is Artificial Intelligence?'
+week: 1
+---
+
 # Week 1 - Day 1: What is Artificial Intelligence?
 
 ## Overview

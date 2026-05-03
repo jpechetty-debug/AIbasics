@@ -1,3 +1,14 @@
+---
+difficulty: Intermediate
+duration: ~60 minutes
+tags:
+- prompting
+- python
+- automation
+title: 'Week 5 - Day 1: AI for Python Automation'
+week: 5
+---
+
 # Week 5 - Day 1: AI for Python Automation
 
 ## Overview

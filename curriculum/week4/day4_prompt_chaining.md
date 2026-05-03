@@ -1,3 +1,14 @@
+---
+difficulty: Intermediate
+duration: ~60 minutes
+tags:
+- prompting
+- python
+- agents
+title: 'Week 4 - Day 4: Prompt Chaining (Building Agents)'
+week: 4
+---
+
 # Week 4 - Day 4: Prompt Chaining (Building Agents)
 
 ## Overview

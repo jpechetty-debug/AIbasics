@@ -1,3 +1,16 @@
+---
+difficulty: Intermediate
+duration: 30-60 min
+tags:
+- prompting
+- python
+- rag
+- automation
+- assessment
+title: Week 3 - Weekly Interactive Assessment
+week: 3
+---
+
 # Week 3 - Weekly Interactive Assessment
 
 ## Practical Prompt Patterns Quiz

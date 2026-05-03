@@ -1,3 +1,15 @@
+---
+difficulty: Advanced
+duration: ~90 minutes
+tags:
+- prompting
+- python
+- rag
+- agents
+title: 'Week 8 - Day 4: Integration & Testing (The Demo)'
+week: 8
+---
+
 # Week 8 - Day 4: Integration & Testing (The Demo)
 
 ## Overview

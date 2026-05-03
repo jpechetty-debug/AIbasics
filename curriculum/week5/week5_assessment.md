@@ -1,3 +1,16 @@
+---
+difficulty: Intermediate
+duration: 30-60 min
+tags:
+- prompting
+- python
+- rag
+- automation
+- assessment
+title: Week 5 - Weekly Interactive Assessment
+week: 5
+---
+
 # Week 5 - Weekly Interactive Assessment
 
 ## AI for Tools & Automation Quiz

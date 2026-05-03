@@ -1,3 +1,13 @@
+---
+difficulty: Intermediate
+duration: ~60 minutes
+tags:
+- prompting
+- python
+title: 'Week 4 - Day 3: The Critic Pattern (Iterative Refinement)'
+week: 4
+---
+
 # Week 4 - Day 3: The Critic Pattern (Iterative Refinement)
 
 ## Overview

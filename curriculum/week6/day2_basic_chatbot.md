@@ -1,3 +1,14 @@
+---
+difficulty: Advanced
+duration: ~60 minutes
+tags:
+- prompting
+- python
+- rag
+title: 'Week 6 - Day 2: Building Your First Custom Bot'
+week: 6
+---
+
 # Week 6 - Day 2: Building Your First Custom Bot
 
 ## Overview

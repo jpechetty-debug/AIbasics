@@ -1,3 +1,15 @@
+---
+difficulty: Advanced
+duration: 30-60 min
+tags:
+- prompting
+- rag
+- agents
+- assessment
+title: Week 7 - Weekly Interactive Assessment
+week: 7
+---
+
 # Week 7 - Weekly Interactive Assessment
 
 ## Advanced Integration Quiz

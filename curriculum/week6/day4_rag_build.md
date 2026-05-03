@@ -1,3 +1,13 @@
+---
+difficulty: Advanced
+duration: ~60 minutes
+tags:
+- prompting
+- rag
+title: 'Week 6 - Day 4: Building a RAG Knowledge Base'
+week: 6
+---
+
 # Week 6 - Day 4: Building a RAG Knowledge Base
 
 ## Overview

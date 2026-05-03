@@ -1,3 +1,13 @@
+---
+difficulty: Beginner
+duration: ~60 minutes
+tags:
+- rag
+- automation
+title: 'Week 1 - Day 3: AI in IT Operations - Current Applications'
+week: 1
+---
+
 # Week 1 - Day 3: AI in IT Operations - Current Applications
 
 ## Overview

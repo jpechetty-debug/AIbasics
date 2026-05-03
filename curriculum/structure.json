@@ -1,0 +1,49 @@
+{
+  "course_title": "AI Basics for Network Administrators",
+  "course_description": "A comprehensive 8-week journey from AI fundamentals to building advanced multi-agent systems for IT operations.",
+  "target_audience": "Network Administrators, IT Operations Engineers, System Administrators",
+  "phases": [
+    {
+      "id": "foundations",
+      "title": "Phase 1: AI Literacy & Foundations",
+      "summary": "Master the terminology and core concepts of Artificial Intelligence, Machine Learning, and Deep Learning in the context of IT operations.",
+      "weeks": [1, 2]
+    },
+    {
+      "id": "prompting",
+      "title": "Phase 2: Mastering Prompt Engineering",
+      "summary": "Learn the art and science of communicating with Large Language Models using industry-standard patterns and advanced prompting techniques.",
+      "weeks": [3, 4]
+    },
+    {
+      "id": "automation",
+      "title": "Phase 3: AI-Driven Automation & Systems",
+      "summary": "Integrate AI into your daily workflows using Python, Ansible, and Retrieval-Augmented Generation (RAG).",
+      "weeks": [5, 6, 7]
+    },
+    {
+      "id": "capstone",
+      "title": "Phase 4: Real-World Implementation",
+      "summary": "Apply everything you've learned to build a production-ready AI solution for a complex IT problem.",
+      "weeks": [8]
+    },
+    {
+      "id": "fluency",
+      "title": "Phase 5: Professional AI Fluency & Solutions",
+      "summary": "Master the skills employers want: build 20+ real-world solutions and boost your workplace productivity with Google-grade AI fluency.",
+      "weeks": [9, 10]
+    }
+  ],
+  "week_details": {
+    "1": { "title": "AI Foundations", "summary": "What is AI and why does it matter for IT Ops?" },
+    "2": { "title": "How AI Works", "summary": "Inside Neural Networks and Large Language Models." },
+    "3": { "title": "Prompt Patterns", "summary": "Core NLP patterns: Translate, Summarize, Extract, Generate." },
+    "4": { "title": "Advanced Prompting", "summary": "Few-shot, CoT, and Chaining for complex logic." },
+    "5": { "title": "AI for Scripting", "summary": "Accelerating Python and Ansible development with AI." },
+    "6": { "title": "Low-Code AI Apps", "summary": "Building chatbots and simple RAG systems." },
+    "7": { "title": "AI Agents & Tools", "summary": "Function calling and multi-agent coordination." },
+    "8": { "title": "Capstone Project", "summary": "Building and deploying your final project." },
+    "9": { "title": "20+ AI Solutions for Work", "summary": "Practical AI applications for daily productivity and professional workflows." },
+    "10": { "title": "Career Mastery & Responsible AI", "summary": "Future-proofing your career and implementing AI ethically." }
+  }
+}

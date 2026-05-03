@@ -18,45 +18,65 @@ from django.utils import timezone
 from .models import Module, Lesson, UserProgress, QuizAttempt
 
 
-class DashboardView(View):
-    """Course dashboard with progress overview."""
-    template_name = 'courses/dashboard.html'
-
-    def get(self, request):
-        modules = Module.objects.prefetch_related('lessons').all()
-        
-        # Calculate progress for each module
-        modules_with_progress = []
-        total_lessons = 0
-        completed_lessons = 0
+class CourseMixin:
+    """Shared logic for curriculum data."""
+    def get_grouped_modules(self, user=None):
+        modules = Module.objects.prefetch_related('lessons').all().order_by('order')
+        phases_dict = {}
         
         for module in modules:
             lesson_count = module.lessons.count()
-            total_lessons += lesson_count
             
-            if request.user.is_authenticated:
+            if user and user.is_authenticated:
                 module_completed = UserProgress.objects.filter(
-                    user=request.user,
+                    user=user,
                     lesson__module=module,
                     completed=True
                 ).count()
-                completed_lessons += module_completed
                 progress = int((module_completed / lesson_count) * 100) if lesson_count > 0 else 0
             else:
                 progress = 0
                 module_completed = 0
             
-            modules_with_progress.append({
+            module_data = {
                 'module': module,
                 'progress': progress,
                 'completed': module_completed,
                 'total': lesson_count,
-            })
+            }
+
+            phase_key = module.phase_id or 'other'
+            if phase_key not in phases_dict:
+                phases_dict[phase_key] = {
+                    'title': module.phase_title or 'Continuing Education',
+                    'id': phase_key,
+                    'modules': []
+                }
+            phases_dict[phase_key]['modules'].append(module_data)
+        
+        return sorted(phases_dict.values(), key=lambda x: x['modules'][0]['module'].order if x['modules'] else 999)
+
+
+class DashboardView(CourseMixin, View):
+    """Course dashboard with progress overview."""
+    template_name = 'courses/dashboard.html'
+
+    def get(self, request):
+        phases = self.get_grouped_modules(request.user)
+        
+        # Calculate overall stats
+        total_lessons = Lesson.objects.count()
+        completed_lessons = 0
+        if request.user.is_authenticated:
+            completed_lessons = UserProgress.objects.filter(
+                user=request.user,
+                completed=True
+            ).count()
         
         overall_progress = int((completed_lessons / total_lessons) * 100) if total_lessons > 0 else 0
         
         context = {
-            'modules_with_progress': modules_with_progress,
+            'phases': phases,
             'overall_progress': overall_progress,
             'total_lessons': total_lessons,
             'completed_lessons': completed_lessons,
@@ -64,7 +84,7 @@ class DashboardView(View):
         return render(request, self.template_name, context)
 
 
-class ModuleDetailView(DetailView):
+class ModuleDetailView(DetailView, CourseMixin):
     """Module detail showing all lessons."""
     model = Module
     template_name = 'courses/module_detail.html'
@@ -91,7 +111,7 @@ class ModuleDetailView(DetailView):
             })
         
         context['lessons_with_status'] = lessons_with_status
-        context['all_modules'] = Module.objects.all()
+        context['phases'] = self.get_grouped_modules(self.request.user)
         
         # Calculate module progress
         total_lessons = lessons.count()
@@ -105,8 +125,6 @@ class ModuleDetailView(DetailView):
         
         progress = int((completed_lessons / total_lessons) * 100) if total_lessons > 0 else 0
         context['progress'] = progress
-        # SVG dash offset: 251.2 is 2 * pi * 40. 
-        # offset = total - (progress/100 * total) = total * (1 - progress/100)
         context['progress_offset'] = int(251.2 * (1 - progress / 100))
         
         return context
@@ -184,7 +202,7 @@ class QuizParsingMixin:
             
         return questions
 
-class LessonDetailView(DetailView, QuizParsingMixin):
+class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
     """Lesson detail with markdown rendering."""
     model = Lesson
     template_name = 'courses/lesson_detail.html'
@@ -211,8 +229,8 @@ class LessonDetailView(DetailView, QuizParsingMixin):
         context['prev_lesson'] = lesson.get_previous_lesson()
         context['next_lesson'] = lesson.get_next_lesson()
         
-        # All modules for sidebar
-        context['all_modules'] = Module.objects.prefetch_related('lessons').all()
+        # Grouped modules for sidebar
+        context['phases'] = self.get_grouped_modules(self.request.user)
         
         # Completion status
         if self.request.user.is_authenticated:
@@ -293,7 +311,7 @@ class LessonDetailView(DetailView, QuizParsingMixin):
             return None
 
 
-class AssessmentView(DetailView, QuizParsingMixin):
+class AssessmentView(DetailView, QuizParsingMixin, CourseMixin):
     """Assessment/quiz view with interactive questions."""
     model = Lesson
     template_name = 'courses/assessment.html'
@@ -324,8 +342,8 @@ class AssessmentView(DetailView, QuizParsingMixin):
         context['questions'] = questions
         context['questions_json'] = json.dumps(questions)
         
-        # All modules for sidebar
-        context['all_modules'] = Module.objects.prefetch_related('lessons').all()
+        # Grouped modules for sidebar
+        context['phases'] = self.get_grouped_modules(self.request.user)
         
         # Previous attempts
         if self.request.user.is_authenticated:

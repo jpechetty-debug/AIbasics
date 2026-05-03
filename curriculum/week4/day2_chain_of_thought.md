@@ -1,3 +1,13 @@
+---
+difficulty: Intermediate
+duration: ~60 minutes
+tags:
+- prompting
+- python
+title: 'Week 4 - Day 2: Chain of Thought (CoT)'
+week: 4
+---
+
 # Week 4 - Day 2: Chain of Thought (CoT)
 
 ## Overview

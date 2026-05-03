@@ -1,3 +1,13 @@
+---
+difficulty: Advanced
+duration: ~60 minutes
+tags:
+- prompting
+- python
+title: 'Week 7 - Day 1: The "Action" Layer (Function Calling)'
+week: 7
+---
+
 # Week 7 - Day 1: The "Action" Layer (Function Calling)
 
 ## Overview

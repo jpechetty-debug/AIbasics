@@ -1,3 +1,12 @@
+---
+difficulty: Beginner
+duration: ~90 minutes (includes weekly assessment)
+tags:
+- automation
+title: 'Week 1 - Day 5: Review and Practical Application'
+week: 1
+---
+
 # Week 1 - Day 5: Review and Practical Application
 
 ## Overview

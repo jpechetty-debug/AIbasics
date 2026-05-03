@@ -13,6 +13,8 @@ class Module(models.Model):
     description = models.TextField(blank=True)
     order = models.PositiveIntegerField(default=0)
     folder_name = models.CharField(max_length=100)  # e.g., 'week1'
+    phase_title = models.CharField(max_length=200, blank=True)
+    phase_id = models.CharField(max_length=50, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -56,6 +58,8 @@ class Lesson(models.Model):
     slug = models.SlugField(max_length=300)
     file_path = models.CharField(max_length=500)  # Relative path to the markdown file
     content_type = models.CharField(max_length=20, choices=CONTENT_TYPE_CHOICES, default='lesson')
+    difficulty = models.CharField(max_length=50, blank=True)
+    duration = models.CharField(max_length=100, blank=True)
     order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

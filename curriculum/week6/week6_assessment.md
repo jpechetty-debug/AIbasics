@@ -1,3 +1,16 @@
+---
+difficulty: Advanced
+duration: 30-60 min
+tags:
+- prompting
+- python
+- rag
+- agents
+- assessment
+title: Week 6 - Weekly Interactive Assessment
+week: 6
+---
+
 # Week 6 - Weekly Interactive Assessment
 
 ## Low-Code AI Apps Quiz

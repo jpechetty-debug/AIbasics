@@ -1,3 +1,13 @@
+---
+difficulty: Advanced
+duration: ~90 minutes
+tags:
+- prompting
+- python
+title: 'Week 8 - Day 3: Building the Action Layer'
+week: 8
+---
+
 # Week 8 - Day 3: Building the Action Layer
 
 ## Overview

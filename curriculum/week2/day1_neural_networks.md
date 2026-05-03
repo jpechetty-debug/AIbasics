@@ -1,3 +1,11 @@
+---
+difficulty: Beginner
+duration: ~75 minutes
+tags: []
+title: 'Week 2 - Day 1: The AI Brain - Neural Networks and Training'
+week: 2
+---
+
 # Week 2 - Day 1: The AI Brain - Neural Networks and Training
 
 ## Overview

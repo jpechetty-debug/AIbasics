@@ -24,20 +24,24 @@
         </div>
 
         <div class="relative">
-            <div class="flex items-center gap-4 mb-6">
+            <div class="flex flex-wrap items-center gap-4 mb-6">
                 <span
-                    class="bg-netadmin-400/20 text-netadmin-400 px-4 py-2 rounded-xl text-xs font-black tracking-widest uppercase border border-netadmin-400/20">
+                    class="bg-blue-500/20 text-blue-300 px-4 py-2 rounded-xl text-[0.65rem] font-black tracking-widest uppercase border border-blue-500/20">
+                    {{ module.phase_title|default:"Main Curriculum" }}
+                </span>
+                <span
+                    class="bg-netadmin-400/20 text-netadmin-400 px-4 py-2 rounded-xl text-[0.65rem] font-black tracking-widest uppercase border border-netadmin-400/20">
                     Week {{ module.order }}
                 </span>
                 <span class="text-slate-500 font-bold">•</span>
                 <span class="text-blue-200 font-medium text-sm tracking-wide">{{ module.lessons.count }} Specialized
                     Sessions</span>
             </div>
-            <h1 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight max-w-4xl">
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight max-w-4xl tracking-tight">
                 {{ module.title }}
             </h1>
             {% if module.description %}
-            <p class="text-slate-300 text-lg md:text-xl max-w-3xl leading-relaxed">
+            <p class="text-slate-300 text-lg md:text-xl max-w-3xl leading-relaxed font-medium">
                 {{ module.description }}
             </p>
             {% endif %}
@@ -95,7 +99,20 @@
                                 {% if item.lesson.content_type == 'assessment' %}Final Checkpoint{% else %}Lesson {{ item.lesson.order }}{% endif %}
                             </span>
                         </div>
-                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{{ item.lesson.title }}</h3>
+                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2">{{ item.lesson.title }}</h3>
+                        
+                        <div class="flex items-center gap-4 text-[0.65rem] font-black uppercase tracking-widest">
+                            <span class="flex items-center gap-1.5 text-slate-400">
+                                <svg class="w-3.5 h-3.5 text-netadmin-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                {{ item.lesson.duration|default:"30 min" }}
+                            </span>
+                            <span class="w-1 h-1 rounded-full bg-slate-200"></span>
+                            <span class="{% if item.lesson.difficulty == 'Beginner' %}text-emerald-500{% elif item.lesson.difficulty == 'Intermediate' %}text-blue-500{% else %}text-rose-500{% endif %}">
+                                {{ item.lesson.difficulty|default:"General" }}
+                            </span>
+                        </div>
                     </div>
 
                     <!-- Action Button -->

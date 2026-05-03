@@ -91,5 +91,5 @@ Important for context!
         # Based on implementation, it might return a partial object or skip it
         # Let's see what the current implementation does
         if questions:
-             self.assertEqual(questions[0]['question_text'], "Missing everything?")
+             self.assertEqual(questions[0]['text'], "Missing everything?")
              self.assertEqual(len(questions[0]['options']), 0)

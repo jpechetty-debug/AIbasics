@@ -109,33 +109,28 @@ class ModuleDetailView(DetailView, CourseMixin):
         module = self.object
         lessons = module.lessons.all()
         
-        # Add completion status for each lesson
-        lessons_with_status = []
-        for lesson in lessons:
-            is_completed = False
-            if self.request.user.is_authenticated:
-                is_completed = UserProgress.objects.filter(
-                    user=self.request.user,
-                    lesson=lesson,
-                    completed=True
-                ).exists()
-            lessons_with_status.append({
-                'lesson': lesson,
-                'is_completed': is_completed,
-            })
+        # Performance optimization: pre-fetch all completed lesson IDs for this module at once
+        completed_ids = set()
+        if self.request.user.is_authenticated:
+            completed_ids = set(UserProgress.objects.filter(
+                user=self.request.user,
+                lesson__module=module,
+                completed=True
+            ).values_list('lesson_id', flat=True))
+
+        lessons_with_status = [
+            {
+                'lesson': l,
+                'is_completed': l.pk in completed_ids
+            } for l in lessons
+        ]
         
         context['lessons_with_status'] = lessons_with_status
         context['phases'] = self.get_grouped_modules(self.request.user)
         
-        # Calculate module progress
+        # Calculate module progress using cached IDs
         total_lessons = lessons.count()
-        completed_lessons = 0
-        if self.request.user.is_authenticated:
-            completed_lessons = UserProgress.objects.filter(
-                user=self.request.user,
-                lesson__module=module,
-                completed=True
-            ).count()
+        completed_lessons = len(completed_ids)
         
         progress = int((completed_lessons / total_lessons) * 100) if total_lessons > 0 else 0
         context['progress'] = progress
@@ -227,9 +222,7 @@ class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
         context = super().get_context_data(**kwargs)
         lesson = self.object
         
-        # Normalize path for Linux compatibility
-        normalized_path = lesson.file_path.replace('\\', '/')
-        file_path = settings.CURRICULUM_DIR / normalized_path
+        file_path = settings.CURRICULUM_DIR / lesson.file_path
         
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -337,9 +330,7 @@ class AssessmentView(DetailView, QuizParsingMixin, CourseMixin):
         lesson = self.object
         
         # Parse quiz questions from markdown
-        # Normalize path for Linux compatibility
-        normalized_path = lesson.file_path.replace('\\', '/')
-        file_path = settings.CURRICULUM_DIR / normalized_path
+        file_path = settings.CURRICULUM_DIR / lesson.file_path
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()

@@ -145,7 +145,7 @@ class Command(BaseCommand):
         
         lesson, created = Lesson.objects.update_or_create(
             module=module,
-            file_path=str(relative_path),
+            file_path=relative_path.as_posix(),
             defaults={
                 'title': title,
                 'slug': slugify(title)[:300],

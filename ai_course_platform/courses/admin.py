@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Module, Lesson, UserProgress, QuizAttempt, AssignmentSubmission
+from .models import Module, Lesson, UserProgress, QuizAttempt
 
 
 @admin.register(Module)
@@ -31,10 +31,3 @@ class QuizAttemptAdmin(admin.ModelAdmin):
     list_display = ['user', 'lesson', 'score', 'total_questions', 'percentage', 'attempted_at']
     list_filter = ['lesson__module']
     search_fields = ['user__username']
-
-
-@admin.register(AssignmentSubmission)
-class AssignmentSubmissionAdmin(admin.ModelAdmin):
-    list_display = ['user', 'lesson', 'status', 'submitted_at', 'reviewed_at']
-    list_filter = ['status', 'lesson__module']
-    search_fields = ['user__username', 'lesson__title']

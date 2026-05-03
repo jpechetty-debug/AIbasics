@@ -15,34 +15,48 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_protect
 from django.conf import settings
 from django.utils import timezone
+from django.db import models
+from django.db.models import Count, Q, F, Value, IntegerField
+from django.core.cache import cache
 from .models import Module, Lesson, UserProgress, QuizAttempt
 
 
 class CourseMixin:
     """Shared logic for curriculum data."""
     def get_grouped_modules(self, user=None):
-        modules = Module.objects.prefetch_related('lessons').all().order_by('order')
+        # Base queryset with lesson count
+        queryset = Module.objects.annotate(
+            total_lessons_count=Count('lessons', distinct=True)
+        )
+        
+        # Add completion count if user is authenticated
+        if user and user.is_authenticated:
+            queryset = queryset.annotate(
+                completed_lessons_count=Count(
+                    'lessons__user_progress',
+                    filter=Q(
+                        lessons__user_progress__user=user,
+                        lessons__user_progress__completed=True
+                    ),
+                    distinct=True
+                )
+            )
+        else:
+            queryset = queryset.annotate(completed_lessons_count=Value(0, output_field=IntegerField()))
+
+        modules = queryset.prefetch_related('lessons').all().order_by('order')
         phases_dict = {}
         
         for module in modules:
-            lesson_count = module.lessons.count()
-            
-            if user and user.is_authenticated:
-                module_completed = UserProgress.objects.filter(
-                    user=user,
-                    lesson__module=module,
-                    completed=True
-                ).count()
-                progress = int((module_completed / lesson_count) * 100) if lesson_count > 0 else 0
-            else:
-                progress = 0
-                module_completed = 0
+            total = module.total_lessons_count
+            completed = getattr(module, 'completed_lessons_count', 0)
+            progress = int((completed / total) * 100) if total > 0 else 0
             
             module_data = {
                 'module': module,
                 'progress': progress,
-                'completed': module_completed,
-                'total': lesson_count,
+                'completed': completed,
+                'total': total,
             }
 
             phase_key = module.phase_id or 'other'
@@ -202,6 +216,7 @@ class QuizParsingMixin:
             
         return questions
 
+
 class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
     """Lesson detail with markdown rendering."""
     model = Lesson
@@ -212,24 +227,37 @@ class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
         context = super().get_context_data(**kwargs)
         lesson = self.object
         
-        # Read and render markdown content
-        content_html = self.render_lesson_content(lesson)
+        # Normalize path for Linux compatibility
+        normalized_path = lesson.file_path.replace('\\', '/')
+        file_path = settings.CURRICULUM_DIR / normalized_path
+        
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                raw_content = f.read()
+        except FileNotFoundError:
+            raw_content = "# Content not found\n\nThe requested lesson file could not be found."
+        except Exception as e:
+            raw_content = f"# Error\n\nThere was an error loading the content: {e}"
+
+        # 1. Consolidated Performance: HTML Rendering with Cache
+        cache_key = f"lesson_html_{lesson.id}_{int(lesson.updated_at.timestamp())}"
+        content_html = cache.get(cache_key)
+        if not content_html:
+            content_html = self.render_lesson_content(raw_content)
+            cache.set(cache_key, content_html, 3600) # 1 hour cache
+        
         context['content_html'] = content_html
         
-        # Flattened context for reliable template rendering
-        context['module_title'] = lesson.module.title
-        context['module_slug'] = lesson.module.slug
-        
-        # Check for and parse daily quiz
-        daily_quiz = self.parse_daily_quiz(lesson)
+        # 2. Consolidated Performance: Parse daily quiz from the same raw_content
+        daily_quiz = self.parse_daily_quiz(raw_content)
         context['daily_quiz'] = daily_quiz
         context['daily_quiz_json'] = json.dumps(daily_quiz) if daily_quiz else 'null'
         
-        # Navigation
+        # Metadata and Navigation
+        context['module_title'] = lesson.module.title
+        context['module_slug'] = lesson.module.slug
         context['prev_lesson'] = lesson.get_previous_lesson()
         context['next_lesson'] = lesson.get_next_lesson()
-        
-        # Grouped modules for sidebar
         context['phases'] = self.get_grouped_modules(self.request.user)
         
         # Completion status
@@ -244,16 +272,9 @@ class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
         
         return context
 
-    def render_lesson_content(self, lesson):
-        """Read and render markdown content, excluding daily quiz if it exists."""
-        # Normalize path for Linux compatibility (handle Windows backslashes from DB)
-        normalized_path = lesson.file_path.replace('\\', '/')
-        file_path = settings.CURRICULUM_DIR / normalized_path
-        
+    def render_lesson_content(self, content):
+        """Render markdown content, excluding daily quiz if it exists."""
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-            
             # Remove frontmatter
             if content.startswith('---'):
                 parts = content.split('---', 2)
@@ -267,7 +288,7 @@ class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
                     content = content.split(marker)[0]
                     break
             
-            # Remove the first H1 header from the markdown to prevent duplication with the template's stylized header
+            # Remove the first H1 header from the markdown to prevent duplication
             content = re.sub(r'^#\s+.+?(\r?\n|$)', '', content.strip(), count=1)
             
             # Convert markdown to HTML
@@ -278,22 +299,13 @@ class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
                 'toc',
                 'nl2br',
             ])
-            html = md.convert(content)
-            return html
-        except FileNotFoundError:
-            return '<p class="text-red-500">Content file not found.</p>'
+            return md.convert(content)
         except Exception as e:
-            return f'<p class="text-red-500">Error loading content: {e}</p>'
+            return f'<p class="text-red-500">Error rendering content: {e}</p>'
 
-    def parse_daily_quiz(self, lesson):
-        """Detect and parse daily quiz section from regular lesson markdown."""
-        # Normalize path for Linux compatibility
-        normalized_path = lesson.file_path.replace('\\', '/')
-        file_path = settings.CURRICULUM_DIR / normalized_path
+    def parse_daily_quiz(self, content):
+        """Detect and parse daily quiz section from content string."""
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-            
             # Look for quiz sections
             quiz_markers = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
             quiz_content = ""

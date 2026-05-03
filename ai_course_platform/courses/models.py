@@ -149,29 +149,4 @@ class QuizAttempt(models.Model):
         return f"{self.user.username} - {self.lesson.title}: {self.percentage}%"
 
 
-class AssignmentSubmission(models.Model):
-    """Tracks assignment/project submissions."""
-    STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('submitted', 'Submitted'),
-        ('reviewed', 'Reviewed'),
-    ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='submissions')
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='submissions')
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
-    content = models.TextField(blank=True)
-    file = models.FileField(upload_to='submissions/', blank=True, null=True)
-    feedback = models.TextField(blank=True)
-    submitted_at = models.DateTimeField(null=True, blank=True)
-    reviewed_at = models.DateTimeField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        unique_together = ['user', 'lesson']
-        verbose_name = 'Assignment Submission'
-        verbose_name_plural = 'Assignment Submissions'
-
-    def __str__(self):
-        return f"{self.user.username} - {self.lesson.title} [{self.status}]"

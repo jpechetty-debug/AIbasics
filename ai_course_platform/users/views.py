@@ -49,6 +49,9 @@ class LoginView(View):
         return render(request, self.template_name, {'form': form})
 
 
+from django.views.decorators.http import require_POST
+
+@require_POST
 def logout_view(request):
     """Log out the user."""
     logout(request)

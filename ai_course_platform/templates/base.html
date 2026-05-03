@@ -294,10 +294,13 @@
                             </div>
                             <span class="text-sm font-bold text-slate-200">{{ user.username }}</span>
                         </div>
-                        <a href="{% url 'users:logout' %}"
-                            class="text-red-400 hover:text-red-300 font-black text-xs uppercase tracking-widest transition">
-                            Logout
-                        </a>
+                        <form action="{% url 'users:logout' %}" method="post" class="inline">
+                            {% csrf_token %}
+                            <button type="submit"
+                                class="text-red-400 hover:text-red-300 font-black text-xs uppercase tracking-widest transition">
+                                Logout
+                            </button>
+                        </form>
                     </div>
                     {% else %}
                     <div class="flex items-center gap-4">

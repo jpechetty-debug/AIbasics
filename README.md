@@ -76,6 +76,15 @@ This platform is designed to bridge the gap between traditional IT operations an
    python manage.py runserver
    ```
 
+## 🌐 Deployment
+
+For deploying the platform to a live environment (e.g., PythonAnywhere), refer to the detailed [Deployment Guide](https://github.com/jpechetty-debug/AIbasics/blob/main/docs/deploy_pythonanywhere.md).
+
+Key Production Considerations:
+- **DEBUG**: Ensure `DEBUG=False` in production.
+- **CSRF**: Configure `CSRF_TRUSTED_ORIGINS` for your production domain.
+- **Cache**: The app will automatically fall back to `LocMemCache` if Redis is not available.
+
 ## 📚 Curriculum Roadmap
 
 The course is divided into 5 strategic phases:

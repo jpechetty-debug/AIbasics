@@ -1,7 +1,4 @@
 import re
-import yaml
-import markdown
-import json
 import frontmatter
 
 def parse_quiz_content(content):

@@ -5,6 +5,7 @@ import json
 import re
 import markdown
 import anthropic
+from decouple import config
 from pathlib import Path
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
@@ -23,6 +24,29 @@ from .models import Module, Lesson, UserProgress, QuizAttempt
 from .utils import parse_quiz_content
 
 
+_anthropic_client = None
+
+def get_anthropic_client():
+    """Lazy-load and return a singleton Anthropic client."""
+    global _anthropic_client
+    if _anthropic_client is None:
+        api_key = config('ANTHROPIC_API_KEY', default=None)
+        if api_key:
+            _anthropic_client = anthropic.Anthropic(api_key=api_key)
+    return _anthropic_client
+
+
+def throttle_ai_tutor(user):
+    """Simple rate limiting using Django cache: 20 requests per hour."""
+    cache_key = f"ai_tutor_throttle_{user.id}"
+    request_count = cache.get(cache_key, 0)
+    if request_count >= 20:
+        return False
+    # Set/update cache with incremented count, expiring in 1 hour
+    cache.set(cache_key, request_count + 1, 3600)
+    return True
+
+
 class AITutorView(LoginRequiredMixin, View):
     """Handle chat queries for the AI Tutor using real Anthropic API."""
     def post(self, request, pk):
@@ -39,20 +63,27 @@ class AITutorView(LoginRequiredMixin, View):
             except Exception:
                 lesson_content = "No content available for this lesson."
 
-            api_key = config('ANTHROPIC_API_KEY', default=None)
-            if not api_key:
+            if not throttle_ai_tutor(request.user):
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Rate limit exceeded. You can send up to 20 messages per hour.'
+                }, status=429)
+
+            client = get_anthropic_client()
+            if not client:
                 return JsonResponse({
                     'success': False, 
                     'error': 'AI Tutor is temporarily offline (API key not configured).'
                 }, status=503)
-
-            client = anthropic.Anthropic(api_key=api_key)
+            
+            # Truncate content to avoid token limits
+            context_text = lesson_content[:4000]
             
             system_prompt = f"""You are a helpful AI Tutor for the course "{lesson.module.title}".
 Your goal is to help the student understand the following lesson: "{lesson.title}".
 
 Context from the lesson material:
-{lesson_content[:4000]}  # Limit context size
+{context_text}
 
 Instructions:
 1. Be concise and professional.

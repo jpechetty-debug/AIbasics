@@ -102,6 +102,12 @@ You ask the AI: "What is the command to show routes on a 'Cisco XYZ-9000' switch
 The AI responds: `show ip route summary`
 - Why? Because that rule looks like a valid pattern for a Cisco command. The AI prioritized the *pattern of the answer* over the *truth of the fact*.
 
+> [!IMPORTANT]
+> **Ethics Checkpoint: The Responsibility of the Operator**
+> When an AI "Junior Engineer" makes a decision (e.g., flagging a user as a security threat), who is responsible if they are wrong? 
+> - **Bias Risk**: If the training data is skewed, the AI might unfairly flag certain types of legitimate traffic or users.
+> - **Human-in-the-Loop**: As a network admin, you must never fully outsource "judgment" to an algorithm. You are the final authority.
+
 ### Key Takeaways
 
 1.  **Neural Networks** are massive arithmetic structures that find patterns, like a mesh network finding paths.

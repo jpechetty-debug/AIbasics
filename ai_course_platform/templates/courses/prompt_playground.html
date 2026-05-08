@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Prompt Playground | AI for Beginners{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-slate-50 py-12">
+    <div class="max-w-6xl mx-auto px-6">
+        <!-- Header -->
+        <div class="mb-12">
+            <h1 class="text-4xl font-black text-slate-900 mb-4">Prompt Playground</h1>
+            <p class="text-xl text-slate-600 font-medium max-w-3xl">
+                Test your system instructions and user prompts in real-time. Use this sandbox to refine your logic before deploying it to production scripts.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Left Panel: Inputs -->
+            <div class="space-y-6">
+                <!-- System Prompt -->
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <label class="block text-sm font-black text-slate-900 uppercase tracking-wider mb-4">System Instructions</label>
+                    <textarea id="system-prompt" rows="6" 
+                        class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 font-medium focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition outline-none resize-none"
+                        placeholder="Define the AI's persona and rules here...">{{ system_instructions }}</textarea>
+                    <p class="mt-3 text-xs text-slate-400 font-medium">The 'System Prompt' sets the behavior and boundaries of the AI.</p>
+                </div>
+
+                <!-- User Prompt -->
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <label class="block text-sm font-black text-slate-900 uppercase tracking-wider mb-4">User Message (The Input)</label>
+                    <textarea id="user-prompt" rows="8" 
+                        class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 font-medium focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition outline-none resize-none"
+                        placeholder="Paste the data or question you want the AI to process...">{{ initial_prompt }}</textarea>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span id="char-count" class="text-xs text-slate-400 font-medium">0 characters</span>
+                        <button id="run-btn" 
+                            class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black hover:bg-blue-700 transition shadow-lg active:scale-95 flex items-center gap-3">
+                            <span id="btn-text">Run Prompt</span>
+                            <svg id="loading-spinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Output -->
+            <div class="space-y-6">
+                <div class="bg-slate-900 p-8 rounded-3xl shadow-2xl h-full min-h-[500px] flex flex-col">
+                    <label class="block text-sm font-black text-slate-400 uppercase tracking-wider mb-6">AI Response</label>
+                    
+                    <div id="response-placeholder" class="flex-1 flex flex-col items-center justify-center text-center p-12">
+                        <div class="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-slate-200 font-bold mb-2">Ready to Test</h4>
+                        <p class="text-slate-500 text-sm">Enter your prompts on the left and click 'Run Prompt' to see the result.</p>
+                    </div>
+
+                    <div id="response-container" class="hidden flex-1 overflow-y-auto">
+                        <div id="response-text" class="text-slate-100 font-medium leading-relaxed whitespace-pre-wrap"></div>
+                    </div>
+
+                    <div id="error-container" class="hidden bg-red-900/50 border border-red-500/50 p-6 rounded-2xl">
+                        <p id="error-text" class="text-red-200 text-sm font-bold"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const systemPrompt = document.getElementById('system-prompt');
+    const userPrompt = document.getElementById('user-prompt');
+    const runBtn = document.getElementById('run-btn');
+    const btnText = document.getElementById('btn-text');
+    const loadingSpinner = document.getElementById('loading-spinner');
+    const responsePlaceholder = document.getElementById('response-placeholder');
+    const responseContainer = document.getElementById('response-container');
+    const responseText = document.getElementById('response-text');
+    const errorContainer = document.getElementById('error-container');
+    const errorText = document.getElementById('error-text');
+    const charCount = document.getElementById('char-count');
+
+    // Update char count
+    userPrompt.addEventListener('input', () => {
+        charCount.innerText = `${userPrompt.value.length} characters`;
+    });
+
+    runBtn.addEventListener('click', async () => {
+        const prompt = userPrompt.value.trim();
+        const system = systemPrompt.value.trim();
+
+        if (!prompt) return;
+
+        // UI State: Loading
+        runBtn.disabled = true;
+        btnText.innerText = 'Analyzing...';
+        loadingSpinner.classList.remove('hidden');
+        errorContainer.classList.add('hidden');
+        responsePlaceholder.classList.add('hidden');
+        responseContainer.classList.add('hidden');
+
+        try {
+            const response = await fetch('{% url "courses:prompt_playground" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: json.stringify({ prompt, system })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                responseText.innerText = data.response;
+                responseContainer.classList.remove('hidden');
+            } else {
+                errorText.innerText = data.error;
+                errorContainer.classList.remove('hidden');
+            }
+        } catch (err) {
+            errorText.innerText = 'A network error occurred. Please try again.';
+            errorContainer.classList.remove('hidden');
+        } finally {
+            runBtn.disabled = false;
+            btnText.innerText = 'Run Prompt';
+            loadingSpinner.classList.add('hidden');
+        }
+    });
+</script>
+{% endblock %}

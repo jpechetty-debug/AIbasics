@@ -7,6 +7,7 @@ tags:
 - automation
 title: 'Week 5 - Day 1: AI for Python Automation'
 week: 5
+replit_url: "https://replit.com/@demo/python-for-netops"
 ---
 
 # Week 5 - Day 1: AI for Python Automation
@@ -21,6 +22,18 @@ By the end of this lesson, you will be able to:
 1. Use AI (Generator Pattern) to draft Python scripts for network tasks.
 2. Specify libraries (Netmiko, Napalm) in your prompts to ensure correct syntax.
 3. Use the Critic Pattern to debug and secure AI-generated code.
+
+---
+
+## 🚦 Prerequisite Checklist
+Before starting this week, you should be comfortable with:
+- **Variables & Data Types**: Strings, Integers, Lists, and Dictionaries.
+- **Control Flow**: `if/else` statements and `for` loops.
+- **Functions**: How to call a function and pass arguments.
+- **Environment**: Having Python 3.10+ installed on your machine.
+
+> [!TIP]
+> If you are new to Python, don't worry! Ask the **AI Tutor** (bottom right) for a "5-minute Python refresher on Lists and Dictionaries" before proceeding.
 
 ---
 

@@ -64,6 +64,12 @@ Most people use **Zero-Shot** prompting:
 ### Why It Works
 LLMs are "Pattern Completion Engines." When you give examples, you set the pattern. The AI just wants to complete it. It is easier to *show* the pattern than to *explain* it.
 
+> [!IMPORTANT]
+> **Ethics Checkpoint: Data Privacy in Examples**
+> When using Few-Shot prompting, you are often providing snippets of your actual environment.
+> - **Sensitive Data**: Never include real passwords, API keys, or personally identifiable information (PII) in your few-shot examples.
+> - **IP Ownership**: Remember that prompts sent to public AI models (like ChatGPT or Claude) may be used for future training. Ensure your company policy allows "sharing" these logic patterns with a third-party provider.
+
 ---
 
 ## Hands-On Exercise

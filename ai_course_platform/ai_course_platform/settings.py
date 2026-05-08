@@ -117,16 +117,28 @@ LOGOUT_REDIRECT_URL = 'courses:dashboard'
 # Curriculum directory path
 CURRICULUM_DIR = BASE_DIR.parent / 'curriculum'
 
-# Cache configuration - Use Redis for production
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': config('REDIS_URL', default='redis://127.0.0.1:6379/1'),
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+# Cache - Use Redis in production, LocMemCache in dev if Redis is missing
+REDIS_URL = config('REDIS_URL', default=None)
+
+if REDIS_URL:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': REDIS_URL,
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                'CONNECTION_POOL_KWARGS': {'max_connections': 100},
+                'RETRY_ON_TIMEOUT': True,
+            }
         }
     }
-}
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
+        }
+    }
 
 # Logging Configuration
 LOGGING = {

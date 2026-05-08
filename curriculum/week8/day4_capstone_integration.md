@@ -75,6 +75,27 @@ You have built a system that behaves like a Senior Engineer: It looks up standar
 
 ---
 
+## 🏆 Project Self-Assessment Rubric
+Evaluate your **NetOps Assistant** against these criteria to see where you stand.
+
+| Category | Level 1: Basic | Level 2: Advanced | Level 3: Institutional Grade |
+| :--- | :--- | :--- | :--- |
+| **Logic (Supervisor)** | Often gets confused between tools. | Correctly routes to Tools vs RAG 90% of the time. | Handles complex, multi-step tasks (e.g., Check -> Analyze -> Reboot). |
+| **Data (RAG)** | Simply repeats text from a PDF. | Synthesizes information from multiple source chunks. | Cites specific documents and sections (e.g., "Per SOP-v2..."). |
+| **Safety** | Will reboot anything without asking. | Asks for confirmation before "Write" actions. | Uses the "Critic Pattern" to audit its own plan before executing. |
+| **Interface** | CLI only. | Simple Chat UI. | Includes status indicators (e.g., "Searching Docs...", "Running Tool..."). |
+
+---
+
+## ✅ Submission Checklist
+If you were presenting this to your boss today, is it ready?
+- [ ] **Code Quality**: Are there any hardcoded passwords or API keys? (Remove them!)
+- [ ] **Documentation**: Is there a `README.md` explaining how to run the bot?
+- [ ] **The Demo**: Does your video show the bot handling a "Sad Path" gracefully?
+- [ ] **Ethics**: Does the bot have a system prompt disclaimer about being an AI assistant?
+
+---
+
 ## Interactive Daily Quiz
 
 ### Question 1 (Testing)

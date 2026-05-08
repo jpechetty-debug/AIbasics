@@ -55,6 +55,12 @@ It uses **Vectors** (Numbers).
 - It converts text to numbers (Embeddings).
 - It searches for text that is "Mathematically Close" in meaning, not just keyword matching.
 
+> [!IMPORTANT]
+> **Ethics Checkpoint: Data Sovereignty & Contextual Accuracy**
+> RAG allows you to use private data, but it introduces new risks:
+> - **Data Residency**: Where is your Vector Database hosted? If you use a cloud vector DB, your private internal docs are now on someone else's server.
+> - **Retrieval Bias**: If your search system (Vector DB) only finds *half* of a policy, the LLM will generate a half-true (and potentially dangerous) answer. You are responsible for ensuring the search results are comprehensive.
+
 ### Visualizing RAG
 
 ```mermaid

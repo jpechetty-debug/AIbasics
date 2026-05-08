@@ -60,6 +60,8 @@ class Lesson(models.Model):
     content_type = models.CharField(max_length=20, choices=CONTENT_TYPE_CHOICES, default='lesson')
     difficulty = models.CharField(max_length=50, blank=True)
     duration = models.CharField(max_length=100, blank=True)
+    replit_url = models.URLField(max_length=500, blank=True, null=True, help_text="Link to a Replit coding environment")
+    codespaces_url = models.URLField(max_length=500, blank=True, null=True, help_text="Link to a GitHub Codespaces environment")
     order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

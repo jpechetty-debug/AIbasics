@@ -111,6 +111,79 @@ Instructions:
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
 
+class PromptPlaygroundView(LoginRequiredMixin, View):
+    """Interactive sandbox for testing prompts and logic patterns."""
+    template_name = 'courses/prompt_playground.html'
+
+    def get(self, request):
+        """Render the playground with optional pre-filled prompt."""
+        initial_prompt = request.GET.get('prompt', '')
+        system_instructions = request.GET.get('system', 'You are a helpful AI assistant for a network administrator.')
+        
+        context = {
+            'initial_prompt': initial_prompt,
+            'system_instructions': system_instructions,
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        """Execute a prompt test."""
+        try:
+            data = json.loads(request.body)
+            user_prompt = data.get('prompt', '')
+            system_prompt = data.get('system', 'You are a helpful AI assistant.')
+            
+            if not throttle_ai_tutor(request.user):
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Rate limit exceeded. You can test up to 20 prompts per hour.'
+                }, status=429)
+
+            client = get_anthropic_client()
+            if not client:
+                return JsonResponse({
+                    'success': False, 
+                    'error': 'AI Playground is temporarily offline (API key not configured).'
+                }, status=503)
+
+            response = client.messages.create(
+                model="claude-3-haiku-20240307",
+                max_tokens=1000,
+                system=system_prompt,
+                messages=[
+                    {"role": "user", "content": user_prompt}
+                ]
+            )
+            
+            return JsonResponse({
+                'success': True,
+                'response': response.content[0].text
+            })
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)
+
+
+class CertificateView(LoginRequiredMixin, View):
+    """View and generate completion certificate."""
+    template_name = 'courses/certificate.html'
+
+    def get(self, request):
+        total_lessons = Lesson.objects.count()
+        completed_lessons = UserProgress.objects.filter(
+            user=request.user,
+            completed=True
+        ).count()
+        
+        if total_lessons > 0 and completed_lessons >= total_lessons:
+            context = {
+                'user': request.user,
+                'completion_date': timezone.now(),
+            }
+            return render(request, self.template_name, context)
+        
+        return redirect('courses:dashboard')
+
+
 class CourseMixin:
     """Shared logic for curriculum data."""
     def get_grouped_modules(self, user=None):

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Certificate of Completion | AI for Beginners{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-slate-900 flex items-center justify-center py-20 px-6">
+    <div class="max-w-5xl w-full">
+        <!-- Certificate Container -->
+        <div class="relative bg-white p-12 md:p-24 rounded-[3rem] shadow-[0_0_100px_rgba(0,0,0,0.5)] border-[16px] border-slate-100 overflow-hidden print:shadow-none print:border-none print:p-0">
+            <!-- Decorative Elements -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
+            
+            <div class="relative flex flex-col items-center text-center">
+                <!-- Course Logo/Icon -->
+                <div class="w-24 h-24 bg-slate-900 rounded-[2rem] flex items-center justify-center mb-12 shadow-2xl">
+                    <svg class="w-12 h-12 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+
+                <h1 class="text-sm font-black text-blue-600 uppercase tracking-[0.4em] mb-4">Certificate of Completion</h1>
+                <p class="text-slate-400 font-medium mb-12">This is to certify that</p>
+
+                <h2 class="text-4xl md:text-6xl font-black text-slate-900 mb-8 tracking-tight">
+                    {{ user.get_full_name|default:user.username }}
+                </h2>
+
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full mb-12"></div>
+
+                <p class="text-xl text-slate-600 max-w-2xl leading-relaxed mb-16">
+                    Has successfully completed the professional curriculum for<br>
+                    <span class="font-black text-slate-900">AI for Beginners: The Network Admin Edition</span><br>
+                    <span class="text-base text-slate-400 mt-2 block italic">Covering Neural Networks, Prompt Engineering, RAG Systems, and Agentic Workflows.</span>
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-20 w-full max-w-3xl border-t border-slate-100 pt-16">
+                    <div class="text-center">
+                        <p class="text-slate-400 text-xs uppercase tracking-widest mb-2">Issue Date</p>
+                        <p class="text-slate-900 font-bold">{{ completion_date|date:"F d, Y" }}</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-slate-400 text-xs uppercase tracking-widest mb-2">Certificate ID</p>
+                        <p class="text-slate-900 font-bold font-mono">AIC-{{ user.id }}-{{ completion_date|date:"Ymd" }}</p>
+                    </div>
+                </div>
+
+                <!-- Verification QR Code (Decorative) -->
+                <div class="mt-20 opacity-20">
+                    <div class="w-16 h-16 border-2 border-slate-900 p-1">
+                        <div class="w-full h-full bg-slate-900"></div>
+                    </div>
+                    <p class="text-[10px] mt-2 font-bold text-slate-900">VERIFIED SECURE</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="mt-12 flex items-center justify-center gap-6 print:hidden">
+            <button onclick="window.print()" class="bg-white text-slate-900 px-8 py-4 rounded-2xl font-black hover:bg-slate-50 transition shadow-lg flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2-2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                </svg>
+                Download PDF
+            </button>
+            <a href="{% url 'courses:dashboard' %}" class="text-slate-400 font-bold hover:text-white transition">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<style>
+@media print {
+    body { background: white !important; }
+    .min-h-screen { min-height: 0 !important; padding: 0 !important; }
+}
+</style>
+{% endblock %}

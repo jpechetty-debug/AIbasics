@@ -128,6 +128,8 @@ class Command(BaseCommand):
             title = post.get('title')
             difficulty = post.get('difficulty', '')
             duration = post.get('duration', '')
+            replit_url = post.get('replit_url', '')
+            codespaces_url = post.get('codespaces_url', '')
             
             if not title:
                 title = self.extract_title_from_content(post.content) or self.generate_title_from_filename(file_path.name)
@@ -136,6 +138,8 @@ class Command(BaseCommand):
             title = self.generate_title_from_filename(file_path.name)
             difficulty = ''
             duration = ''
+            replit_url = ''
+            codespaces_url = ''
         
         # Determine content type
         content_type = 'assessment' if 'assessment' in file_path.name else 'lesson'
@@ -152,6 +156,8 @@ class Command(BaseCommand):
                 'content_type': content_type,
                 'difficulty': difficulty,
                 'duration': duration,
+                'replit_url': replit_url,
+                'codespaces_url': codespaces_url,
                 'order': order,
             }
         )

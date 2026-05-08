@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Module, Lesson, UserProgress, QuizAttempt
+from .models import Module, Lesson, UserProgress, QuizAttempt, Certificate
 
 
 @admin.register(Module)
@@ -31,3 +31,11 @@ class QuizAttemptAdmin(admin.ModelAdmin):
     list_display = ['user', 'lesson', 'score', 'total_questions', 'percentage', 'attempted_at']
     list_filter = ['lesson__module']
     search_fields = ['user__username']
+
+
+@admin.register(Certificate)
+class CertificateAdmin(admin.ModelAdmin):
+    list_display = ['user', 'issued_at', 'verification_uuid']
+    list_filter = ['issued_at']
+    search_fields = ['user__username', 'user__email', 'verification_uuid']
+    readonly_fields = ['verification_uuid', 'issued_at']

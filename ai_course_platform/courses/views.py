@@ -36,6 +36,17 @@ def get_anthropic_client():
     return _anthropic_client
 
 
+def throttle_public_ip(request, prefix='public_throttle_', limit=60):
+    """Rate limiting based on IP address for public endpoints."""
+    ip = request.META.get('REMOTE_ADDR')
+    cache_key = f"{prefix}{ip}"
+    request_count = cache.get(cache_key, 0)
+    if request_count >= limit:
+        return False
+    cache.set(cache_key, request_count + 1, 3600)
+    return True
+
+
 def throttle_ai_tutor(user, prefix='ai_tutor_throttle_'):
     """Simple rate limiting using Django cache: 20 requests per hour."""
     cache_key = f"{prefix}{user.id}"
@@ -200,6 +211,11 @@ class VerifyCertificateView(View):
     template_name = 'courses/certificate_verify.html'
 
     def get(self, request, uuid):
+        if not throttle_public_ip(request, prefix='verify_cert_throttle_'):
+            return render(request, self.template_name, {
+                'error': 'Rate limit exceeded. Please try again in an hour.'
+            }, status=429)
+        
         certificate = get_object_or_404(Certificate, verification_uuid=uuid)
         return render(request, self.template_name, {'certificate': certificate})
 

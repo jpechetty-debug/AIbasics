@@ -51,8 +51,8 @@
                     <div class="inline-block p-4 bg-slate-50 rounded-2xl border border-slate-100">
                         <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Scan to Verify Authenticity</p>
                         <div class="w-24 h-24 bg-white border border-slate-200 flex items-center justify-center mx-auto mb-2 overflow-hidden">
-                            <!-- Placeholder for real QR, showing text link for now -->
-                             <span class="text-[8px] font-mono text-slate-300 break-all px-2">https://{{ request.get_host }}{% url 'courses:verify_certificate' certificate.verification_uuid %}</span>
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=96x96&data=https://{{ request.get_host }}{% url 'courses:verify_certificate' certificate.verification_uuid %}"
+                                 width="96" height="96" alt="Verification QR code" class="image-pixelated">
                         </div>
                         <p class="text-[8px] font-bold text-blue-600 uppercase">SECURE VERIFIED RECORD</p>
                     </div>

@@ -4,6 +4,7 @@ Views for the AI Course Platform.
 import json
 import re
 import markdown
+import anthropic
 from pathlib import Path
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
@@ -19,25 +20,57 @@ from django.db import models
 from django.db.models import Count, Q, F, Value, IntegerField
 from django.core.cache import cache
 from .models import Module, Lesson, UserProgress, QuizAttempt
+from .utils import parse_quiz_content
 
 
 class AITutorView(LoginRequiredMixin, View):
-    """Handle chat queries for the AI Tutor."""
+    """Handle chat queries for the AI Tutor using real Anthropic API."""
     def post(self, request, pk):
         try:
             data = json.loads(request.body)
             query = data.get('query', '')
             lesson = get_object_or_404(Lesson, pk=pk)
             
-            # Simulated AI logic - can be replaced with real LLM API call
-            responses = [
-                f"That's a great question about {lesson.title}! In a professional environment, this usually involves identifying the core data flow first.",
-                "I've analyzed the curriculum data. This concept relates strongly to the performance optimizations we discuss in the advanced modules.",
-                "Let me clarify that for you. Think of it like a network switch routing packets—the logic follows a strict priority queue.",
-                "From an architectural standpoint, this approach minimizes latency while maintaining data integrity. It's a standard practice in AI-native systems."
-            ]
-            import random
-            response_text = random.choice(responses)
+            # Load lesson content for context
+            file_path = settings.CURRICULUM_DIR / lesson.file_path
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    lesson_content = f.read()
+            except Exception:
+                lesson_content = "No content available for this lesson."
+
+            api_key = config('ANTHROPIC_API_KEY', default=None)
+            if not api_key:
+                return JsonResponse({
+                    'success': False, 
+                    'error': 'AI Tutor is temporarily offline (API key not configured).'
+                }, status=503)
+
+            client = anthropic.Anthropic(api_key=api_key)
+            
+            system_prompt = f"""You are a helpful AI Tutor for the course "{lesson.module.title}".
+Your goal is to help the student understand the following lesson: "{lesson.title}".
+
+Context from the lesson material:
+{lesson_content[:4000]}  # Limit context size
+
+Instructions:
+1. Be concise and professional.
+2. If the student asks something outside the scope of this lesson, gently guide them back.
+3. Use a helpful, encouraging tone.
+4. If you don't know the answer based on the context, say so and suggest they review the lesson again.
+"""
+
+            response = client.messages.create(
+                model="claude-3-haiku-20240307",
+                max_tokens=500,
+                system=system_prompt,
+                messages=[
+                    {"role": "user", "content": query}
+                ]
+            )
+            
+            response_text = response.content[0].text
             
             return JsonResponse({
                 'success': True,
@@ -170,72 +203,7 @@ class QuizParsingMixin:
     
     def parse_quiz_content(self, content):
         """Robustly parse questions, options, feedback, and metadata from markdown content."""
-        questions = []
-        
-        # Remove frontmatter if present
-        if content.startswith('---'):
-            parts = content.split('---', 2)
-            if len(parts) >= 3:
-                content = parts[2]
-        
-        # Use ### Question N or **Q N: as question markers
-        # We split by the pattern to get individual blocks
-        question_blocks = re.split(r'### Question \s*\d+|\*\*Q\d+:', content)[1:]
-        
-        for i, block in enumerate(question_blocks, start=1):
-            # Extract question text (usually between **stars** or just the first line)
-            q_text_match = re.search(r'\*\*(.+?)\*\*', block)
-            if q_text_match:
-                q_text = q_text_match.group(1).strip()
-            else:
-                # Fallback to first non-empty line
-                lines = [l.strip() for l in block.split('\n') if l.strip()]
-                q_text = lines[0] if lines else f"Question {i}"
-            
-            # Extract options
-            options = []
-            # Ensure the option start (e.g. "A)") is at the beginning of a line to avoid
-            # matching acronyms in parentheses like "(UEBA)"
-            option_matches = re.findall(r'^\s*([A-E])\)\s*(.+?)(?=\n\s*[A-E]\)|$|(?:\n\s*\*\*))', block, re.MULTILINE | re.DOTALL)
-            for opt_letter, opt_text in option_matches:
-                options.append({
-                    'letter': opt_letter.strip(),
-                    'text': opt_text.strip().replace('\n', ' ').strip().replace('**', '')
-                })
-            
-            # Extract correct answer
-            correct_match = re.search(r'\*\*Correct Answer(?:s?):\*\*\s*([A-E, \s]+)', block, re.IGNORECASE)
-            if not correct_match:
-                # Fallback search without stars
-                correct_match = re.search(r'Correct Answer:\s*([A-E, \s]+)', block, re.IGNORECASE)
-            
-            if not correct_match: continue
-            correct = [c.strip() for c in correct_match.group(1).split(',')]
-            
-            # Extract feedback
-            feedback_match = re.search(r'\*\*Feedback:\*\*\s*\n(.*?)(?=\n\s*---|\n\s*\*\*Why|$)', block, re.DOTALL)
-            if not feedback_match:
-                feedback_match = re.search(r'Feedback:\s*\n(.*?)(?=\n\s*---|\n\s*\*\*Why|$)', block, re.DOTALL)
-            
-            feedback = feedback_match.group(1).strip() if feedback_match else ""
-            
-            # Extract "Why this matters"
-            why_match = re.search(r'\*\*Why this matters.*?\*\*\s*:?\s*(.*?)(?=\n\s*---|$)', block, re.DOTALL | re.IGNORECASE)
-            why_matters = why_match.group(1).strip() if why_match else ""
-            
-            q_type = 'multiple' if len(correct) > 1 else 'single'
-            
-            questions.append({
-                'number': i,
-                'text': q_text,
-                'options': options,
-                'correct': correct,
-                'type': q_type,
-                'feedback': feedback,
-                'why_matters': why_matters
-            })
-            
-        return questions
+        return parse_quiz_content(content)
 
 
 class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
@@ -243,6 +211,9 @@ class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
     model = Lesson
     template_name = 'courses/lesson_detail.html'
     context_object_name = 'lesson'
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('module')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -434,9 +405,26 @@ def submit_quiz(request, pk):
     try:
         data = json.loads(request.body)
         answers = data.get('answers', {})
-        questions = data.get('questions', [])
-    except json.JSONDecodeError:
-        return JsonResponse({'error': 'Invalid data'}, status=400)
+        # SECURITY FIX: Do NOT trust questions sent from client.
+        # Load them from the server-side instead.
+        file_path = settings.CURRICULUM_DIR / lesson.file_path
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # If it's a daily lesson, we need to extract the quiz section first
+        if lesson.content_type == 'lesson':
+            quiz_markers = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
+            quiz_content = ""
+            for marker in quiz_markers:
+                if marker in content:
+                    quiz_content = content.split(marker)[1]
+                    break
+            questions = parse_quiz_content(quiz_content) if quiz_content else []
+        else:
+            questions = parse_quiz_content(content)
+            
+    except (json.JSONDecodeError, FileNotFoundError, Exception) as e:
+        return JsonResponse({'error': f'Error processing quiz: {str(e)}'}, status=400)
     
     # Calculate score
     score = 0

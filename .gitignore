@@ -5,3 +5,10 @@ db.sqlite3
 .env
 venv/
 env/
+
+# Developer tools & leftovers
+scratch/
+test_file.txt
+logs/
+staticfiles/
+media/

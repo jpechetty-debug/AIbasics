@@ -24,7 +24,7 @@
                 <p class="text-slate-400 font-medium mb-12">This is to certify that</p>
 
                 <h2 class="text-4xl md:text-6xl font-black text-slate-900 mb-8 tracking-tight">
-                    {{ user.get_full_name|default:user.username }}
+                    {{ certificate.user.get_full_name|default:certificate.user.username }}
                 </h2>
 
                 <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full mb-12"></div>
@@ -38,20 +38,24 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-20 w-full max-w-3xl border-t border-slate-100 pt-16">
                     <div class="text-center">
                         <p class="text-slate-400 text-xs uppercase tracking-widest mb-2">Issue Date</p>
-                        <p class="text-slate-900 font-bold">{{ completion_date|date:"F d, Y" }}</p>
+                        <p class="text-slate-900 font-bold">{{ certificate.issued_at|date:"F d, Y" }}</p>
                     </div>
                     <div class="text-center">
-                        <p class="text-slate-400 text-xs uppercase tracking-widest mb-2">Certificate ID</p>
-                        <p class="text-slate-900 font-bold font-mono">AIC-{{ user.id }}-{{ completion_date|date:"Ymd" }}</p>
+                        <p class="text-slate-400 text-xs uppercase tracking-widest mb-2">Verification ID</p>
+                        <p class="text-slate-900 font-bold font-mono text-[10px]">{{ certificate.verification_uuid }}</p>
                     </div>
                 </div>
 
-                <!-- Verification QR Code (Decorative) -->
-                <div class="mt-20 opacity-20">
-                    <div class="w-16 h-16 border-2 border-slate-900 p-1">
-                        <div class="w-full h-full bg-slate-900"></div>
+                <!-- Real Verification Link (Hardening Issue 3) -->
+                <div class="mt-20">
+                    <div class="inline-block p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Scan to Verify Authenticity</p>
+                        <div class="w-24 h-24 bg-white border border-slate-200 flex items-center justify-center mx-auto mb-2 overflow-hidden">
+                            <!-- Placeholder for real QR, showing text link for now -->
+                             <span class="text-[8px] font-mono text-slate-300 break-all px-2">https://{{ request.get_host }}{% url 'courses:verify_certificate' certificate.verification_uuid %}</span>
+                        </div>
+                        <p class="text-[8px] font-bold text-blue-600 uppercase">SECURE VERIFIED RECORD</p>
                     </div>
-                    <p class="text-[10px] mt-2 font-bold text-slate-900">VERIFIED SECURE</p>
                 </div>
             </div>
         </div>
@@ -62,7 +66,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2-2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
                 </svg>
-                Download PDF
+                Print / Save as PDF
             </button>
             <a href="{% url 'courses:dashboard' %}" class="text-slate-400 font-bold hover:text-white transition">Back to Dashboard</a>
         </div>

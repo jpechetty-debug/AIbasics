@@ -25,4 +25,5 @@ urlpatterns = [
     path('api/lesson/<int:pk>/ai-tutor/', views.AITutorView.as_view(), name='ai_tutor'),
     path('prompt-playground/', views.PromptPlaygroundView.as_view(), name='prompt_playground'),
     path('certificate/', views.CertificateView.as_view(), name='certificate'),
+    path('verify/<uuid:uuid>/', views.VerifyCertificateView.as_view(), name='verify_certificate'),
 ]

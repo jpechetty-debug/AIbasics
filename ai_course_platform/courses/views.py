@@ -36,9 +36,9 @@ def get_anthropic_client():
     return _anthropic_client
 
 
-def throttle_ai_tutor(user):
+def throttle_ai_tutor(user, prefix='ai_tutor_throttle_'):
     """Simple rate limiting using Django cache: 20 requests per hour."""
-    cache_key = f"ai_tutor_throttle_{user.id}"
+    cache_key = f"{prefix}{user.id}"
     request_count = cache.get(cache_key, 0)
     if request_count >= 20:
         return False
@@ -63,10 +63,10 @@ class AITutorView(LoginRequiredMixin, View):
             except Exception:
                 lesson_content = "No content available for this lesson."
 
-            if not throttle_ai_tutor(request.user):
+            if not throttle_ai_tutor(request.user, prefix='ai_tutor_throttle_'):
                 return JsonResponse({
                     'success': False,
-                    'error': 'Rate limit exceeded. You can send up to 20 messages per hour.'
+                    'error': 'Rate limit exceeded. You can send up to 20 messages per hour to the AI Tutor.'
                 }, status=429)
 
             client = get_anthropic_client()
@@ -133,10 +133,16 @@ class PromptPlaygroundView(LoginRequiredMixin, View):
             user_prompt = data.get('prompt', '')
             system_prompt = data.get('system', 'You are a helpful AI assistant.')
             
-            if not throttle_ai_tutor(request.user):
+            # Input Validation (Hardening Issue 5)
+            if len(system_prompt) > 2000:
+                return JsonResponse({'success': False, 'error': 'System prompt too long (max 2,000 chars)'}, status=400)
+            if len(user_prompt) > 5000:
+                return JsonResponse({'success': False, 'error': 'User prompt too long (max 5,000 chars)'}, status=400)
+
+            if not throttle_ai_tutor(request.user, prefix='playground_throttle_'):
                 return JsonResponse({
                     'success': False,
-                    'error': 'Rate limit exceeded. You can test up to 20 prompts per hour.'
+                    'error': 'Rate limit exceeded. You can test up to 20 prompts per hour in the playground.'
                 }, status=429)
 
             client = get_anthropic_client()
@@ -168,6 +174,13 @@ class CertificateView(LoginRequiredMixin, View):
     template_name = 'courses/certificate.html'
 
     def get(self, request):
+        # 1. Check if certificate already exists (Hardening Issue 4)
+        certificate = Certificate.objects.filter(user=request.user).first()
+        
+        if certificate:
+            return render(request, self.template_name, {'certificate': certificate})
+        
+        # 2. Check if eligible to issue new certificate
         total_lessons = Lesson.objects.count()
         completed_lessons = UserProgress.objects.filter(
             user=request.user,
@@ -175,13 +188,20 @@ class CertificateView(LoginRequiredMixin, View):
         ).count()
         
         if total_lessons > 0 and completed_lessons >= total_lessons:
-            context = {
-                'user': request.user,
-                'completion_date': timezone.now(),
-            }
-            return render(request, self.template_name, context)
+            # Atomic creation to avoid race conditions
+            certificate, created = Certificate.objects.get_or_create(user=request.user)
+            return render(request, self.template_name, {'certificate': certificate})
         
         return redirect('courses:dashboard')
+
+
+class VerifyCertificateView(View):
+    """Public view to verify certificate authenticity."""
+    template_name = 'courses/certificate_verify.html'
+
+    def get(self, request, uuid):
+        certificate = get_object_or_404(Certificate, verification_uuid=uuid)
+        return render(request, self.template_name, {'certificate': certificate})
 
 
 class CourseMixin:

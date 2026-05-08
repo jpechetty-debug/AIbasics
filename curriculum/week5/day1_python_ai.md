@@ -7,7 +7,6 @@ tags:
 - automation
 title: 'Week 5 - Day 1: AI for Python Automation'
 week: 5
-replit_url: "https://replit.com/@demo/python-for-netops"
 ---
 
 # Week 5 - Day 1: AI for Python Automation

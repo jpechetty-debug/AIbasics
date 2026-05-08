@@ -1,6 +1,7 @@
 """
 Django models for the AI Course Platform.
 """
+import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
@@ -149,6 +150,20 @@ class QuizAttempt(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.lesson.title}: {self.percentage}%"
+
+
+class Certificate(models.Model):
+    """Permanent record of course completion."""
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='certificate')
+    issued_at = models.DateTimeField(auto_now_add=True)
+    verification_uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    
+    class Meta:
+        verbose_name = 'Certificate'
+        verbose_name_plural = 'Certificates'
+
+    def __str__(self):
+        return f"Certificate for {self.user.username} (Issued: {self.issued_at.date()})"
 
 
 

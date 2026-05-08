@@ -20,7 +20,7 @@
                 <!-- System Prompt -->
                 <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
                     <label class="block text-sm font-black text-slate-900 uppercase tracking-wider mb-4">System Instructions</label>
-                    <textarea id="system-prompt" rows="6" 
+                    <textarea id="system-prompt" rows="6" maxlength="2000"
                         class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 font-medium focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition outline-none resize-none"
                         placeholder="Define the AI's persona and rules here...">{{ system_instructions }}</textarea>
                     <p class="mt-3 text-xs text-slate-400 font-medium">The 'System Prompt' sets the behavior and boundaries of the AI.</p>
@@ -29,7 +29,7 @@
                 <!-- User Prompt -->
                 <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
                     <label class="block text-sm font-black text-slate-900 uppercase tracking-wider mb-4">User Message (The Input)</label>
-                    <textarea id="user-prompt" rows="8" 
+                    <textarea id="user-prompt" rows="8" maxlength="5000"
                         class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 font-medium focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition outline-none resize-none"
                         placeholder="Paste the data or question you want the AI to process...">{{ initial_prompt }}</textarea>
                     <div class="mt-6 flex items-center justify-between">

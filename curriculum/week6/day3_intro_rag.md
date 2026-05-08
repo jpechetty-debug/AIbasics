@@ -61,6 +61,13 @@ It uses **Vectors** (Numbers).
 > - **Data Residency**: Where is your Vector Database hosted? If you use a cloud vector DB, your private internal docs are now on someone else's server.
 > - **Retrieval Bias**: If your search system (Vector DB) only finds *half* of a policy, the LLM will generate a half-true (and potentially dangerous) answer. You are responsible for ensuring the search results are comprehensive.
 
+> [!CAUTION]
+> **Ethics Checkpoint: The Accountability Gap**
+> If your RAG bot retrieves an outdated runbook and tells a junior admin to `reload` a core switch during peak hours, **who is responsible?**
+> - The AI (Claude)? No.
+> - The software developer? Unlikely.
+> - **You (The Architect)**: You are responsible for the freshness of the data the bot reads. Automated systems amplify human error. If your documentation is stale, your bot is a liability, not an asset.
+
 ### Visualizing RAG
 
 ```mermaid

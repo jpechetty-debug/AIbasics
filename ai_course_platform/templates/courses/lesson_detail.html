@@ -4,9 +4,12 @@
 
 {% block content %}
 <div class="flex flex-col lg:flex-row min-h-screen">
+    <!-- Sidebar Drawer (Mobile Overlay) -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden transition-opacity duration-300"></div>
+
     <!-- Sidebar -->
-    <aside
-        class="lg:w-85 bg-white border-r border-slate-200 shadow-2xl fixed lg:left-0 lg:top-20 lg:bottom-0 overflow-y-auto z-40 hidden lg:block scrollbar-hide">
+    <aside id="course-sidebar"
+        class="lg:w-85 bg-white border-r border-slate-200 shadow-2xl fixed inset-y-0 left-0 lg:top-20 lg:bottom-0 overflow-y-auto z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out scrollbar-hide lg:block">
         <div class="p-8">
             <h3
                 class="text-[0.65rem] font-black text-slate-400 uppercase tracking-[0.2em] mb-8 flex items-center gap-2">
@@ -60,8 +63,17 @@
         </div>
     </aside>
 
+    <!-- Mobile Sidebar Toggle -->
+    <div class="lg:hidden fixed bottom-6 left-6 z-40">
+        <button id="sidebar-toggle" class="w-14 h-14 bg-netadmin-900 text-netadmin-400 rounded-2xl flex items-center justify-center shadow-2xl active:scale-95 transition-all">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"></path>
+            </svg>
+        </button>
+    </div>
+
     <!-- Main Content -->
-    <main class="flex-1 lg:ml-85 bg-white">
+    <main class="flex-1 lg:ml-85 bg-white transition-all duration-300">
         <div class="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16 py-12">
             <!-- Breadcrumb -->
             <nav class="mb-12">
@@ -212,7 +224,7 @@
                                 <p class="text-xl font-bold text-netadmin-900 pt-1 leading-relaxed">{{ q.text }}</p>
                             </div>
 
-                            <div class="grid grid-cols-1 gap-4 ml-16">
+                            <div class="grid grid-cols-1 gap-4 ml-0 sm:ml-16">
                                 {% for opt in q.options %}
                                 <label
                                     class="quiz-option relative flex items-center p-6 border-2 border-slate-100 rounded-[1.5rem] cursor-pointer bg-slate-50/50 transition-all hover:bg-white hover:border-blue-500/20 hover:shadow-lg group/opt">
@@ -232,7 +244,7 @@
                                 {% endfor %}
                             </div>
 
-                            <div class="feedback hidden mt-8 ml-16 p-6 rounded-[1.5rem] border-2 animate-bounce-in">
+                            <div class="feedback hidden mt-8 ml-0 sm:ml-16 p-6 rounded-[1.5rem] border-2 animate-bounce-in">
                             </div>
                         </div>
                         {% endfor %}
@@ -376,6 +388,27 @@
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Sidebar Drawer Logic
+        const sidebar = document.getElementById('course-sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.remove('-translate-x-full');
+                sidebarBackdrop.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            });
+        }
+
+        if (sidebarBackdrop) {
+            sidebarBackdrop.addEventListener('click', () => {
+                sidebar.classList.add('-translate-x-full');
+                sidebarBackdrop.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            });
+        }
+
         // AI Tutor Sidebar Logic
         const tutorPanel = document.getElementById('ai-tutor-panel');
         const tutorTrigger = document.getElementById('ai-tutor-trigger');

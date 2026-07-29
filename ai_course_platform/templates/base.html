@@ -6,7 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}AI Course Platform{% endblock %}</title>
     <meta name="description"
-        content="AI Course Platform for Network Administrators - Learn AI concepts, prompting, and practical applications">
+        content="{% block meta_description %}AI Course Platform for Network Administrators - Learn AI concepts, prompting, and practical applications{% endblock %}">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:title" content="{% block og_title %}AI Basics for Network Administrators{% endblock %}">
+    <meta property="og:description" content="Master AI, prompt engineering, and automation — tailored for IT professionals.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Favicon -->
+    {% block favicon %}
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    {% endblock %}
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -558,6 +570,23 @@
             </div>
         </div>
     </footer>
+
+    <!-- Prism.js — Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>
+        // Auto-detect and highlight code blocks in .prose content
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.prose pre code').forEach(block => {
+                if (!block.className.match(/language-/)) {
+                    // Guess Python for untagged blocks in this course
+                    block.classList.add('language-python');
+                }
+            });
+            Prism.highlightAll();
+        });
+    </script>
 
     <script src="/static/js/quiz.js"></script>
     <script type="module">

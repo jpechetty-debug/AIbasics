@@ -297,7 +297,7 @@ class DashboardView(CourseMixin, View):
         return render(request, self.template_name, context)
 
 
-class ModuleDetailView(DetailView, CourseMixin):
+class ModuleDetailView(LoginRequiredMixin, DetailView, CourseMixin):
     """Module detail showing all lessons."""
     model = Module
     template_name = 'courses/module_detail.html'
@@ -346,7 +346,7 @@ class QuizParsingMixin:
         return parse_quiz_content(content)
 
 
-class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
+class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseMixin):
     """Lesson detail with markdown rendering."""
     model = Lesson
     template_name = 'courses/lesson_detail.html'
@@ -469,7 +469,7 @@ class LessonDetailView(DetailView, QuizParsingMixin, CourseMixin):
             return None
 
 
-class AssessmentView(DetailView, QuizParsingMixin, CourseMixin):
+class AssessmentView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseMixin):
     """Assessment/quiz view with interactive questions."""
     model = Lesson
     template_name = 'courses/assessment.html'

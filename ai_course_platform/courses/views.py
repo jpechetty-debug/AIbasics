@@ -31,8 +31,12 @@ def get_anthropic_client():
     global _anthropic_client
     if _anthropic_client is None:
         api_key = config('ANTHROPIC_API_KEY', default=None)
-        if api_key:
-            _anthropic_client = anthropic.Anthropic(api_key=api_key)
+        # Reject empty or placeholder keys
+        if api_key and api_key.strip() and api_key.strip() not in ('your-key-here', 'your-anthropic-api-key', 'YOUR_API_KEY'):
+            try:
+                _anthropic_client = anthropic.Anthropic(api_key=api_key.strip())
+            except Exception:
+                _anthropic_client = None
     return _anthropic_client
 
 
@@ -120,6 +124,11 @@ Instructions:
                 'success': True,
                 'response': response_text
             })
+        except (anthropic.AuthenticationError, anthropic.APIError) as e:
+            return JsonResponse({
+                'success': False,
+                'error': 'AI Tutor is temporarily offline (Invalid or unconfigured API key).'
+            }, status=503)
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
@@ -178,6 +187,11 @@ class PromptPlaygroundView(LoginRequiredMixin, View):
                 'success': True,
                 'response': response.content[0].text
             })
+        except (anthropic.AuthenticationError, anthropic.APIError) as e:
+            return JsonResponse({
+                'success': False,
+                'error': 'AI Playground is temporarily offline (Invalid or unconfigured API key).'
+            }, status=503)
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
 

@@ -28,6 +28,9 @@ class RegisterView(View):
         return render(request, self.template_name, {'form': form})
 
 
+from django.utils.http import url_has_allowed_host_and_scheme
+
+
 class LoginView(View):
     """User login view."""
     template_name = 'users/login.html'
@@ -44,8 +47,10 @@ class LoginView(View):
             user = form.get_user()
             login(request, user)
             messages.success(request, f'Welcome back, {user.username}!')
-            next_url = request.GET.get('next', 'courses:dashboard')
-            return redirect(next_url)
+            next_url = request.GET.get('next') or request.POST.get('next')
+            if next_url and url_has_allowed_host_and_scheme(url=next_url, allowed_hosts={request.get_host()}):
+                return redirect(next_url)
+            return redirect('courses:dashboard')
         return render(request, self.template_name, {'form': form})
 
 

@@ -60,7 +60,7 @@ gantt
 ---
 
 ### 5. UUID-Backed Verifiable Certificate — Differentiation Beat (25 Seconds)
-- **Show:** [Public Verification Page](file:///d:/LMS/Ai-basicscourse/ai_course_platform/templates/courses/certificate_verify.html) (`/courses/verify/<uuid>/`).
+- **Show:** [Public Verification Page](file:///d:/LMS/Ai-basicscourse/ai_course_platform/templates/courses/certificate_verify.html) (`/verify/<uuid>/`).
 - **Say:** *"Most course platforms issue a static PDF anyone can photoshop. Our platform issues a UUID-backed, publicly verifiable URL. Anyone — a recruiter, manager, or auditor — can open this link in a browser and verify authenticity in real time."*
 
 ---
@@ -75,9 +75,9 @@ gantt
 | Item | Route | Status | Notes |
 |------|-------|--------|-------|
 | **Dev Server Running** | `http://127.0.0.1:8000/` | ✅ Ready | Run `python manage.py runserver` |
-| **Playground Preset** | `/courses/prompt-playground/` | ✅ Ready | Have sample IT prompt pre-filled as backup |
-| **Grounded Lesson Open** | `/courses/lesson/1/` | ✅ Ready | Pre-select a lesson with rich content |
-| **Public Cert Verification URL** | `/courses/verify/<valid-uuid>/` | ✅ Ready | Have verification URL open in a separate browser tab |
+| **Playground Preset** | `/prompt-playground/` | ✅ Ready | Have sample IT prompt pre-filled as backup |
+| **Grounded Lesson Open** | `/lesson/1/` | ✅ Ready | Pre-select a lesson with rich content |
+| **Public Cert Verification URL** | `/verify/<valid-uuid>/` | ✅ Ready | Have verification URL open in a separate browser tab |
 
 ---
 

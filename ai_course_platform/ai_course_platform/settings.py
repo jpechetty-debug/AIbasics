@@ -141,6 +141,9 @@ else:
         }
     }
 
+# Ensure logs directory exists
+(BASE_DIR / 'logs').mkdir(parents=True, exist_ok=True)
+
 # Logging Configuration
 LOGGING = {
     'version': 1,

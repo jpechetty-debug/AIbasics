@@ -118,10 +118,21 @@ LOGOUT_REDIRECT_URL = 'courses:dashboard'
 # Curriculum directory path
 CURRICULUM_DIR = BASE_DIR.parent / 'curriculum'
 
-# Cache - Use Redis in production, LocMemCache in dev if Redis is missing
+# Cache - Use Redis in production, LocMemCache in dev if Redis is missing or unreachable
 REDIS_URL = config('REDIS_URL', default=None)
+use_redis = False
 
 if REDIS_URL:
+    try:
+        import redis
+        client = redis.Redis.from_url(REDIS_URL, socket_connect_timeout=1)
+        client.ping()
+        use_redis = True
+    except Exception as e:
+        import logging
+        logging.warning(f"REDIS_URL is configured ({REDIS_URL}) but Redis connection failed: {e}. Falling back to LocMemCache.")
+
+if use_redis:
     CACHES = {
         'default': {
             'BACKEND': 'django_redis.cache.RedisCache',

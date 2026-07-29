@@ -38,14 +38,14 @@ gantt
 ---
 
 ### 2. Dashboard & Structure (15 Seconds)
-- **Show:** [Dashboard Overview](file:///d:/LMS/Ai-basicscourse/ai_course_platform/templates/courses/dashboard.html) (Quick 1-second glance at the 10-week roadmap).
+- **Show:** [Dashboard Overview](ai_course_platform/templates/courses/dashboard.html) (Quick 1-second glance at the 10-week roadmap).
 - **Say:** *"Here is the platform. 10 structured weeks taking IT and Network Professionals from foundational concepts up to multi-agent architectures."*
 - **Action:** Immediately transition out of the dashboard — do not spend time reading lesson text.
 
 ---
 
 ### 3. Prompt Playground — Interactive Beat (45–60 Seconds)
-- **Show:** [Prompt Playground](file:///d:/LMS/Ai-basicscourse/ai_course_platform/templates/courses/prompt_playground.html).
+- **Show:** [Prompt Playground](ai_course_platform/templates/courses/prompt_playground.html).
 - **Hand Off:** Give the keyboard/mouse to a judge or ask them for a prompt.
 - **Say:** *"Let's test it live. Type your own system instructions or query directly here. No canned mockups — this runs live against our backend models."*
 - **Key Visual:** Point to live token execution and formatted output.
@@ -60,7 +60,7 @@ gantt
 ---
 
 ### 5. UUID-Backed Verifiable Certificate — Differentiation Beat (25 Seconds)
-- **Show:** [Public Verification Page](file:///d:/LMS/Ai-basicscourse/ai_course_platform/templates/courses/certificate_verify.html) (`/verify/<uuid>/`).
+- **Show:** [Public Verification Page](ai_course_platform/templates/courses/certificate_verify.html) (`/verify/<uuid>/`).
 - **Say:** *"Most course platforms issue a static PDF anyone can photoshop. Our platform issues a UUID-backed, publicly verifiable URL. Anyone — a recruiter, manager, or auditor — can open this link in a browser and verify authenticity in real time."*
 
 ---

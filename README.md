@@ -78,12 +78,13 @@ This platform is designed to bridge the gap between traditional IT operations an
 
 ## 🌐 Deployment
 
-For deploying the platform to a live environment (e.g., PythonAnywhere), refer to the detailed [Deployment Guide](https://github.com/jpechetty-debug/AIbasics/blob/main/docs/deploy_pythonanywhere.md).
+For deploying the platform to a live environment (e.g., PythonAnywhere), refer to the detailed [Deployment Guide](docs/deploy_pythonanywhere.md).
 
 Key Production Considerations:
 - **DEBUG**: Ensure `DEBUG=False` in production.
 - **CSRF**: Configure `CSRF_TRUSTED_ORIGINS` for your production domain.
-- **Cache**: The app will automatically fall back to `LocMemCache` if Redis is not available.
+- **Cache**: Automatic fallback to `LocMemCache` if local Redis is missing or unreachable.
+- **Frontend Assets**: Tailwind CDN used for zero-build dev velocity; compile static CSS via Tailwind CLI for production.
 
 ## 📚 Curriculum Roadmap
 

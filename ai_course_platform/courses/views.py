@@ -20,7 +20,7 @@ from django.utils import timezone
 from django.db import models
 from django.db.models import Count, Q, F, Value, IntegerField
 from django.core.cache import cache
-from .models import Module, Lesson, UserProgress, QuizAttempt
+from .models import Module, Lesson, UserProgress, QuizAttempt, Certificate
 from .utils import parse_quiz_content
 
 

@@ -75,3 +75,35 @@ class CourseViewsTest(TestCase):
         verify_response = guest_client.get(verify_url)
         self.assertEqual(verify_response.status_code, 200)
         self.assertContains(verify_response, 'Cryptographically Verified Credential')
+
+    def test_prompt_playground_get(self):
+        """Prompt Playground GET page renders for authenticated user."""
+        self.client.login(username='testadmin', password='Password123!')
+        url = reverse('courses:prompt_playground')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Prompt Playground')
+
+    def test_prompt_playground_post_validation(self):
+        """Prompt Playground POST rejects oversized system prompts exceeding 2000 chars."""
+        self.client.login(username='testadmin', password='Password123!')
+        url = reverse('courses:prompt_playground')
+        response = self.client.post(
+            url,
+            data={'system': 'A' * 2005, 'prompt': 'Hello'},
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('System prompt too long', response.json()['error'])
+
+    def test_ai_tutor_api_key_missing_response(self):
+        """AI Tutor POST gracefully handles missing API key with 503 status."""
+        self.client.login(username='testadmin', password='Password123!')
+        url = reverse('courses:ai_tutor', kwargs={'pk': self.lesson.pk})
+        response = self.client.post(
+            url,
+            data={'query': 'What is AI?'},
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 503)
+        self.assertFalse(response.json()['success'])

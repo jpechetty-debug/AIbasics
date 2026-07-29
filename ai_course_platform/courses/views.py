@@ -48,10 +48,12 @@ def throttle_public_ip(request, prefix='public_throttle_', limit=60):
 
 
 def throttle_ai_tutor(user, prefix='ai_tutor_throttle_'):
-    """Simple rate limiting using Django cache: 20 requests per hour."""
+    """Simple rate limiting using Django cache: 100 requests per hour (bypassed for staff)."""
+    if getattr(user, 'is_staff', False) or getattr(user, 'is_superuser', False):
+        return True
     cache_key = f"{prefix}{user.id}"
     request_count = cache.get(cache_key, 0)
-    if request_count >= 20:
+    if request_count >= 100:
         return False
     # Set/update cache with incremented count, expiring in 1 hour
     cache.set(cache_key, request_count + 1, 3600)

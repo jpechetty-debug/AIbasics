@@ -72,12 +72,19 @@ gantt
 
 ## 📋 Pre-Demo Technical Checklist
 
+### ⚡ 30-Second Demo Environment Seeding
+Run this single command before your presentation to instantly create the demo user (`demoadmin` / `DemoPassword123!`), complete all 60 lessons, and issue the deterministic verification certificate:
+```bash
+python manage.py seed_demo_data
+```
+
 | Item | Route | Status | Notes |
 |------|-------|--------|-------|
 | **Dev Server Running** | `http://127.0.0.1:8000/` | ✅ Ready | Run `python manage.py runserver` |
+| **Demo Login Credentials** | `demoadmin` / `DemoPassword123!` | ✅ Ready | Created automatically via `seed_demo_data` |
 | **Playground Preset** | `/prompt-playground/` | ✅ Ready | Have sample IT prompt pre-filled as backup |
 | **Grounded Lesson Open** | `/lesson/1/` | ✅ Ready | Pre-select a lesson with rich content |
-| **Public Cert Verification URL** | `/verify/<valid-uuid>/` | ✅ Ready | Have verification URL open in a separate browser tab |
+| **Public Cert Verification URL** | `/verify/11111111-2222-3333-4444-555555555555/` | ✅ Ready | Seeded deterministic UUID verification link |
 
 ---
 

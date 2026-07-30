@@ -365,6 +365,9 @@ class ModuleDetailView(LoginRequiredMixin, DetailView, CourseMixin):
         return context
 
 
+QUIZ_MARKERS = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
+
+
 class QuizParsingMixin:
     """Mixin to provide shared quiz parsing logic for both lessons and assessments."""
     
@@ -373,13 +376,13 @@ class QuizParsingMixin:
         return parse_quiz_content(content)
 
     def strip_correct_answers(self, questions_list):
-        """Strip answer keys ('correct') from questions before sending to client template JSON."""
+        """Strip sensitive answer keys, feedback, and why_matters prose from questions before sending to client template JSON."""
         if not questions_list:
             return []
         sanitized = []
         for q in questions_list:
             if isinstance(q, dict):
-                sanitized.append({k: v for k, v in q.items() if k != 'correct'})
+                sanitized.append({k: v for k, v in q.items() if k not in ('correct', 'feedback', 'why_matters')})
             else:
                 sanitized.append(q)
         return sanitized
@@ -452,8 +455,7 @@ class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseM
                     content = parts[2]
             
             # If there's a daily quiz, hide it from main content to avoid duplication
-            quiz_markers = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
-            for marker in quiz_markers:
+            for marker in QUIZ_MARKERS:
                 if marker in content:
                     content = content.split(marker)[0]
                     break
@@ -493,9 +495,8 @@ class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseM
         """Detect and parse daily quiz section from content string."""
         try:
             # Look for quiz sections
-            quiz_markers = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
             quiz_content = ""
-            for marker in quiz_markers:
+            for marker in QUIZ_MARKERS:
                 if marker in content:
                     quiz_content = content.split(marker)[1]
                     break
@@ -594,9 +595,8 @@ def submit_quiz(request, pk):
         
         # If it's a daily lesson, we need to extract the quiz section first
         if lesson.content_type == 'lesson':
-            quiz_markers = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
             quiz_content = ""
-            for marker in quiz_markers:
+            for marker in QUIZ_MARKERS:
                 if marker in content:
                     quiz_content = content.split(marker)[1]
                     break
@@ -630,6 +630,8 @@ def submit_quiz(request, pk):
             'correct': is_correct,
             'correct_answer': q['correct'],
             'user_answer': user_answer,
+            'feedback': q.get('feedback', ''),
+            'why_matters': q.get('why_matters', ''),
         })
     
     percentage = round((score / total) * 100, 2) if total > 0 else 0

@@ -155,6 +155,9 @@ class QuizHandler {
                     return text.split('\n').map(line => line.trim()).filter(l => l).join('<br>');
                 };
 
+                const feedbackText = result.feedback || (questionData ? questionData.feedback : '');
+                const whyMattersText = result.why_matters || (questionData ? questionData.why_matters : '');
+
                 let feedbackHtml = `
                     <div class="flex items-start gap-3">
                         <span class="text-xl">${result.correct ? '✅' : '❌'}</span>
@@ -162,17 +165,17 @@ class QuizHandler {
                             <p class="font-bold ${result.correct ? 'text-green-800' : 'text-red-800'}">
                                 ${result.correct ? 'Correct!' : 'Incorrect.'}
                             </p>
-                            ${questionData && questionData.feedback ? `<div class="mt-1 text-slate-700 leading-relaxed">${formatFeedback(questionData.feedback)}</div>` : ''}
+                            ${feedbackText ? `<div class="mt-1 text-slate-700 leading-relaxed">${formatFeedback(feedbackText)}</div>` : ''}
                             ${!result.correct ? `<p class="mt-2 text-sm font-medium">Correct answer: ${result.correct_answer.join(', ')}</p>` : ''}
                         </div>
                     </div>
                 `;
 
-                if (questionData && questionData.why_matters) {
+                if (whyMattersText) {
                     feedbackHtml += `
                         <div class="mt-3 pt-3 border-t border-slate-200">
                             <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Why this matters</p>
-                            <p class="text-sm text-slate-600 italic leading-relaxed">${formatFeedback(questionData.why_matters)}</p>
+                            <p class="text-sm text-slate-600 italic leading-relaxed">${formatFeedback(whyMattersText)}</p>
                         </div>
                     `;
                 }

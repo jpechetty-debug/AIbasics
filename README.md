@@ -14,6 +14,12 @@ This platform is designed to bridge the gap between traditional IT operations an
 - **Interactive Dashboards**: Track progress through 10 weeks of immersive daily lessons.
 - **Professional Readiness**: Focused on "Google-grade" AI fluency and career future-proofing.
 
+## 📸 UI Showcase & Demo
+
+| **Course Dashboard & Progress Roadmap** | **Live Interactive Prompt Playground** |
+| :---: | :---: |
+| ![Dashboard Overview](docs/images/dashboard_preview.png) | ![Prompt Playground Demo](docs/images/playground_demo.gif) |
+
 ## 🛠️ Technology Stack
 
 - **Backend**: Python / Django

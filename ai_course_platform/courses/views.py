@@ -83,7 +83,7 @@ class AITutorView(LoginRequiredMixin, View):
             if not throttle_ai_tutor(request.user, prefix='ai_tutor_throttle_'):
                 return JsonResponse({
                     'success': False,
-                    'error': 'Rate limit exceeded. You can send up to 20 messages per hour to the AI Tutor.'
+                    'error': 'Rate limit exceeded. You can send up to 100 messages per hour to the AI Tutor.'
                 }, status=429)
 
             client = get_anthropic_client()
@@ -109,13 +109,24 @@ Instructions:
 4. If you don't know the answer based on the context, say so and suggest they review the lesson again.
 """
 
+            raw_history = data.get('history', [])
+            messages_payload = []
+            if isinstance(raw_history, list):
+                for msg in raw_history[-10:]:
+                    if isinstance(msg, dict) and msg.get('role') in ('user', 'assistant') and isinstance(msg.get('content'), str):
+                        messages_payload.append({
+                            "role": msg['role'],
+                            "content": msg['content'][:2000]
+                        })
+            
+            if not messages_payload or messages_payload[-1].get('content') != query:
+                messages_payload.append({"role": "user", "content": query})
+
             response = client.messages.create(
                 model="claude-haiku-4-5-20251001",
                 max_tokens=500,
                 system=system_prompt,
-                messages=[
-                    {"role": "user", "content": query}
-                ]
+                messages=messages_payload
             )
             
             response_text = response.content[0].text
@@ -164,7 +175,7 @@ class PromptPlaygroundView(LoginRequiredMixin, View):
             if not throttle_ai_tutor(request.user, prefix='playground_throttle_'):
                 return JsonResponse({
                     'success': False,
-                    'error': 'Rate limit exceeded. You can test up to 20 prompts per hour in the playground.'
+                    'error': 'Rate limit exceeded. You can test up to 100 prompts per hour in the playground.'
                 }, status=429)
 
             client = get_anthropic_client()
@@ -361,6 +372,18 @@ class QuizParsingMixin:
         """Robustly parse questions, options, feedback, and metadata from markdown content."""
         return parse_quiz_content(content)
 
+    def strip_correct_answers(self, questions_list):
+        """Strip answer keys ('correct') from questions before sending to client template JSON."""
+        if not questions_list:
+            return []
+        sanitized = []
+        for q in questions_list:
+            if isinstance(q, dict):
+                sanitized.append({k: v for k, v in q.items() if k != 'correct'})
+            else:
+                sanitized.append(q)
+        return sanitized
+
 
 class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseMixin):
     """Lesson detail with markdown rendering."""
@@ -397,7 +420,8 @@ class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseM
         # 2. Consolidated Performance: Parse daily quiz from the same raw_content
         daily_quiz = self.parse_daily_quiz(raw_content)
         context['daily_quiz'] = daily_quiz
-        context['daily_quiz_json'] = json.dumps(daily_quiz) if daily_quiz else 'null'
+        sanitized_daily_quiz = self.strip_correct_answers(daily_quiz) if daily_quiz else None
+        context['daily_quiz_json'] = json.dumps(sanitized_daily_quiz) if sanitized_daily_quiz else 'null'
         
         # Metadata and Navigation
         context['module_title'] = lesson.module.title
@@ -512,7 +536,8 @@ class AssessmentView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseMix
         context['module_slug'] = lesson.module.slug
             
         context['questions'] = questions
-        context['questions_json'] = json.dumps(questions)
+        sanitized_questions = self.strip_correct_answers(questions)
+        context['questions_json'] = json.dumps(sanitized_questions)
         
         # Grouped modules for sidebar
         context['phases'] = self.get_grouped_modules(self.request.user)

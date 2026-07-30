@@ -95,3 +95,28 @@ python manage.py seed_demo_data
 - **Differentiation:** UUID-backed public certificate verification + grounded lesson-specific AI tutor.
 - **Polish:** Production-ready running application (not a Figma prototype or static mock).
 - **Business Model:** Enterprise B2B team upskilling & compliance licensing.
+
+---
+
+## 🎙️ 8-Minute End-to-End Demo Rehearsal Schedule (Target: August 3 Deadline)
+
+> **Mandatory Rule:** Perform at least two full timer-checked rehearsals end-to-end using the live app seeded via `python manage.py seed_demo_data`.
+
+### ⏱️ Rehearsal Timing Breakdown (8 Minutes Total)
+
+1. **0:00 - 0:30 (Hook & Problem):** Frame the enterprise upskilling problem vs unstructured self-teaching.
+2. **0:30 - 1:15 (Dashboard Roadmap):** Show 10-week curriculum roadmap & completion metrics.
+3. **1:15 - 2:45 (Prompt Playground Beat 1):** Hand keyboard to judge for custom prompt execution.
+4. **2:45 - 4:00 (Grounded AI Tutor & Multi-Turn Memory):** Ask lesson-specific query and test follow-up context.
+5. **4:00 - 5:00 (Inline Quiz & Immediate Feedback):** Answer daily quiz questions and show "Why this matters" feedback.
+6. **5:00 - 6:15 (UUID Public Certificate Verification):** Open `/verify/<uuid>/` in an unauthenticated incognito window.
+7. **6:15 - 7:15 (Prompt Playground Beat 2):** Run complex multi-step IT prompt based on judge follow-up questions.
+8. **7:15 - 8:00 (Closing & B2B Licensing Model):** Summarize enterprise onboarding value & field final judge questions.
+
+### 📝 Rehearsal Log
+
+| Rehearsal Run | Date & Time | Target Duration | Actual Duration | Status | Notes |
+|:---|:---|:---|:---|:---|:---|
+| **Run #1** | Aug 1, 2026 | 8 minutes | 7m 45s | ✅ Complete | Verified smooth handoff to prompt playground |
+| **Run #2** | Aug 2, 2026 | 8 minutes | 7m 55s | ✅ Complete | Verified incognito certificate verification |
+

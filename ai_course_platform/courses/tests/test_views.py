@@ -74,7 +74,7 @@ class CourseViewsTest(TestCase):
         guest_client = Client()
         verify_response = guest_client.get(verify_url)
         self.assertEqual(verify_response.status_code, 200)
-        self.assertContains(verify_response, 'Cryptographically Verified Credential')
+        self.assertContains(verify_response, 'UUID-Verified Digital Credential')
 
     def test_prompt_playground_get(self):
         """Prompt Playground GET page renders for authenticated user."""

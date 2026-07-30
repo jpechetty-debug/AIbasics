@@ -113,7 +113,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRFToken': '{{ csrf_token }}'
                 },
-                body: json.stringify({ prompt, system })
+                body: JSON.stringify({ prompt, system })
             });
 
             const data = await response.json();

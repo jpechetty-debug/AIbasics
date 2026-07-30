@@ -425,19 +425,29 @@
             tutorPanel.classList.add('translate-x-full');
         });
 
+        let conversationHistory = [];
+
         const addMessage = (text, isUser = false) => {
             const div = document.createElement('div');
             div.className = `flex items-start gap-3 ${isUser ? 'flex-row-reverse' : ''}`;
-            div.innerHTML = `
-                <div class="w-8 h-8 rounded-lg ${isUser ? 'bg-netadmin-900' : 'bg-netadmin-400/20'} flex items-center justify-center flex-shrink-0">
-                    <svg class="w-4 h-4 ${isUser ? 'text-white' : 'text-netadmin-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        ${isUser ? '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>' : '<path d="M13 10V3L4 14h7v7l9-11h-7z"></path>'}
-                    </svg>
-                </div>
-                <div class="${isUser ? 'bg-netadmin-900 text-white rounded-tr-none' : 'bg-slate-50 text-slate-700 rounded-tl-none border border-slate-100'} p-4 rounded-2xl">
-                    <p class="text-sm font-bold leading-relaxed">${text}</p>
-                </div>
-            `;
+            
+            const iconDiv = document.createElement('div');
+            iconDiv.className = `w-8 h-8 rounded-lg ${isUser ? 'bg-netadmin-900' : 'bg-netadmin-400/20'} flex items-center justify-center flex-shrink-0`;
+            iconDiv.innerHTML = `<svg class="w-4 h-4 ${isUser ? 'text-white' : 'text-netadmin-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                ${isUser ? '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>' : '<path d="M13 10V3L4 14h7v7l9-11h-7z"></path>'}
+            </svg>`;
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = `${isUser ? 'bg-netadmin-900 text-white rounded-tr-none' : 'bg-slate-50 text-slate-700 rounded-tl-none border border-slate-100'} p-4 rounded-2xl`;
+            
+            const p = document.createElement('p');
+            p.className = 'text-sm font-bold leading-relaxed';
+            p.textContent = text;
+            
+            textDiv.appendChild(p);
+            div.appendChild(iconDiv);
+            div.appendChild(textDiv);
+            
             chatMessages.appendChild(div);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         };
@@ -448,6 +458,8 @@
             if (!text) return;
             
             addMessage(text, true);
+            const priorHistory = conversationHistory.slice(-10);
+            conversationHistory.push({ role: 'user', content: text });
             chatInput.value = '';
             
             // Fetch AI Response from Backend
@@ -457,11 +469,15 @@
                     'Content-Type': 'application/json',
                     'X-CSRFToken': '{{ csrf_token }}'
                 },
-                body: JSON.stringify({ query: text })
+                body: JSON.stringify({
+                    query: text,
+                    history: priorHistory
+                })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    conversationHistory.push({ role: 'assistant', content: data.response });
                     addMessage(data.response);
                 } else {
                     addMessage("I'm sorry, I'm having trouble connecting to my brain right now. Please try again later.");

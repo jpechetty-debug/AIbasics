@@ -79,6 +79,10 @@ Think of the AI model as the **Brain**.
 Think of the Tools (APIs) as the **Hands**.
 Function Calling is the nerve signal from Brain to Hands.
 
+> [!NOTE]
+> **A Quick Bridge: What is an API?**
+> We'll unpack APIs in full detail tomorrow (Day 2). For now, simply think of an **API** (Application Programming Interface) as a digital button or counter window that lets one software tool send a request to another tool and get an answer back.
+
 ---
 
 ## Hands-On Exercise

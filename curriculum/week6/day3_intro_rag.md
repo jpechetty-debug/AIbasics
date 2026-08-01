@@ -49,11 +49,16 @@ The AI didn't already "know" this fact. It "read" it from the context provided b
 
 ### Vector Search (The Magic Index)
 
-How does it find the right paragraph?
-It uses **Vectors** (Numbers).
-- "King" - "Man" + "Woman" ≈ "Queen".
-- It converts text to numbers (Embeddings).
-- It searches for text that is "Mathematically Close" in meaning, not just exact keyword matching.
+How does it find the right paragraph out of thousands of pages without relying on exact keyword matches?
+It uses **Vectors** (Lists of numbers called **Embeddings**).
+
+> [!TIP]
+> **Analogy: Map Coordinates for Meaning**
+> Imagine giving every word or sentence a set of map coordinates based on its *meaning*, the way a city address has coordinates based on its physical location.
+> - Words with similar meaning end up sitting right next to each other on the map (e.g., *"sick leave"* and *"doctor's note"* sit in the same neighborhood).
+> - Because meaning is converted into math coordinates, AI can perform logic like `"King" - "Man" + "Woman" ≈ "Queen"`.
+> 
+> When you ask a question, the system converts your prompt into coordinates and retrieves the paragraphs whose coordinates sit closest to yours — even if you didn't use the exact same words!
 
 > [!IMPORTANT]
 > **Ethics Checkpoint: Data Privacy & Contextual Accuracy**

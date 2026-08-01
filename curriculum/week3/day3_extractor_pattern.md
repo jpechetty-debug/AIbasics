@@ -38,6 +38,16 @@ This is brittle and often technical. If the format changes slightly, the old app
 
 **The Extractor Pattern** uses AI to read the messy text and output clean, structured data — no technical pattern-matching required.
 
+> [!NOTE]
+> ### 💡 Reading JSON in 30 Seconds
+> Don't be intimidated by terms like **JSON** (JavaScript Object Notation). 
+> Think of JSON as simply a **digital form with labeled fields and answers**:
+> - Curly braces `{ }` wrap the whole form.
+> - Quotes contain field names and text `"key": "value"`.
+> - Square brackets `[ ]` represent a list of items.
+> 
+> For example: `{ "item": "chips", "quantity": "2 bags" }` is just a clean way of saying **Item:** chips, **Quantity:** 2 bags!
+
 ### Use Case 1: The "Message Parser"
 
 **Input (a text from a friend):**

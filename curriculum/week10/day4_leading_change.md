@@ -7,7 +7,7 @@ tags: ["leadership", "strategy", "change-management"]
 
 # Leading AI Change in Your Organization
 
-As someone who has completed this intensive AI course, you are no longer just an "IT Professional"—you are an **AI Ambassador**. You understand the technical capabilities, the ethical risks, and the massive productivity gains. Today, we focus on how to drive this change across your team and organization.
+As someone who has completed this intensive AI course, you are no longer just a bystander—you are an **AI Ambassador**. You understand the capabilities, the ethical risks, and the massive productivity gains. Today, we focus on how to drive this change across your team and organization.
 
 ## 🏔️ The Three Levels of AI Leadership
 
@@ -21,7 +21,7 @@ Leading AI change isn't just about technical implementation; it's about cultural
 
 Many people are privately (or publicly) afraid that AI will take their jobs. As a leader, your role is to shift the narrative.
 
-- **The Core Message**: *"AI won't replace a Network Admin, but a Network Admin who uses AI will eventually replace one who doesn't."*
+- **The Core Message**: *"AI won't replace you in your field, but someone in your field who uses AI well will eventually outperform someone who doesn't."*
 - **Psychological Safety**: Create a "Sandbox" environment where team members can experiment with AI without fear. Encourage them to share their "Fails" as well as their "Wins."
 - **The "High-Fidelity" Value**: Remind your team that AI handles the "Generic" work (the boilerplate code, the standard emails), which frees *them* to focus on the "High-Fidelity" work (the complex design, the strategic troubleshooting).
 

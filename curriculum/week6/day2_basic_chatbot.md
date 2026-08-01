@@ -12,131 +12,131 @@ week: 6
 # Week 6 - Day 2: Building Your First Custom Bot
 
 ## Overview
-**Week 6 – Day 2**  
-**Topic:** Configuring a Custom "Persona" Bot  
+**Week 6 – Day 2**
+**Topic:** Configuring a Custom "Persona" Bot
 **Duration:** ~60 minutes
 
 ### Learning Objectives
 By the end of this lesson, you will be able to:
 1. Configure a "System Prompt" to strictly define a bot's behavior.
-2. Set up "Knowledge Limits" (Stop the bot from talking about cooking).
-3. Build a "Helpdesk Triage Bot."
+2. Set up "Knowledge Limits" (keep the bot on-topic).
+3. Build a small "Customer Help" bot.
 
 ---
 
 ## Lesson Content
 
-### The "GPT" vs The "Custom Bot"
+### The "Regular Chat" vs. The "Custom Bot"
 
-A standard ChatGPT session resets every time. A **Custom Bot** saves the instructions (System Prompt) forever.
+A standard AI chat session resets every time you start a new one. A **Custom Bot** saves the instructions (System Prompt) permanently, so it behaves consistently every time anyone uses it.
 
 ### Step 1: The Persona (System Prompt)
 
 The most important configuration setting is the **System Prompt**.
-> "You are **NetBot**, a Tier 1 Support Assistant for Acme Corp.
-> Your tone is professional and concise.
-> If you don't know the answer, say 'Please open a ticket.' Do not guess."
+> "You are **ShelfBot**, a friendly assistant for a small independent bookstore.
+> Your tone is warm and helpful.
+> If you don't know the answer, say 'Let me check with a staff member for you.' Do not guess."
 
 ### Step 2: Guardrails
 
-You don't want your corporate bot generating poems or Python code if it's just for password resets.
-> **Constraint:** "Refuse to answer questions unrelated to Network Support or Ticket Status."
+You don't want your bookstore bot writing unrelated essays or giving out medical advice if it's just meant to help with store questions.
+> **Constraint:** "Only answer questions related to the store's books, hours, and events. Politely redirect anything else."
 
 ### Step 3: Temperature
 
-- **High Temp (0.8+):** Creative, random. (Bad for support).
-- **Low Temp (0.0-0.2):** Deterministic, factual. (Good for support).
+- **High Temp (0.8+):** Creative, more varied and surprising. (Good for brainstorming, less ideal for support).
+- **Low Temp (0.0-0.2):** Consistent, focused, predictable. (Good for factual help and support bots).
 
 ---
 
 ## Hands-On Exercise
 
-### Exercise: The "Cisco CLI Tutor" Bot
+### Exercise: The "Home Cooking Tutor" Bot
 
-**Objective:** Define the configuration for a bot that teaches Junior Admins.
+**Objective:** Define the configuration for a bot that teaches cooking basics to beginners.
 
 **System Prompt:**
-> "You are an expert Cisco CCNA Instructor.
-> When a user asks a question, explain the concept of Networking first, then provide the CLI command.
-> Always warn about the dangers of the `write erase` command."
+> "You are a friendly, patient home cooking instructor for total beginners.
+> When a user asks a cooking question, explain the concept simply first, then give the specific steps.
+> Always warn about food safety basics, like cooking chicken to a safe internal temperature."
 
 **Test Case:**
-User: "How do I reset the switch?"
-Bot (Expected): "To reset a switch, you clear the startup configuration. Conceptually, this removes the saved file from NVRAM. The command is `write erase`. **WARNING: This deletes everything.**"
+User: "How do I know when my chicken is done?"
+Bot (Expected): "Great question! The safest way to check is with a meat thermometer. Chicken should reach an internal temperature of 165°F (74°C). **Never rely on color alone—always check the temperature.**"
 
 **Reflection:**
-By hardcoding the "Instructor" persona, you save the user from having to type "Explain this like a teacher" every time.
+By hardcoding the "patient instructor" persona and the food-safety rule, you save the user from having to type "explain this simply" and "remind me about safety" every single time.
 
 ---
 
 ## Interactive Daily Quiz
 
 ### Question 1 (Configuration)
-**What setting controls the "Creativity" or "Randomness" of the bot?**
+**What setting controls the "Creativity" or "Randomness" of the bot's responses?**
 
-A) Volume.  
-B) Temperature.  
-C) Pressure.  
-D) Speed.  
+A) Volume.
+B) Temperature.
+C) Pressure.
+D) Speed.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Lower temperature = More consistent/boring. Higher = More creative/hallucinatory.
+- **B) ✓ Correct!** Lower temperature = more consistent and focused. Higher = more creative and varied.
 
 ### Question 2 (Safety)
-**Why add "Guardrails" (Refusal instructions) to a corporate bot?**
+**Why add "Guardrails" (topic restrictions) to a small business's customer bot?**
 
-A) To be mean.  
-B) To prevent "Jailbreaking" and keeping the bot focused on business tasks, avoiding liability.  
-C) It saves money.  
-D) It makes it faster.  
+A) To be unhelpful.
+B) To keep the bot focused on relevant business tasks and avoid giving advice it shouldn't (like medical or legal advice).
+C) It saves money automatically.
+D) It makes it faster.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** You don't want your Support Bot giving advice on political candidates.
+- **B) ✓ Correct!** You don't want your bookstore's bot giving out medical or legal advice, for example.
 
 ### Question 3 (Persona)
 **"You are a helpful assistant." Is this a good System Prompt?**
 
-A) Yes, it's perfect.  
-B) No, it's too vague. It doesn't define the scope, tone, or limitations.  
-C) It's too long.  
-D) It's rude.  
+A) Yes, it's perfect.
+B) No, it's too vague. It doesn't define the scope, tone, or limitations.
+C) It's too long.
+D) It's rude.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Be specific. "You are Python Bot" is better.
+- **B) ✓ Correct!** Be specific. "You are a friendly bookstore assistant who only discusses our books, hours, and events" is far more useful.
 
 ### Question 4 (Persistence)
-**What is the benefit of a saved Custom Bot over a fresh Chat session?**
+**What is the benefit of a saved Custom Bot over starting a fresh chat every time?**
 
-A) You don't have to copy-paste the instructions (System Prompt) every time you use it.  
-B) It runs locally.  
-C) It is free.  
-D) It has more colors.  
+A) You don't have to retype the instructions (System Prompt) every time you use it.
+B) It runs without any internet connection.
+C) It is always free.
+D) It has more colors.
 
 **Correct Answer:** A
 
 **Feedback:**
-- **A) ✓ Correct!** It packages the Prompt Engineering into a reusable tool.
+- **A) ✓ Correct!** It packages your prompt engineering work into a reusable tool.
 
 ### Question 5 (Tone)
-**For a "Root Cause Analysis" bot, what tone should you specify?**
+**For a bot that helps people troubleshoot a technical issue calmly, what tone should you specify?**
 
-A) "Excited and Hyper."  
-B) "Analytical, Objective, and Concise."  
-C) "Sad."  
-D) "Helpful."  
+A) "Excited and hyper."
+B) "Calm, clear, and step-by-step."
+C) "Sad."
+D) "Sarcastic."
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** The tone should match the business function.
+- **B) ✓ Correct!** The tone should match the bot's actual purpose.
 
 ---
 
 ### Summary
-Today you built a **Personality**. You learned that a "Bot" is just a wrapper around a strictly-defined System Prompt with Temperature settings. Tomorrow, we give the bot a memory—introducing **RAG**.
+Today you built a **Personality**. You learned that a "Bot" is just a wrapper around a strictly-defined System Prompt with tuned Temperature settings. Tomorrow, we give the bot a memory—introducing **RAG**.

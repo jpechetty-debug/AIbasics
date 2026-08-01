@@ -31,12 +31,8 @@ def get_anthropic_client():
     global _anthropic_client
     if _anthropic_client is None:
         api_key = config('ANTHROPIC_API_KEY', default=None)
-        # Reject empty or placeholder keys
-        if api_key and api_key.strip() and api_key.strip() not in ('your-key-here', 'your-anthropic-api-key', 'YOUR_API_KEY'):
-            try:
-                _anthropic_client = anthropic.Anthropic(api_key=api_key.strip())
-            except Exception:
-                _anthropic_client = None
+        if api_key:
+            _anthropic_client = anthropic.Anthropic(api_key=api_key)
     return _anthropic_client
 
 
@@ -83,7 +79,7 @@ class AITutorView(LoginRequiredMixin, View):
             if not throttle_ai_tutor(request.user, prefix='ai_tutor_throttle_'):
                 return JsonResponse({
                     'success': False,
-                    'error': 'Rate limit exceeded. You can send up to 100 messages per hour to the AI Tutor.'
+                    'error': 'Rate limit exceeded. You can send up to 20 messages per hour to the AI Tutor.'
                 }, status=429)
 
             client = get_anthropic_client()
@@ -109,24 +105,13 @@ Instructions:
 4. If you don't know the answer based on the context, say so and suggest they review the lesson again.
 """
 
-            raw_history = data.get('history', [])
-            messages_payload = []
-            if isinstance(raw_history, list):
-                for msg in raw_history[-10:]:
-                    if isinstance(msg, dict) and msg.get('role') in ('user', 'assistant') and isinstance(msg.get('content'), str):
-                        messages_payload.append({
-                            "role": msg['role'],
-                            "content": msg['content'][:2000]
-                        })
-            
-            if not messages_payload or messages_payload[-1].get('content') != query:
-                messages_payload.append({"role": "user", "content": query})
-
             response = client.messages.create(
                 model="claude-haiku-4-5-20251001",
                 max_tokens=500,
                 system=system_prompt,
-                messages=messages_payload
+                messages=[
+                    {"role": "user", "content": query}
+                ]
             )
             
             response_text = response.content[0].text
@@ -135,11 +120,6 @@ Instructions:
                 'success': True,
                 'response': response_text
             })
-        except (anthropic.AuthenticationError, anthropic.APIError) as e:
-            return JsonResponse({
-                'success': False,
-                'error': 'AI Tutor is temporarily offline (Invalid or unconfigured API key).'
-            }, status=503)
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
@@ -151,7 +131,7 @@ class PromptPlaygroundView(LoginRequiredMixin, View):
     def get(self, request):
         """Render the playground with optional pre-filled prompt."""
         initial_prompt = request.GET.get('prompt', '')
-        system_instructions = request.GET.get('system', 'You are a helpful AI assistant for a network administrator.')
+        system_instructions = request.GET.get('system', 'You are a helpful AI assistant.')
         
         context = {
             'initial_prompt': initial_prompt,
@@ -175,7 +155,7 @@ class PromptPlaygroundView(LoginRequiredMixin, View):
             if not throttle_ai_tutor(request.user, prefix='playground_throttle_'):
                 return JsonResponse({
                     'success': False,
-                    'error': 'Rate limit exceeded. You can test up to 100 prompts per hour in the playground.'
+                    'error': 'Rate limit exceeded. You can test up to 20 prompts per hour in the playground.'
                 }, status=429)
 
             client = get_anthropic_client()
@@ -198,11 +178,6 @@ class PromptPlaygroundView(LoginRequiredMixin, View):
                 'success': True,
                 'response': response.content[0].text
             })
-        except (anthropic.AuthenticationError, anthropic.APIError) as e:
-            return JsonResponse({
-                'success': False,
-                'error': 'AI Playground is temporarily offline (Invalid or unconfigured API key).'
-            }, status=503)
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
@@ -365,27 +340,12 @@ class ModuleDetailView(LoginRequiredMixin, DetailView, CourseMixin):
         return context
 
 
-QUIZ_MARKERS = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
-
-
 class QuizParsingMixin:
     """Mixin to provide shared quiz parsing logic for both lessons and assessments."""
     
     def parse_quiz_content(self, content):
         """Robustly parse questions, options, feedback, and metadata from markdown content."""
         return parse_quiz_content(content)
-
-    def strip_correct_answers(self, questions_list):
-        """Strip sensitive answer keys, feedback, and why_matters prose from questions before sending to client template JSON."""
-        if not questions_list:
-            return []
-        sanitized = []
-        for q in questions_list:
-            if isinstance(q, dict):
-                sanitized.append({k: v for k, v in q.items() if k not in ('correct', 'feedback', 'why_matters')})
-            else:
-                sanitized.append(q)
-        return sanitized
 
 
 class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseMixin):
@@ -423,8 +383,7 @@ class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseM
         # 2. Consolidated Performance: Parse daily quiz from the same raw_content
         daily_quiz = self.parse_daily_quiz(raw_content)
         context['daily_quiz'] = daily_quiz
-        sanitized_daily_quiz = self.strip_correct_answers(daily_quiz) if daily_quiz else None
-        context['daily_quiz_json'] = json.dumps(sanitized_daily_quiz) if sanitized_daily_quiz else 'null'
+        context['daily_quiz_json'] = json.dumps(daily_quiz) if daily_quiz else 'null'
         
         # Metadata and Navigation
         context['module_title'] = lesson.module.title
@@ -455,7 +414,8 @@ class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseM
                     content = parts[2]
             
             # If there's a daily quiz, hide it from main content to avoid duplication
-            for marker in QUIZ_MARKERS:
+            quiz_markers = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
+            for marker in quiz_markers:
                 if marker in content:
                     content = content.split(marker)[0]
                     break
@@ -495,8 +455,9 @@ class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseM
         """Detect and parse daily quiz section from content string."""
         try:
             # Look for quiz sections
+            quiz_markers = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
             quiz_content = ""
-            for marker in QUIZ_MARKERS:
+            for marker in quiz_markers:
                 if marker in content:
                     quiz_content = content.split(marker)[1]
                     break
@@ -537,8 +498,7 @@ class AssessmentView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseMix
         context['module_slug'] = lesson.module.slug
             
         context['questions'] = questions
-        sanitized_questions = self.strip_correct_answers(questions)
-        context['questions_json'] = json.dumps(sanitized_questions)
+        context['questions_json'] = json.dumps(questions)
         
         # Grouped modules for sidebar
         context['phases'] = self.get_grouped_modules(self.request.user)
@@ -595,8 +555,9 @@ def submit_quiz(request, pk):
         
         # If it's a daily lesson, we need to extract the quiz section first
         if lesson.content_type == 'lesson':
+            quiz_markers = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
             quiz_content = ""
-            for marker in QUIZ_MARKERS:
+            for marker in quiz_markers:
                 if marker in content:
                     quiz_content = content.split(marker)[1]
                     break
@@ -630,8 +591,6 @@ def submit_quiz(request, pk):
             'correct': is_correct,
             'correct_answer': q['correct'],
             'user_answer': user_answer,
-            'feedback': q.get('feedback', ''),
-            'why_matters': q.get('why_matters', ''),
         })
     
     percentage = round((score / total) * 100, 2) if total > 0 else 0

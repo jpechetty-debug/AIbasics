@@ -28,10 +28,10 @@ week: 1
 ### Question 1 (Multiple Choice)
 **What is the fundamental difference between AI and traditional automation?**
 
-A) AI is more expensive than automation  
-B) AI learns from data while automation follows fixed rules  
-C) AI is always faster than automation  
-D) AI requires more hardware than automation  
+A) AI is more expensive than automation
+B) AI learns from data while automation follows fixed rules
+C) AI is always faster than automation
+D) AI requires more hardware than automation
 
 **Correct Answer:** B
 
@@ -45,10 +45,10 @@ D) AI requires more hardware than automation
 ### Question 2 (Multiple Choice)
 **In the AI terminology hierarchy, which is the correct ordering from broadest to most specific?**
 
-A) Deep Learning → Machine Learning → Artificial Intelligence  
-B) Machine Learning → Artificial Intelligence → Deep Learning  
-C) Artificial Intelligence → Machine Learning → Deep Learning  
-D) Automation → Deep Learning → Machine Learning  
+A) Deep Learning → Machine Learning → Artificial Intelligence
+B) Machine Learning → Artificial Intelligence → Deep Learning
+C) Artificial Intelligence → Machine Learning → Deep Learning
+D) Automation → Deep Learning → Machine Learning
 
 **Correct Answer:** C
 
@@ -58,12 +58,12 @@ D) Automation → Deep Learning → Machine Learning
 ---
 
 ### Question 3 (Scenario-Based)
-**Your company's SIEM tool generates an alert based on a rule: "If failed logins > 5 in 10 minutes, alert." This is an example of:**
+**Your phone shows an alert based on a rule: "If battery < 20%, show low battery warning." This is an example of:**
 
-A) Machine Learning because it detects patterns  
-B) Deep Learning because it's complex  
-C) Traditional Automation because it follows a fixed rule  
-D) Artificial Intelligence because it makes decisions  
+A) Machine Learning because it detects patterns
+B) Deep Learning because it's complex
+C) Traditional Automation because it follows a fixed rule
+D) Artificial Intelligence because it makes decisions
 
 **Correct Answer:** C
 
@@ -75,10 +75,10 @@ D) Artificial Intelligence because it makes decisions
 ### Question 4 (Multiple Choice)
 **Which of these is a characteristic of Deep Learning specifically?**
 
-A) It follows programmed rules exactly  
-B) It uses neural networks with multiple layers to learn complex patterns  
-C) It requires no data to function  
-D) It only works with numbers, not images or text  
+A) It follows programmed rules exactly
+B) It uses neural networks with multiple layers to learn complex patterns
+C) It requires no data to function
+D) It only works with numbers, not images or text
 
 **Correct Answer:** B
 
@@ -90,8 +90,8 @@ D) It only works with numbers, not images or text
 ### Question 5 (True/False)
 **True or False: AI systems never make mistakes because they're based on mathematical algorithms.**
 
-A) True  
-B) False  
+A) True
+B) False
 
 **Correct Answer:** B
 
@@ -101,160 +101,160 @@ B) False
 ---
 
 ### Question 6 (Multiple Choice)
-**What is AIOps primarily designed to do?**
+**What is everyday, AI-powered assistance primarily designed to do?**
 
-A) Replace all IT staff  
-B) Analyze operational data, correlate events, and predict problems  
-C) Write code automatically  
-D) Design network architecture  
+A) Replace all human decision-making
+B) Analyze personal data, correlate patterns, and predict needs
+C) Write code automatically
+D) Design software from scratch
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** AIOps uses AI/ML to analyze IT operational data at scale, correlate events across systems, reduce alert noise, and provide predictive insights.
+- **B) ✓ Correct!** Everyday AI uses machine learning to analyze personal data at scale, correlate patterns across apps, reduce information overload, and provide predictive insights.
 
 ---
 
 ### Question 7 (Scenario-Based)
-**A security tool learns that a specific user typically logs in from the corporate network between 9am-5pm. One day, the account logs in at 3am from another country. The tool flags this as suspicious. This is an example of:**
+**A fraud detection tool learns that a specific person typically shops in their home city between 9am-9pm. One day, their card is charged at 3am from another country. The tool flags this as suspicious. This is an example of:**
 
-A) Signature-based detection  
-B) Rule-based automation  
-C) User and Entity Behavior Analytics (UEBA)  
-D) Deep packet inspection  
+A) Signature-based detection
+B) Rule-based automation
+C) Behavior-based anomaly detection
+D) Simple keyword matching
 
 **Correct Answer:** C
 
 **Feedback:**
-- **C) ✓ Correct!** UEBA learns normal behavior patterns and flags anomalies—even when no specific rule exists for the situation.
+- **C) ✓ Correct!** Behavior-based detection learns normal patterns and flags anomalies—even when no specific rule exists for the situation.
 
 ---
 
 ### Question 8 (Multiple Select)
 **Which of these are realistic limitations of current AI technology? (Choose ALL that apply)**
 
-A) AI needs quality data to perform well  
-B) AI can generalize learning across completely different domains  
-C) AI models degrade over time and need retraining  
-D) AI can be fooled by adversarial attacks  
-E) AI always provides 100% accurate results  
+A) AI needs quality data to perform well
+B) AI can generalize learning across completely different domains
+C) AI models can get less accurate over time and need fresh data
+D) AI can be fooled by unusual or adversarial inputs
+E) AI always provides 100% accurate results
 
 **Correct Answers:** A, C, D
 
 **Feedback:**
 - **A) ✓ Yes!** "Garbage in, garbage out" applies strongly to AI.
 - **B) No.** Current AI is narrow—it doesn't generalize across domains.
-- **C) ✓ Yes!** As environments change, models need retraining.
-- **D) ✓ Yes!** Adversarial attacks are a real AI security concern.
+- **C) ✓ Yes!** As your habits or circumstances change, models can drift and need fresh data.
+- **D) ✓ Yes!** Being fooled by unusual inputs is a real AI concern.
 - **E) No.** No AI achieves 100% accuracy.
 
 ---
 
 ### Question 9 (Multiple Choice)
-**When deploying a new AI-based monitoring tool, what should you realistically expect for the first 4-6 weeks?**
+**When you start using a new AI-based recommendation tool, what should you realistically expect for the first few weeks?**
 
-A) Perfect accuracy immediately  
-B) A learning period with higher false positives as the AI baselines your environment  
-C) No alerts at all until configuration is complete  
-D) Complete replacement of existing monitoring  
+A) Perfect accuracy immediately
+B) A learning period with some odd suggestions as the AI baselines your preferences
+C) No suggestions at all until setup is complete
+D) Complete replacement of your own decision-making
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** AI tools need time to learn what "normal" looks like. Higher false positives during the learning period is expected behavior.
+- **B) ✓ Correct!** AI tools need time to learn what "normal" looks like for you. Some odd suggestions during the learning period is expected behavior.
 
 ---
 
 ### Question 10 (Scenario-Based)
-**A vendor claims their product has "AI-powered security" but cannot explain how the AI makes decisions or what training data it uses. What should you conclude?**
+**A company claims their product has "AI-powered personalization" but cannot explain how the AI makes decisions or what data it uses. What should you conclude?**
 
-A) The AI is proprietary, which is normal  
-B) This is likely marketing language with limited actual AI capability  
-C) AI is always a black box that can't be explained  
-D) You need to buy the product to understand the AI  
+A) The AI is proprietary, which is normal
+B) This is likely marketing language with limited actual AI capability
+C) AI is always a black box that can't be explained
+D) You need to buy the product to understand the AI
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Legitimate AI vendors can explain their approach at some level. Inability to explain is a red flag for possible marketing hype.
+- **B) ✓ Correct!** Legitimate AI companies can explain their approach at some level. Inability to explain is a red flag for possible marketing hype.
 
 ---
 
 ### Question 11 (Multiple Choice)
 **Which task is MOST appropriate for AI rather than traditional automation?**
 
-A) Renewing SSL certificates on a schedule  
-B) Rebooting a server weekly  
-C) Analyzing millions of log entries for unusual patterns  
-D) Changing a user's password upon request  
+A) Sending the same bill reminder on the 1st of every month
+B) Turning a light on at sunset
+C) Analyzing years of spending to catch unusual fraud patterns
+D) Locking your phone after 30 seconds of inactivity
 
 **Correct Answer:** C
 
 **Feedback:**
-- **C) ✓ Correct!** AI excels at pattern recognition in large datasets—exactly what log analysis requires. The other tasks are simple, deterministic operations better suited for basic automation.
+- **C) ✓ Correct!** AI excels at pattern recognition in large datasets—exactly what fraud analysis requires. The other tasks are simple, deterministic operations better suited for basic automation.
 
 ---
 
 ### Question 12 (True/False)
-**True or False: Once an AI model is trained and deployed, it never needs to be updated or retrained.**
+**True or False: Once an AI model learns your habits, it never needs fresh data or updates again.**
 
-A) True  
-B) False  
+A) True
+B) False
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** AI models experience "drift" as environments change. Regular retraining is essential to maintain accuracy over time.
+- **B) ✓ Correct!** AI models experience "drift" as your life and habits change. Fresh data and occasional correction are essential to maintain accuracy over time.
 
 ---
 
 ### Question 13 (Multiple Choice)
-**Which statement best describes AI's impact on network administrator jobs?**
+**Which statement best describes AI's impact on everyday tasks?**
 
-A) AI will completely replace network administrators within 2 years  
-B) AI will automate repetitive tasks, allowing admins to focus on complex work  
-C) AI has no significant impact on network administration  
-D) AI makes network administration more difficult and complex  
+A) AI will completely replace human decision-making within 2 years
+B) AI will automate repetitive tasks, allowing people to focus on more meaningful work
+C) AI has no significant impact on daily life
+D) AI makes everyday tasks more difficult and complex
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** AI handles high-volume, repetitive pattern recognition, freeing humans for strategic work requiring judgment and creativity.
+- **B) ✓ Correct!** AI handles high-volume, repetitive pattern recognition, freeing humans for work requiring judgment, creativity, and relationships.
 
 ---
 
 ### Question 14 (Scenario-Based)
-**You're evaluating two network monitoring products. Product A claims "99.9% accuracy, zero configuration needed." Product B claims "60% reduction in false positives after a 6-week learning period." Based on Week 1 knowledge, which product likely has more genuine AI?**
+**You're comparing two budgeting apps. App A claims "99.9% accuracy, zero setup needed." App B claims "60% reduction in missed alerts after a 4-week learning period." Based on Week 1 knowledge, which app likely has more genuine AI?**
 
-A) Product A because it has higher accuracy  
-B) Product B because its claims match realistic AI behavior  
-C) Both are equally likely to have genuine AI  
-D) Neither has AI based on these claims  
+A) App A because it has higher accuracy
+B) App B because its claims match realistic AI behavior
+C) Both are equally likely to have genuine AI
+D) Neither has AI based on these claims
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Product B's claims (learning period, measured improvement in false positives) align with how real AI systems work. Product A's claims are red flags for marketing hype.
+- **B) ✓ Correct!** App B's claims (learning period, measured improvement) align with how real AI systems work. App A's claims are red flags for marketing hype.
 
 ---
 
 ### Question 15 (Multiple Select)
 **Which questions should you ask when evaluating an AI tool? (Choose ALL that apply)**
 
-A) "How long is the learning or training period?"  
-B) "What retraining or maintenance is required over time?"  
-C) "How do you handle false positives?"  
-D) "What is the temperature in your data center?"  
-E) "Can you explain how the AI makes decisions?"  
+A) "How long is the learning period?"
+B) "What ongoing feedback or correction does it need from me?"
+C) "How does it handle mistakes or false alarms?"
+D) "What is the weather like today?"
+E) "Can you explain how the AI reaches its suggestions?"
 
 **Correct Answers:** A, B, C, E
 
 **Feedback:**
 - **A) ✓ Yes!** Reveals if genuine learning AI or just automation.
-- **B) ✓ Yes!** Understanding maintenance needs is critical.
-- **C) ✓ Yes!** False positive handling affects real-world usability.
+- **B) ✓ Yes!** Understanding your ongoing role is critical.
+- **C) ✓ Yes!** False alarm handling affects real-world usability.
 - **D) No.** Irrelevant to AI evaluation.
-- **E) ✓ Yes!** Tests explainability and vendor credibility.
+- **E) ✓ Yes!** Tests explainability and company credibility.
 
 ---
 
@@ -285,9 +285,9 @@ E) "Can you explain how the AI makes decisions?"
 Consider these questions as you complete Week 1:
 
 1. How has your understanding of "AI" changed from before this week?
-2. Have you identified AI tools in your current work that you didn't recognize before?
+2. Have you identified AI tools in your current life that you didn't recognize before?
 3. What's one AI capability you'd like to learn more about?
-4. How will you apply vendor evaluation skills in your next technology decision?
+4. How will you apply marketing-claim evaluation skills the next time you consider a new app or tool?
 
 ---
 

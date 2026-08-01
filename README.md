@@ -1,24 +1,18 @@
-# AI Basics for Network Administrators
+# AI Basics for Everyone
 
-A comprehensive, dynamic learning platform built with Django to deliver AI education specifically tailored for IT Operations and Network Administration. Transform from AI literacy to building professional-grade multi-agent systems.
+A comprehensive, dynamic learning platform built with Django to deliver AI education for total beginners — no coding or technical background required. Transform from AI literacy to building professional-grade multi-agent systems.
 
 ## 🚀 Overview
 
-This platform is designed to bridge the gap between traditional IT operations and the new era of AI-driven automation. It features a robust curriculum management system that allows for seamless integration of educational content via Markdown and JSON structures.
+This platform is designed to bridge the gap between everyday life and work and the new era of AI-driven automation. It features a robust curriculum management system that allows for seamless integration of educational content via Markdown and JSON structures.
 
 ## ✨ Key Features
 
-- **20+ Real-World AI Solutions**: Learn to build and deploy practical AI tools for workplace productivity.
+- **20+ Real-World AI Solutions**: Learn to build and deploy practical AI tools for everyday productivity, at work or in your personal life.
 - **Dynamic Curriculum Loader**: Automatically synchronizes course structure from `curriculum/structure.json` and markdown files.
-- **Advanced Agent Architectures**: Covers Multi-Agent systems, Function Calling, and RAG for IT Ops.
+- **Advanced Agent Architectures**: Covers Multi-Agent systems, Function Calling, and RAG, taught through relatable, general-audience examples.
 - **Interactive Dashboards**: Track progress through 10 weeks of immersive daily lessons.
-- **Professional Readiness**: Focused on "Google-grade" AI fluency and career future-proofing.
-
-## 📸 UI Showcase & Demo
-
-| **Course Dashboard & Progress Roadmap** | **Live Interactive Prompt Playground** |
-| :---: | :---: |
-| ![Dashboard Overview](docs/images/dashboard_preview.png) | ![Prompt Playground Demo](docs/images/playground_demo.gif) |
+- **Professional Readiness**: Focused on genuine AI fluency and future-proofing your career, whatever your field.
 
 ## 🛠️ Technology Stack
 
@@ -39,7 +33,7 @@ This platform is designed to bridge the gap between traditional IT operations an
 ├── curriculum/              # Learning material
 │   ├── structure.json       # Curriculum roadmap
 │   └── week1-10/            # Markdown lesson content
-└── scratch/                 # Utility & automation scripts
+└── scratch/                 # Utility & automation scripts (gitignored, local-only)
 ```
 
 ## ⚙️ Setup & Installation
@@ -69,6 +63,7 @@ This platform is designed to bridge the gap between traditional IT operations an
    ```bash
    cp ai_course_platform/.env.example ai_course_platform/.env
    ```
+   Replace the `ANTHROPIC_API_KEY` placeholder with a real key if you want the AI Tutor and Prompt Playground to be fully live — otherwise they gracefully report as offline.
 
 5. **Initialize Database & Load Curriculum**:
    ```bash
@@ -77,7 +72,13 @@ This platform is designed to bridge the gap between traditional IT operations an
    python manage.py load_curriculum
    ```
 
-6. **Run Server**:
+6. **(Optional) Seed a ready-to-demo account**:
+   ```bash
+   python manage.py seed_demo_data
+   ```
+   Creates `demoadmin` / `DemoPassword123!` with all 60 lessons complete and a verifiable certificate — ideal for judges or reviewers who want to see the finished experience instantly.
+
+7. **Run Server**:
    ```bash
    python manage.py runserver
    ```
@@ -94,13 +95,13 @@ Key Production Considerations:
 
 ## 📚 Curriculum Roadmap
 
-The course is divided into 5 strategic phases:
+The course is divided into 5 strategic phases, designed for a general beginner audience:
 
-- **Phase 1: Foundations (Weeks 1-2)**: Mastering AI/ML/DL terminology and Neural Network basics for IT Ops.
+- **Phase 1: Foundations (Weeks 1-2)**: Mastering AI/ML/DL terminology and how AI works, using everyday, relatable examples.
 - **Phase 2: Prompt Engineering (Weeks 3-4)**: Industry-standard patterns (Translate, Summarize, Extract, Generate) and complex chaining.
-- **Phase 3: Automation & Systems (Weeks 5-7)**: Accelerating Python/Ansible and building RAG systems.
-- **Phase 4: Capstone (Week 8)**: Building and deploying a production-ready AI solution.
-- **Phase 5: Professional Fluency (Weeks 9-10)**: 20+ real-world solutions and future-proofing your career.
+- **Phase 3: Automation & Systems (Weeks 5-7)**: Beginner-friendly Python, everyday automation, and building RAG systems.
+- **Phase 4: Capstone (Week 8)**: Building and deploying a working AI solution for a real problem of your choosing.
+- **Phase 5: Professional Fluency (Weeks 9-10)**: 20+ real-world solutions and future-proofing your career, in any field.
 
 ---
-*Developed with a focus on technical depth and operational efficiency.*
+*Developed with a focus on genuine accessibility and real-world usefulness for beginners everywhere.*

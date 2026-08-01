@@ -39,7 +39,7 @@ gantt
 
 ### 2. Dashboard & Structure (15 Seconds)
 - **Show:** [Dashboard Overview](ai_course_platform/templates/courses/dashboard.html) (Quick 1-second glance at the 10-week roadmap).
-- **Say:** *"Here is the platform. 10 structured weeks taking IT and Network Professionals from foundational concepts up to multi-agent architectures."*
+- **Say:** *"Here is the platform. 10 structured weeks taking total beginners from foundational concepts up to multi-agent architectures — no coding background required."*
 - **Action:** Immediately transition out of the dashboard — do not spend time reading lesson text.
 
 ---
@@ -66,7 +66,7 @@ gantt
 ---
 
 ### 6. Closing & Business Model (15 Seconds)
-- **Say:** *"Anyone can claim they took an AI course. This is the platform where you can actually prove it. As an enterprise B2B tool, this is designed for team onboarding and compliance verification. Thank you!"*
+- **Say:** *"Anyone can claim they took an AI course. This is the platform where you can actually prove it — whether you're an individual learner or a whole team getting upskilled together. Thank you!"*
 
 ---
 
@@ -82,7 +82,7 @@ python manage.py seed_demo_data
 |------|-------|--------|-------|
 | **Dev Server Running** | `http://127.0.0.1:8000/` | ✅ Ready | Run `python manage.py runserver` |
 | **Demo Login Credentials** | `demoadmin` / `DemoPassword123!` | ✅ Ready | Created automatically via `seed_demo_data` |
-| **Playground Preset** | `/prompt-playground/` | ✅ Ready | Have sample IT prompt pre-filled as backup |
+| **Playground Preset** | `/prompt-playground/` | ✅ Ready | Have a sample prompt pre-filled as backup |
 | **Grounded Lesson Open** | `/lesson/1/` | ✅ Ready | Pre-select a lesson with rich content |
 | **Public Cert Verification URL** | `/verify/11111111-2222-3333-4444-555555555555/` | ✅ Ready | Seeded deterministic UUID verification link |
 
@@ -90,33 +90,8 @@ python manage.py seed_demo_data
 
 ## 🏆 Honest Judge Calibration Map
 
-- **Problem:** Real enterprise AI upskilling gap (unstructured self-teaching).
-- **Audience:** Starts with Network & IT Operations, generalizes to any technical team.
+- **Problem:** Real AI-literacy upskilling gap for total beginners (unstructured, unverifiable self-teaching).
+- **Audience:** General beginners — students, career changers, small business owners, and curious professionals in any field.
 - **Differentiation:** UUID-backed public certificate verification + grounded lesson-specific AI tutor.
 - **Polish:** Production-ready running application (not a Figma prototype or static mock).
-- **Business Model:** Enterprise B2B team upskilling & compliance licensing.
-
----
-
-## 🎙️ 8-Minute End-to-End Demo Rehearsal Schedule (Target: August 3 Deadline)
-
-> **Mandatory Rule:** Perform at least two full timer-checked rehearsals end-to-end using the live app seeded via `python manage.py seed_demo_data`.
-
-### ⏱️ Rehearsal Timing Breakdown (8 Minutes Total)
-
-1. **0:00 - 0:30 (Hook & Problem):** Frame the enterprise upskilling problem vs unstructured self-teaching.
-2. **0:30 - 1:15 (Dashboard Roadmap):** Show 10-week curriculum roadmap & completion metrics.
-3. **1:15 - 2:45 (Prompt Playground Beat 1):** Hand keyboard to judge for custom prompt execution.
-4. **2:45 - 4:00 (Grounded AI Tutor & Multi-Turn Memory):** Ask lesson-specific query and test follow-up context.
-5. **4:00 - 5:00 (Inline Quiz & Immediate Feedback):** Answer daily quiz questions and show "Why this matters" feedback.
-6. **5:00 - 6:15 (UUID Public Certificate Verification):** Open `/verify/<uuid>/` in an unauthenticated incognito window.
-7. **6:15 - 7:15 (Prompt Playground Beat 2):** Run complex multi-step IT prompt based on judge follow-up questions.
-8. **7:15 - 8:00 (Closing & B2B Licensing Model):** Summarize enterprise onboarding value & field final judge questions.
-
-### 📝 Rehearsal Log
-
-| Rehearsal Run | Date & Time | Target Duration | Actual Duration | Status | Notes |
-|:---|:---|:---|:---|:---|:---|
-| **Run #1** | Aug 1, 2026 | 8 minutes | 7m 45s | ✅ Complete | Verified smooth handoff to prompt playground |
-| **Run #2** | Aug 2, 2026 | 8 minutes | 7m 55s | ✅ Complete | Verified incognito certificate verification |
-
+- **Business Model:** Individual (B2C) course access, with an upsell path to organization/team licensing for verified upskilling at scale.

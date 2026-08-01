@@ -28,10 +28,10 @@ week: 4
 ### Question 1 (Few-Shot)
 **What is the "One-Shot" prompting technique?**
 
-A) You only get one chance to ask.  
-B) Providing exactly one example of the desired output format in the prompt.  
-C) Asking the AI to shoot a target.  
-D) Writing a one-line prompt.  
+A) You only get one chance to ask.
+B) Providing exactly one example of the desired output format in the prompt.
+C) Asking the AI a one-word question.
+D) Writing a one-line prompt.
 
 **Correct Answer:** B
 
@@ -43,25 +43,25 @@ D) Writing a one-line prompt.
 ### Question 2 (Chain of Thought)
 **Which problem type benefits MOST from Chain of Thought prompting?**
 
-A) Creative writing (e.g., poems).  
-B) Math, logic, and multi-step troubleshooting.  
-C) Basic facts (e.g., "Capital of France").  
-D) Translations.  
+A) Creative writing (e.g., poems).
+B) Math, logic, and multi-step troubleshooting.
+C) Basic facts (e.g., "Capital of France").
+D) Simple translations.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** CoT helps break down complex reasoning, which is needed for math and logic.
+- **B) ✓ Correct!** CoT helps break down complex reasoning, which is needed for math and logic problems.
 
 ---
 
 ### Question 3 (Critic)
 **When using the Critic Pattern, who provides the critique?**
 
-A) You (The User).  
-B) The AI, acting in a specific persona (e.g., Auditor).  
-C) A third party.  
-D) The computer hardware.  
+A) You (The User), typing it manually.
+B) The AI, acting in a specific persona (e.g., skeptical reviewer).
+C) A third party service.
+D) The computer hardware.
 
 **Correct Answer:** B
 
@@ -71,27 +71,27 @@ D) The computer hardware.
 ---
 
 ### Question 4 (Chaining)
-**You want to summarize a 100-page PDF and then translate it. Why assume a Chain?**
+**You want to summarize a long personal journal and then translate the summary. Why might you use a Chain?**
 
-A) Context Window limits might prevent pasting 100 pages at once.  
-B) To ensure the summary is accurate *before* translating it (Quality Control).  
-C) Both A and B.  
-D) Neither.  
+A) Context Window limits might prevent pasting the entire journal at once.
+B) To ensure the summary is accurate *before* translating it (Quality Control).
+C) Both A and B.
+D) Neither.
 
 **Correct Answer:** C
 
 **Feedback:**
-- **C) ✓ Correct!** Chaining solves both token limits and quality control issues.
+- **C) ✓ Correct!** Chaining solves both length limits and quality control issues.
 
 ---
 
 ### Question 5 (Zero-Shot)
-**"Write a Python script to ping google." This is an example of:**
+**"Write a short poem about the ocean." This is an example of:**
 
-A) Few-Shot Prompting.  
-B) Zero-Shot Prompting.  
-C) Chain of Thought.  
-D) Critic.  
+A) Few-Shot Prompting.
+B) Zero-Shot Prompting.
+C) Chain of Thought.
+D) Critic.
 
 **Correct Answer:** B
 
@@ -101,12 +101,12 @@ D) Critic.
 ---
 
 ### Question 6 (Application)
-**Your AI output is inconsistent (sometimes JSON, sometimes Text). What is the best fix?**
+**Your AI output is inconsistent (sometimes a list, sometimes a paragraph). What is the best fix?**
 
-A) Chain of Thought.  
-B) Few-Shot Prompting (Show 3 examples of JSON output).  
-C) Ask nicely.  
-D) Reboot.  
+A) Chain of Thought.
+B) Few-Shot Prompting (Show 2-3 examples of the exact format you want).
+C) Ask nicely and hope.
+D) Try again later.
 
 **Correct Answer:** B
 
@@ -118,38 +118,38 @@ D) Reboot.
 ### Question 7 (Reasoning)
 **Why does stating "Let's think step by step" work?**
 
-A) It's magic.  
-B) It conditions the model to generate reasoning tokens, which grounds its final answer in logic rather than just probability.  
-C) It connects to a calculator.  
-D) It unlocks GPT-5.  
+A) It's magic.
+B) It conditions the model to generate reasoning text, which grounds its final answer in logic rather than just a probable-sounding guess.
+C) It connects to a calculator app.
+D) It unlocks a hidden feature.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** It changes the probability distribution of the next words to favor logical steps.
+- **B) ✓ Correct!** It changes the way the model builds its answer, favoring logical steps over quick guesses.
 
 ---
 
 ### Question 8 (Critic)
-**True or False: The Critic Pattern is useful for finding security vulnerabilities in code.**
+**True or False: The Critic Pattern is useful for finding red flags in something like an online listing or contract.**
 
-A) True.  
-B) False.  
+A) True.
+B) False.
 
 **Correct Answer:** A
 
 **Feedback:**
-- **A) ✓ Correct!** Asking AI to "Act as a Hacker" and review code is a great preliminary security check.
+- **A) ✓ Correct!** Asking AI to "act as a skeptical reviewer" is a great preliminary check before you commit to something.
 
 ---
 
 ### Question 9 (Chaining)
-**In a prompt chain, data passed between steps is called the:**
+**In a prompt chain, the data passed between steps is often called the:**
 
-A) Handshake.  
-B) Context / State.  
-C) Chain link.  
-D) Token.  
+A) Handshake.
+B) Context / State.
+C) Chain link.
+D) Token.
 
 **Correct Answer:** B
 
@@ -161,10 +161,10 @@ D) Token.
 ### Question 10 (Agents)
 **An "Agent" can be described as:**
 
-A) A loop of Prompt Chains that can perceive and act.  
-B) A spy.  
-C) A database.  
-D) A single prompt.  
+A) A loop of Prompt Chains that can perceive and act, with some autonomy in deciding what to do next.
+B) A spy.
+C) A database.
+D) A single prompt.
 
 **Correct Answer:** A
 
@@ -174,12 +174,12 @@ D) A single prompt.
 ---
 
 ### Question 11 (Debugging)
-**The AI generates code that uses a made-up library. What is this called?**
+**The AI generates a "fact" or detail that sounds confident but turns out to be made up. What is this called?**
 
-A) Creativity.  
-B) Hallucination.  
-C) Optimization.  
-D) Zero-Day.  
+A) Creativity.
+B) Hallucination.
+C) Optimization.
+D) A bug fix.
 
 **Correct Answer:** B
 
@@ -189,42 +189,42 @@ D) Zero-Day.
 ---
 
 ### Question 12 (Correction)
-**How can CoT help reduced Hallucinations?**
+**How can CoT help reduce Hallucinations?**
 
-A) It doesn't.  
-B) By forcing the AI to derive the answer from facts/logic rather than just guessing the final word.  
-C) It deletes them.  
-D) It highlights them.  
+A) It doesn't.
+B) By forcing the AI to derive the answer from stated facts/logic rather than just guessing the final word.
+C) It deletes them automatically.
+D) It highlights them in red.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** It slows down the "guessing" process.
+- **B) ✓ Correct!** It slows down the "guessing" process in favor of explicit reasoning.
 
 ---
 
 ### Question 13 (Persona)
 **When chaining, why assign unique Personas to each step?**
 
-A) To keep it fun.  
-B) To access specific subsets of the model's training data (e.g., "Legal" vocabulary vs "Engineering" vocabulary).  
-C) It is required.  
-D) To use less memory.  
+A) To keep it fun.
+B) To access specific tones and vocabulary suited to each step (e.g., "organizer" vocabulary vs. "writer" vocabulary).
+C) It is strictly required by the software.
+D) To use less memory.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** "Act as a Lawyer" retrieves different probabilities than "Act as a Clown."
+- **B) ✓ Correct!** "Act as a friendly editor" produces different results than "Act as a strict fact-checker."
 
 ---
 
 ### Question 14 (Iterative Refinement)
 **"Critique my prompt and rewrite it to be better." This is an example of:**
 
-A) Meta-Prompting.  
-B) Zero-Shot.  
-C) Failure.  
-D) Cheating.  
+A) Meta-Prompting.
+B) Zero-Shot.
+C) A mistake.
+D) Cheating.
 
 **Correct Answer:** A
 
@@ -236,10 +236,10 @@ D) Cheating.
 ### Question 15 (Final Review)
 **Which combination is structured as "Show, Reason, Check"?**
 
-A) Few-Shot -> CoT -> Critic.  
-B) Zero-Shot -> Critic.  
-C) Generator -> Extractor.  
-D) None of the above.  
+A) Few-Shot -> CoT -> Critic.
+B) Zero-Shot -> Critic.
+C) Generator -> Extractor.
+D) None of the above.
 
 **Correct Answer:** A
 

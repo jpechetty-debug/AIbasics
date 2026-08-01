@@ -22,17 +22,17 @@ week: 3
 **Scoring Guide:**
 - 13-15: Prompt Master 🧙‍♂️
 - 10-12: Pattern Practitioner 👷
-- <10: Needs Refactoring 🔧
+- <10: Needs Practice 🔧
 
 ---
 
 ### Question 1 (The Translator Pattern)
-**You use AI to rewrite a technical incident report into a calm email for the CEO. What capability of the Translator Pattern are you leveraging?**
+**You use AI to rewrite a dense medical report into a calm explanation for a worried family member. What capability of the Translator Pattern are you leveraging?**
 
-A) Code Conversion  
-B) Tone and Audience Adaptation  
-C) Data Compression  
-D) Fact Checking  
+A) Code Conversion
+B) Tone and Audience Adaptation
+C) Data Compression
+D) Fact Checking
 
 **Correct Answer:** B
 
@@ -42,117 +42,117 @@ D) Fact Checking
 ---
 
 ### Question 2 (The Summarizer Pattern)
-**Which instruction typically improves the quality of a Log Summary prompt?**
+**Which instruction typically improves the quality of a long email thread summary?**
 
-A) "Read every line."  
-B) "Ignore trivial 'Info/Debug' messages and group duplicate errors."  
-C) "Translate to French."  
-D) "Write a poem."  
+A) "Read every line."
+B) "Ignore small talk and group repeated topics together."
+C) "Translate to French."
+D) "Write a poem."
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Filtering noise (Info/Debug) and grouping duplicates prevents the summary from being as long as the original log.
+- **B) ✓ Correct!** Filtering noise (small talk) and grouping duplicates prevents the summary from being as long as the original thread.
 
 ---
 
 ### Question 3 (The Extractor Pattern)
-**You want to extract IP addresses from a text file. Why might you prefer AI Extraction over Regex?**
+**You want to pull item names and prices from a receipt. Why might you prefer AI extraction over manually copying each line?**
 
-A) AI is faster at math.  
-B) AI handles unstructured/messy context (e.g., distinguishing "Source IP" vs "Destination IP" based on sentence structure).  
-C) Regex cannot match IPs.  
-D) AI uses less memory.  
+A) AI is faster at math.
+B) AI handles unstructured/messy formatting (e.g., inconsistent spacing or abbreviations) based on context.
+C) Manual copying cannot capture prices.
+D) AI uses less memory.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Regex matches patterns; AI matches meaning/context.
+- **B) ✓ Correct!** AI matches meaning and context, not just exact character patterns, so it handles messy real-world formatting well.
 
 ---
 
 ### Question 4 (The Generator Pattern)
-**When asking AI to generate a Python script, what is a critical safety step before running it?**
+**When asking AI to generate a first draft of something important (like a cover letter), what is a critical step before using it?**
 
-A) Check if it compiles.  
-B) Read the code to ensure it doesn't delete files or send data externally (Review & Verify).  
-C) Run it as Root/Administrator immediately.  
-D) Submit it to the App Store.  
+A) Send it immediately with no changes.
+B) Read it carefully to check for accuracy and personalize it to your actual situation (Review & Verify).
+C) Ask it to sign your name.
+D) Submit it to a contest immediately.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Never run unverified AI code, especially with elevated privileges.
+- **B) ✓ Correct!** Always review and personalize AI-generated drafts before using them for something important.
 
 ---
 
 ### Question 5 (Pattern Selection)
-**Scenario:** You have a PDF manual and need to find the specific command to enable SSH. You don't want to read the whole book. Which pattern helps?**
+**Scenario: You have a 60-page instruction manual and need to find the specific steps to reset a device. You don't want to read the whole book. Which pattern helps?**
 
-A) Generator  
-B) Translator  
-C) Summarizer (Extractive)  
-D) Extractor (Structured)  
+A) Generator
+B) Translator
+C) Summarizer (Extractive)
+D) Extractor (Structured data)
 
 **Correct Answer:** C
 
 **Feedback:**
-- **C) ✓ Correct!** You are summarizing/finding a needle in a haystack.
+- **C) ✓ Correct!** You are summarizing/finding a specific needle in a haystack of pages.
 
 ---
 
 ### Question 6 (Limitations)
-**What happens if you ask the Extractor Pattern to pull data that isn't in the source text?**
+**What happens if you ask the Extractor Pattern to pull data that isn't actually in the source text?**
 
-A) It crashes.  
-B) It might "Hallucinate" (invent) the data to satisfy the request.  
-C) It always says "Null."  
-D) It emails the author.  
+A) It crashes.
+B) It might "Hallucinate" (invent) the data to satisfy the request.
+C) It always says "Null."
+D) It emails the author.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** You must instruct it: "If data is missing, output NULL," otherwise it might make up a plausible value.
+- **B) ✓ Correct!** You must instruct it: "If data is missing, output N/A," otherwise it might make up a plausible-sounding value.
 
 ---
 
 ### Question 7 (Formats)
-**Which structured data format is generally best for passing data between AI and Scripts?**
+**Which structured data format is generally best for passing data between AI and a spreadsheet or app?**
 
-A) JSON  
-B) ASCII Art  
-C) RTF  
-D) MP3  
+A) JSON or a clean table
+B) ASCII Art
+C) An audio file
+D) A video
 
 **Correct Answer:** A
 
 **Feedback:**
-- **A) ✓ Correct!** JSON is the lingua franca of APIs and automation.
+- **A) ✓ Correct!** JSON or a well-formatted table is the standard for moving structured data between tools.
 
 ---
 
 ### Question 8 (Translator Pattern)
-**Can the Translator Pattern convert code from an old language (COBOL/Perl) to a modern one (Python/Go)?**
+**Can the Translator Pattern convert an old-fashioned, wordy letter into a modern, concise style?**
 
-A) Yes, and it's a great use case for modernization.  
-B) No, AI doesn't know old languages.  
-C) Only if the code is < 10 lines.  
-D) No, it violates copyright.  
+A) Yes, and it's a great use case for rewriting.
+B) No, AI doesn't understand older writing styles.
+C) Only if the letter is very short.
+D) No, it violates copyright.
 
 **Correct Answer:** A
 
 **Feedback:**
-- **A) ✓ Correct!** AI models are trained on massive codebases, including legacy languages.
+- **A) ✓ Correct!** AI models are trained on huge amounts of writing across eras and styles.
 
 ---
 
 ### Question 9 (Scenario)
-**You want to create 100 fake user accounts (Name, Email, Role) to test your Active Directory script. Which pattern is this?**
+**You want to create 20 realistic fake grocery-spending entries to test a budgeting spreadsheet. Which pattern is this?**
 
-A) Summarizer  
-B) Generator (Mock Data)  
-C) Extractor  
-D) Translator  
+A) Summarizer
+B) Generator (Practice Data)
+C) Extractor
+D) Translator
 
 **Correct Answer:** B
 
@@ -164,10 +164,10 @@ D) Translator
 ### Question 10 (Chaining)
 **What does "Chaining" mean in the context of these patterns?**
 
-A) Wearing jewelry.  
-B) Using the output of one pattern (e.g., Extractor) as the input for another (e.g., Generator).  
-C) Running the prompt on a blockchain.  
-D) Writing the prompt in C#.  
+A) Wearing jewelry.
+B) Using the output of one pattern (e.g., Extractor) as the input for another (e.g., Generator).
+C) Running the prompt overnight.
+D) Writing the prompt in a different app.
 
 **Correct Answer:** B
 
@@ -179,70 +179,70 @@ D) Writing the prompt in C#.
 ### Question 11 (Terminology)
 **"Abstractive Summarization" means:**
 
-A) Highlighting exact sentences.  
-B) Rewriting the summary in new words/sysnthesis.  
-C) Deleting the file.  
-D) Making it abstract art.  
+A) Highlighting exact sentences.
+B) Rewriting the summary in new words/synthesis.
+C) Deleting the file.
+D) Making it abstract art.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Abstractive = Rephrasing/Synthesizing. Extractive = Copy-pasting fragments.
+- **B) ✓ Correct!** Abstractive = Rephrasing/Synthesizing. Extractive = Copy-pasting exact fragments.
 
 ---
 
 ### Question 12 (Use Case)
-**"Take this rough list of bullet points and turn it into a polite, professional client email."**
+**"Take this rough list of bullet points and turn it into a polite, professional email to a landlord."**
 
-A) Translator  
-B) Generator  
-C) Summarizer  
-D) Extractor  
+A) Translator
+B) Generator
+C) Summarizer
+D) Extractor
 
 **Correct Answer:** A
 
 **Feedback:**
-- **A) ✓ Correct!** You are translating "Draft/Rough" language into "Professional/Polite" language.
+- **A) ✓ Correct!** You are translating "rough/casual" language into "professional/polite" language.
 
 ---
 
 ### Question 13 (Ethics/Safety)
-**When using the Generator pattern to write a security pentest script, what constraint should you include?**
+**When using the Generator pattern to write something on someone else's behalf (like a reference letter), what constraint should you include?**
 
-A) "Make it undetectable."  
-B) "Ensure it targets only authorized IP ranges (Ethics/Safety)."  
-C) "Make it a virus."  
-D) "Hide the code."  
+A) "Make it sound like someone else entirely."
+B) "Keep it honest and only include things I can verify are true."
+C) "Exaggerate everything."
+D) "Hide who wrote it."
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Responsible AI usage requires setting boundaries to ensure code is used for defensive/authorized purposes only.
+- **B) ✓ Correct!** Responsible AI usage means setting boundaries to ensure generated content stays honest and appropriate.
 
 ---
 
 ### Question 14 (Debugging)
-**University the Extractor pattern fails to output valid JSON. What is the likely fix?**
+**The Extractor pattern keeps failing to output valid, clean data (extra chatter mixed in). What is the likely fix?**
 
-A) Ask nicely.  
-B) Add a constraint: "Output ONLY raw JSON with no markdown formatting or chatter."  
-C) Buy a new computer.  
-D) Use XML.  
+A) Ask nicely.
+B) Add a constraint: "Output ONLY the structured data with no extra commentary or formatting."
+C) Buy a new computer.
+D) Switch to a different pattern entirely.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Refining the "Format" constraint usually fixes syntax errors.
+- **B) ✓ Correct!** Tightening the "Format" constraint usually fixes messy or inconsistent output.
 
 ---
 
 ### Question 15 (Review)
 **The "PCTF" framework (Persona, Context, Task, Format) applies to:**
 
-A) Only the Generator Pattern.  
-B) Only the Translator Pattern.  
-C) All Prompt Engineering Patterns.  
-D) None of them.  
+A) Only the Generator Pattern.
+B) Only the Translator Pattern.
+C) All Prompt Engineering Patterns.
+D) None of them.
 
 **Correct Answer:** C
 

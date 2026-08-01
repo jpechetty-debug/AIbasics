@@ -12,8 +12,8 @@ week: 4
 # Week 4 - Day 5: Review & Mini-Project
 
 ## Overview
-**Week 4 – Day 5**  
-**Topic:** Review & Mini-Project: Building a Troubleshooting Agent  
+**Week 4 – Day 5**
+**Topic:** Review & Mini-Project: Building a Troubleshooting Agent
 **Duration:** ~90 minutes
 
 ### Learning Objectives
@@ -43,51 +43,50 @@ An AI Agent isn't magic. It's just a loop:
 
 ## Hands-On Mini-Project
 
-### Project: The "Network Outage Agent"
+### Project: The "Home Internet Outage Agent"
 
-**Objective:** Simulate an AI Agent that diagnoses a network outage report.
+**Objective:** Simulate an AI Agent that diagnoses a home Wi-Fi outage report.
 
 **Step 1: The Trigger (User Input)**
-"The Wi-Fi in Building 3 is down."
+"The Wi-Fi at home is down."
 
 **Step 2: The Analyst (Chain Link 1)**
-> **Context:** You are a L1 Helpdesk AI.
-> **Task:** Analyze the user report. List 3 clarifying questions to narrow the scope.
+> **Context:** You are a friendly home tech-support assistant.
+> **Task:** Analyze the user report. List 3 clarifying questions to narrow down the cause.
 > **Output:**
-> 1. Is it all users or just one?
-> 2. Do wired connections work?
-> 3. Are the lights on the Access Points on?
+> 1. Is it every device, or just one?
+> 2. Do wired connections (like a smart TV plugged into an ethernet cable) still work?
+> 3. Are the lights on the router/modem on and normal-looking?
 
 **Step 3: The Data Merger (Chain Link 2)**
-*(Assume User answers: All users, Wired works, AP lights are off/amber)*
-> **Context:** You are a Network Engineer.
-> **Task:** Given the symptoms (Wired OK, APs off), determine the likely root cause. Use Chain of Thought.
+*(Assume the answers are: every device is affected, no wired devices work either, and the router lights are off.)*
+> **Context:** You are a home tech-support assistant.
+> **Task:** Given the symptoms (nothing works, router lights off), determine the likely root cause. Use Chain of Thought.
 > **Output:**
-> 1. Wired works -> Internet/Gateway is fine.
-> 2. APs are off -> Power issue.
-> 3. APs use PoE.
-> 4. **Root Cause:** PoE Switch in Building 3 likely lost power or PoE budget.
+> 1. Every device is affected, including wired -> the problem is upstream of all devices.
+> 2. Router lights are off entirely -> likely a power issue, not a Wi-Fi signal issue.
+> 3. **Root Cause:** The router or modem has lost power, or the internet service itself is down.
 
 **Step 4: The Communicator (Chain Link 3)**
-> **Context:** You are a Customer Service Rep.
-> **Task:** Write a status update email to the users explaining the issue and the fix (Check the breaker).
-> **Input:** "PoE Switch Failure."
-> **Output:** "Team, we identified a power issue with the switches..."
+> **Context:** You are explaining this to your household.
+> **Task:** Write a short, calm message explaining the issue and the first thing to try (checking the router's power and cables).
+> **Input:** "Router appears to have lost power."
+> **Output:** "Hey everyone, looks like the router lost power — I'm going to check the outlet and cables now..."
 
 **Assignment Submission:**
-Perform this chain on a problem of your choice (e.g., Server Crash, Printer Jam) and capture the 3-step prompt chain.
+Perform this same chain on a problem of your choice (e.g., a car that won't start, a recipe that didn't turn out right, a plant that's dying) and capture the 3-step prompt chain you used.
 
 ---
 
 ## Weekly Interactive Quiz
 
 ### Question 1 (Patterns)
-**Which pattern involves giving the AI 3 examples of "Input -> Output" before asking your question?**
+**Which pattern involves giving the AI 2-3 examples of "Input -> Output" before asking your real question?**
 
-A) Zero-Shot  
-B) One-Shot  
-C) Few-Shot  
-D) Chain of Thought  
+A) Zero-Shot
+B) One-Shot
+C) Few-Shot
+D) Chain of Thought
 
 **Correct Answer:** C
 
@@ -97,10 +96,10 @@ D) Chain of Thought
 ### Question 2 (Reasoning)
 **"Let's think step by step" is the trigger phrase for:**
 
-A) The Critic  
-B) Chain of Thought (CoT)  
-C) The Simulator  
-D) The Terminator  
+A) The Critic
+B) Chain of Thought (CoT)
+C) The Formatter
+D) The Extractor
 
 **Correct Answer:** B
 
@@ -108,12 +107,12 @@ D) The Terminator
 - **B) ✓ Correct!** It triggers intermediate reasoning steps.
 
 ### Question 3 (Quality)
-**You utilize "Role Prompting" to ask the AI to "Act as a Hacker" and try to break your code. Which pattern is this?**
+**You ask the AI to "Act as a Skeptic" and try to find flaws in your plan. Which pattern is this?**
 
-A) The Critic Pattern  
-B) The Summarizer  
-C) The Fan  
-D) The Translator  
+A) The Critic Pattern
+B) The Summarizer
+C) The Fan
+D) The Translator
 
 **Correct Answer:** A
 
@@ -123,10 +122,10 @@ D) The Translator
 ### Question 4 (Architecture)
 **Why is Chaining safer than a single giant prompt?**
 
-A) It isn't.  
-B) It allows for human-in-the-loop verification between steps, preventing errors from cascading.  
-C) It creates more AI.  
-D) It is faster.  
+A) It isn't.
+B) It allows for checking each step before moving to the next, preventing errors from cascading.
+C) It creates more AI.
+D) It is always faster.
 
 **Correct Answer:** B
 
@@ -136,19 +135,19 @@ D) It is faster.
 ### Question 5 (Future)
 **What is the next evolution after "Chaining"?**
 
-A) Telepathy.  
-B) Autonomous Agents (where the AI chooses which tool/chain to run).  
-C) Less AI.  
-D) Analog computers.  
+A) Telepathy.
+B) Autonomous Agents (where the AI chooses which tool/chain to run on its own).
+C) Less AI.
+D) Analog computers.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Agents are essentially dynamic chains where the AI picks the path.
+- **B) ✓ Correct!** Agents are essentially dynamic chains where the AI picks the path itself.
 
 ---
 
 ### End of Week 4
 **Congratulations!** You have completed the **Advanced Prompting** module.
 You can now guide the AI to learn from examples, think logically, critique itself, and execute complex workflows.
-**Next Week:** We will explore **AI Tools**—using AI to help you write actual Python and Ansible code.
+**Next Week:** We will explore **AI for Everyday Automation**—using AI to help you write simple, beginner-friendly scripts.

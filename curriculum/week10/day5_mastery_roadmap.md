@@ -7,7 +7,7 @@ tags: ["roadmap", "mastery", "final"]
 
 # The AI Mastery Roadmap
 
-Congratulations! You have reached the final day of the **AI Course for IT Professionals**. You have evolved from an "AI Curious" observer to an "AI Fluent" leader. Today is about reflecting on your progress and defining your strategic roadmap for the next 12 months.
+Congratulations! You have reached the final day of **AI Basics for Everyone**. You have evolved from an "AI Curious" observer to an "AI Fluent" leader. Today is about reflecting on your progress and defining your strategic roadmap for the next 12 months.
 
 ## 🏆 Graduation Reflection: The Evolution of a Pro
 
@@ -16,7 +16,7 @@ Think back to Week 1. What was your biggest misconception about AI? Most people 
 ### Your Journey at a Glance:
 - **Weeks 1-3 (The Foundation)**: You mastered the anatomy of a prompt and the "C.A.T." framework.
 - **Weeks 4-6 (The Technique)**: You learned "Few-Shot," "Chain-of-Thought," and "Multi-Persona" prompting.
-- **Weeks 7-9 (The Application)**: You solved real IT tickets, optimized SQL, and automated documentation.
+- **Weeks 7-9 (The Application)**: You built AI agents, analyzed real data, and automated documentation for everyday tasks.
 - **Week 10 (The Strategy)**: You tackled ethics, security, and organizational leadership.
 
 ---
@@ -86,7 +86,7 @@ Consistency is more important than intensity in the early months. Build the habi
 ---
 
 ### Question 2
-**Why is running a "Local LLM" (like Ollama) a valuable skill for an IT professional?**
+**Why is running a "Local LLM" (like Ollama) a valuable skill for anyone handling sensitive data?**
 
 A) It is always faster than the cloud.
 B) It allows you to process sensitive or air-gapped data with 100% privacy and no internet connection.

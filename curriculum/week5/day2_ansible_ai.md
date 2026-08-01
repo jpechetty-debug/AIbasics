@@ -4,174 +4,163 @@ duration: ~60 minutes
 tags:
 - prompting
 - python
-title: 'Week 5 - Day 2: AI for Ansible Playbooks'
+title: 'Week 5 - Day 2: AI for Spreadsheet & Macro Automation'
 week: 5
 ---
 
-# Week 5 - Day 2: AI for Ansible Playbooks
+# Week 5 - Day 2: AI for Spreadsheet & Macro Automation
 
 ## Overview
-**Week 5 – Day 2**  
-**Topic:** Generating Ansible Playbooks with AI  
+**Week 5 – Day 2**
+**Topic:** Generating Spreadsheet Formulas and Macros with AI
 **Duration:** ~60 minutes
 
 ### Learning Objectives
 By the end of this lesson, you will be able to:
-1. Generate Ansible YAML structure (Playbooks, Roles) using AI.
-2. Use AI to convert Shell commands into Ansible Modules.
-3. Validate AI-generated YAML syntax.
+1. Generate complex spreadsheet formulas (Excel/Google Sheets) using AI.
+2. Use AI to convert a manual task into an automated macro or script.
+3. Validate AI-generated formulas before trusting them with real data.
 
 ---
 
 ## Lesson Content
 
-### The YAML Headache
+### The Formula Headache
 
-Ansible is powerful, but YAML indentation is painful.
-- "Is that 2 spaces or 4?"
-- "Do I use a list `-` here?"
+Spreadsheets are powerful, but formula syntax is easy to get wrong.
+- "Is that a comma or a semicolon between arguments?"
+- "Do I need dollar signs to lock that cell reference?"
 
-**AI is the perfect YAML generator.** It doesn't make indentation errors.
+**AI is a fantastic formula generator.** It rarely makes syntax mistakes, and it can explain exactly what it wrote.
 
-### Use Case 1: Shell to Ansible
+### Use Case 1: Plain English to Formula
 
-**The Problem:** You know the CLI command: `apt-get install nginx`. You want the Ansible module.
+**The Problem:** You know what you want in plain English: "If the amount in column B is over $100, mark it as 'Review' in column C, otherwise mark it 'OK'."
 
 **The Prompt:**
-> **Task:** Convert this shell command to an Ansible Task: `apt-get install nginx`.
-> **Constraint:** Ensure state is 'present' and use `become: yes`.
+> **Task:** Write a Google Sheets/Excel formula for this logic: If the value in B2 is over 100, output "Review", otherwise output "OK".
+> **Constraint:** Show the formula ready to paste into cell C2, and explain each part briefly.
 
 **The Output:**
-```yaml
-- name: Install nginx
-  apt:
-    name: nginx
-    state: present
-  become: yes
+```
+=IF(B2>100, "Review", "OK")
 ```
 
-### Use Case 2: The Full Playbook
+### Use Case 2: The Full Automation (Macro)
 
 **The Prompt:**
-> **Task:** Write an Ansible playbook to configure a Cisco IOS Switch.
+> **Task:** Write a Google Apps Script that automatically sends me an email summary every Monday morning listing any spreadsheet rows marked "Review" from last week.
 > **Steps:**
-> 1. Set hostname.
-> 2. Create VLAN 10 (Name: Data).
-> **Library:** Use `cisco.ios.ios_config` collection.
-> **Inventory:** Target `switches` group.
+> 1. Loop through all rows.
+> 2. Collect any row where column C says "Review".
+> 3. Email me (my address) a simple bulleted list.
+> **Trigger:** Should run automatically every Monday at 8am.
 
 **The Output:**
-A complete `site.yml` with the correct `hosts`, `gather_facts`, and `tasks` structure using the modern collection syntax.
+A complete Apps Script function, plus instructions on how to set up the time-based trigger in the Apps Script editor.
 
-### Use Case 3: Jinja2 Templating
+### Use Case 3: The "Nested Formula" Decoder
 
-Generating Jinja2 templates for config generation is complex.
+Long spreadsheet formulas someone else wrote can look like a wall of parentheses.
 
 **The Prompt:**
-> **Task:** Create a Jinja2 template (`switch.j2`) for Interface configuration.
-> **Variables:** Iterate over a list called `interfaces` with `name` and `desc`.
-> **Example Data:** `[{name: Gi1, desc: Uplink}, {name: Gi2, desc: User}]`
+> **Task:** Explain what this formula does, step by step, in plain English.
+> **Input:** `=IFERROR(VLOOKUP(A2,Sheet2!A:B,2,FALSE),"Not Found")`
 
 **The Output:**
-```jinja2
-{% for interface in interfaces %}
-interface {{ interface.name }}
- description {{ interface.desc }}
- exit
-{% endfor %}
-```
+"This looks up the value in cell A2 within a table on Sheet2. If it finds a match, it returns the corresponding value from column B. If no match is found (which would normally show an error), it displays 'Not Found' instead."
 
 ---
 
 ## Hands-On Exercise
 
-### Exercise: The "LAMP Stack" Playbook
+### Exercise: The "Household Budget Tracker" Automation
 
-**Objective:** Create a playbook to install Apache and PHP.
+**Objective:** Create an automated monthly budget summary.
 
 **Step 1: The Prompt**
-> "Write an Ansible Playbook for Ubuntu. Install Apache2 and PHP module. Start the generic Apache service."
+> "Write a Google Sheets formula that adds up all expenses in column B where the category in column A is 'Groceries', and shows the total in cell E1."
 
 **Step 2: The Critic Check**
-> A common mistake: Did it update the cache (`update_cache: yes`)?
-> **Prompt:** "Check the playbook. Did you update the apt cache before installing?"
+> A common mistake: does the formula only sum an exact match, or would it accidentally include "Groceries - Bulk" too?
+> **Prompt:** "Check this formula. Would it match 'Groceries' exactly, or partially match other categories too?"
 
 **Step 3: Verification**
-> **Prompt:** "Explain exactly what `state: present` vs `state: latest` does in this context."
+> **Prompt:** "Explain exactly what `SUMIF` does versus `SUMIFS` in this context, and when I'd need the second one."
 
 **Reflection:**
-Ansible documentation is huge. AI acts as a search engine that writes the config for you.
+Spreadsheet formula documentation is dense and often confusing. AI acts like a patient tutor who writes the formula for you and explains it in plain terms.
 
 ---
 
 ## Interactive Daily Quiz
 
 ### Question 1 (Syntax)
-**What happens if you mess up indentation in YAML?**
+**What happens if you mismatch a comma or parenthesis in a spreadsheet formula?**
 
-A) It works fine.  
-B) The playbook fails (Syntax Error).  
-C) It runs faster.  
-D) Nothing.  
+A) It works fine anyway.
+B) The formula shows an error or doesn't calculate correctly.
+C) It runs faster.
+D) Nothing happens.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** YAML is whitespace-sensitive. AI helps avoid these errors.
+- **B) ✓ Correct!** Formula syntax is precise. AI helps avoid these small but frustrating errors.
 
 ### Question 2 (Conversion)
-**You ask AI: "Turn `service httpd restart` into an Ansible task." What module should it use?**
+**You ask AI: "Turn my weekly manual task of copying data between two sheets into an automatic script." What kind of tool should it generate?**
 
-A) `command`  
-B) `service` or `systemd`  
-C) `file`  
-D) `ping`  
+A) A single static formula
+B) A macro/script (like Google Apps Script or an Excel macro) that runs automatically
+C) A printed instruction sheet
+D) A new spreadsheet template only
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** While `command` works, the native `service` module is "Idempotent" (better practice).
+- **B) ✓ Correct!** Repeated, multi-step manual tasks are best automated with a script/macro rather than a single formula.
 
 ### Question 3 (Structure)
-**Can AI generate the folder structure for an Ansible Role (tasks/, vars/, templates/)?**
+**Can AI help you design an entire spreadsheet layout (which columns to use, what each tab is for)?**
 
-A) Yes, utilize the "Generator" pattern to ask for the structure or a shell script to create it.  
-B) No.  
-C) Only on Linux.  
-D) No, it handles single files only.  
+A) Yes, describe your goal and ask it to suggest a layout, then refine from there.
+B) No.
+C) Only for accounting professionals.
+D) No, it only writes single formulas.
 
 **Correct Answer:** A
 
 **Feedback:**
-- **A) ✓ Correct!** "Write a bash script to `mkdir` the standard Ansible Role structure" is a great prompt.
+- **A) ✓ Correct!** "Suggest a simple spreadsheet layout for tracking my monthly budget" is a great starting prompt.
 
-### Question 4 (Templating)
-**What language does Ansible use for templates?**
+### Question 4 (Automation Triggers)
+**What lets a spreadsheet macro run automatically on a schedule (e.g., every Monday) instead of manually?**
 
-A) HTML  
-B) Jinja2  
-C) COBOL  
-D) Python  
+A) A magic formula
+B) A time-based trigger set up in the scripting tool
+C) Restarting your computer
+D) Printing the sheet
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** AI excels at Jinja2 loops and conditionals.
+- **B) ✓ Correct!** AI can write the trigger setup instructions along with the script itself.
 
 ### Question 5 (Safety)
-**The AI suggests using `shell: echo "password" | sudo -S command`. Is this good practice?**
+**The AI suggests a macro that automatically emails your full spreadsheet (including sensitive personal data) to an address you didn't specify. Is this good practice?**
 
-A) Yes.  
-B) No. It exposes passwords in logs. Use `become` (sudo) directives instead.  
-C) Yes, it's fast.  
-D) Maybe.  
+A) Yes, run it as-is.
+B) No. Always double-check that any automated email/sharing step only sends what you intend, to who you intend.
+C) Yes, it's convenient.
+D) It doesn't matter.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Always critique AI output for security bad practices.
+- **B) ✓ Correct!** Always critique AI-generated automations for unintended data sharing before running them.
 
 ---
 
 ### Summary
-Today you conquered YAML. You used AI to generate **Ansible Playbooks** and **Jinja2 Templates**, turning English requirements into Infrastructure-as-Code. Tomorrow, we explore **Regex** and Data Parsing.
+Today you conquered formulas and macros. You used AI to generate **spreadsheet formulas** and **automation scripts**, turning plain English requirements into working tools. Tomorrow, we explore **Regex** and text parsing.

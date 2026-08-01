@@ -17,12 +17,12 @@ week: 8
 ## Capstone & Course Final Exam
 
 **Instructions:**
-- 15 questions covering the entire 8-week curriculum, with focus on the Capstone concepts.
+- 15 questions covering the entire 8-week curriculum, with a focus on the Capstone concepts.
 - Aim for 80% or higher.
 
 **Scoring Guide:**
-- 13-15: AI Network Architect 🏆
-- 10-12: NetDevOps Engineer 🥈
+- 13-15: AI Solutions Architect 🏆
+- 10-12: AI-Augmented Builder 🥈
 - <10: Review the Course 🥉
 
 ---
@@ -30,70 +30,70 @@ week: 8
 ### Question 1 (Capstone)
 **In the Capstone Architecture, the "Supervisor" component is responsible for:**
 
-A) Storing data.  
-B) Routing the user's intent to the correct Tool or RAG system.  
-C) Executing Python.  
-D) Sending emails.  
+A) Storing all the data.
+B) Routing the user's intent to the correct Tool or RAG system.
+C) Executing Python directly.
+D) Sending emails.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** It is the decision-making brain.
+- **B) ✓ Correct!** It is the decision-making brain of the whole system.
 
 ---
 
 ### Question 2 (RAG)
-**Which file type was NOT part of your Capstone Knowledge Base?**
+**Which of these was NOT part of your Capstone Knowledge Base?**
 
-A) Mock SOPs (Markdown).  
-B) Mock Inventory (CSV).  
-C) A real human brain.  
-D) Text data.  
+A) A mock FAQ/policy document (Markdown).
+B) A mock product/service catalog (CSV).
+C) A real human brain.
+D) Structured text data.
 
 **Correct Answer:** C
 
 **Feedback:**
-- **C) ✓ Correct!** We used synthetic text data.
+- **C) ✓ Correct!** We used synthetic, AI-generated text data throughout.
 
 ---
 
 ### Question 3 (Tools)
 **Why did we wrap the Python scripts in a JSON definition?**
 
-A) So the LLM understands how to call them (Name, Description, Parameters).  
-B) To extract revenue.  
-C) To hide the code.  
-D) To make them slower.  
+A) So the AI understands how to call them (Name, Description, Parameters).
+B) To make more money.
+C) To hide the code from view.
+D) To make them run slower.
 
 **Correct Answer:** A
 
 **Feedback:**
-- **A) ✓ Correct!** The Schema is the interface between Language (LLM) and Code (Python).
+- **A) ✓ Correct!** The schema is the interface between plain language (the AI) and code (Python).
 
 ---
 
 ### Question 4 (Testing)
-**Can you trust an AI Agent without testing?**
+**Can you trust an AI Agent without testing it first?**
 
-A) No. You must verify "Happy Paths" and "Edge Cases" (Sad Paths).  
-B) Yes, AI is perfect.  
-C) Yes, if it is GPT-5.  
-D) Yes, on weekends.  
+A) No. You must verify "Happy Paths" and "Edge Cases" (Sad Paths).
+B) Yes, AI is always perfect.
+C) Yes, if it's a newer model.
+D) Yes, but only on weekends.
 
 **Correct Answer:** A
 
 **Feedback:**
-- **A) ✓ Correct!** Trust but Verify.
+- **A) ✓ Correct!** Trust, but always verify.
 
 ---
 
 ### Question 5 (Prompting)
 **"Let's think step by step" is an example of:**
 
-A) Few-Shot Prompting.  
-B) Chain of Thought (CoT).  
-C) Zero-Shot.  
-D) RAG.  
+A) Few-Shot Prompting.
+B) Chain of Thought (CoT).
+C) Zero-Shot.
+D) RAG.
 
 **Correct Answer:** B
 
@@ -103,12 +103,12 @@ D) RAG.
 ---
 
 ### Question 6 (Coding)
-**Which Python library did we use for SSH automation?**
+**Which Python library did we use for making web API requests?**
 
-A) Pandas.  
-B) Netmiko.  
-C) React.  
-D) Angular.  
+A) Pandas.
+B) requests.
+C) React.
+D) Angular.
 
 **Correct Answer:** B
 
@@ -120,10 +120,10 @@ D) Angular.
 ### Question 7 (Low-Code)
 **Flowise and LangFlow are examples of:**
 
-A) Visual "Drag-and-Drop" AI Builders.  
-B) Databases.  
-C) Operating Systems.  
-D) CLI tools.  
+A) Visual "Drag-and-Drop" AI Builders.
+B) Databases.
+C) Operating Systems.
+D) Command-line tools.
 
 **Correct Answer:** A
 
@@ -133,12 +133,12 @@ D) CLI tools.
 ---
 
 ### Question 8 (Integration)
-**An API Response code of 200 means:**
+**An API response code of 200 means:**
 
-A) Error.  
-B) Success / OK.  
-C) Forbidden.  
-D) Not Found.  
+A) An error occurred.
+B) Success / OK.
+C) Forbidden access.
+D) Not Found.
 
 **Correct Answer:** B
 
@@ -148,110 +148,110 @@ D) Not Found.
 ---
 
 ### Question 9 (Career)
-**"NRE" stands for:**
+**Which resume phrase demonstrates real, applied AI skill?**
 
-A) Network Reliability Engineer.  
-B) No Real Experience.  
-C) Network Reset Error.  
-D) New Router Era.  
+A) "I use ChatGPT sometimes."
+B) "Built RAG-based tools and AI-assisted automation workflows."
+C) "I read AI news."
+D) "I have a computer at home."
 
-**Correct Answer:** A
+**Correct Answer:** B
 
 **Feedback:**
-- **A) ✓ Correct!** The evolution of the NetAdmin.
+- **B) ✓ Correct!** Specific, applied language stands out far more than casual familiarity.
 
 ---
 
 ### Question 10 (Safety)
 **The "Human in the Loop" pattern is essential for:**
 
-A) Reading data.  
-B) Writing/Deleting data (Destructive Actions).  
-C) Asking the time.  
-D) Searching wiki.  
+A) Simply reading data.
+B) Writing/Deleting data (destructive or hard-to-reverse actions).
+C) Asking the current time.
+D) Searching a document.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Safety first.
+- **B) ✓ Correct!** Safety first, especially for anything that changes real data.
 
 ---
 
 ### Question 11 (RAG)
-**If the RAG retrieval fails (finds no docs), the Bot should:**
+**If the RAG retrieval fails (finds no relevant documents), the bot should:**
 
-A) Hallucinate an answer.  
-B) State "I cannot find that information in the Knowledge Base."  
-C) Make a joke.  
-D) Quit.  
+A) Make up a plausible-sounding answer anyway.
+B) State "I cannot find that information in the knowledge base."
+C) Make a joke about it.
+D) Simply stop responding.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Fallback to honesty.
+- **B) ✓ Correct!** Fall back to honesty rather than guessing.
 
 ---
 
 ### Question 12 (Agents)
-**An "Agent" differs from a standard LLM because:**
+**An "Agent" differs from a standard AI chat response because:**
 
-A) It has Tools and can Act.  
-B) It has a higher IQ.  
-C) It is blue.  
-D) It is expensive.  
+A) It has Tools and can take action.
+B) It has a measurably higher IQ.
+C) It's a different color.
+D) It's always more expensive.
 
 **Correct Answer:** A
 
 **Feedback:**
-- **A) ✓ Correct!** Agency = Tools.
+- **A) ✓ Correct!** Agency comes from having tools to act with, not just talk.
 
 ---
 
 ### Question 13 (Mock Data)
 **Mock Data allows us to:**
 
-A) Test dangerous scenarios (like a core router crash) without breaking the real network.  
-B) Lie.  
-C) Save money on electricity.  
-D) Avoid work.  
+A) Test risky or unusual scenarios (like a cancelled order) without touching real customer data.
+B) Deceive people.
+C) Save on electricity costs.
+D) Avoid doing any real work.
 
 **Correct Answer:** A
 
 **Feedback:**
-- **A) ✓ Correct!** Simulation is key for development.
+- **A) ✓ Correct!** Simulation is key for safe, fast development and testing.
 
 ---
 
 ### Question 14 (Soft Skills)
 **The Translator Pattern (Week 3) helps you:**
 
-A) Speak French.  
-B) Translate Technical Jargon into Business Value for management.  
-C) Write code.  
-D) Hide errors.  
+A) Literally speak a foreign language fluently.
+B) Translate technical or complex ideas into plain language for other people.
+C) Write code faster.
+D) Hide mistakes.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Communication is a superpower.
+- **B) ✓ Correct!** Clear communication is a genuine superpower, in any field.
 
 ---
 
 ### Question 15 (Final)
-**What is the best way to keep your job in the AI era?**
+**What is the best way to stay valuable and relevant in the AI era?**
 
-A) Hide under a desk.  
-B) Learn to Use AI to automate the boring parts of your job, becoming the Architect of the system.  
-C) Destroy the computers.  
-D) Quit.  
+A) Avoid AI entirely and hope nothing changes.
+B) Learn to use AI to automate the repetitive parts of your work, becoming the architect and reviewer of the system.
+C) Ignore new tools as they emerge.
+D) Give up on your field.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Adapt and Thrive.
+- **B) ✓ Correct!** Adapt and thrive by directing these tools rather than avoiding them.
 
 ---
 
 ## Course Complete!
-**You have finished the "AI for Network Administrators" 8-Week Course.**
-**Good luck on your Agentic Journey!**
+**You have finished the "AI Basics for Everyone" 8-Week Course.**
+**Good luck on your journey building with AI!**

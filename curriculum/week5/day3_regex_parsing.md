@@ -11,15 +11,15 @@ week: 5
 # Week 5 - Day 3: AI for Regex & Parsing (The Extractor Pattern II)
 
 ## Overview
-**Week 5 – Day 3**  
-**Topic:** AI for Regex & Parsing (Applying the Extractor Pattern to Code)  
+**Week 5 – Day 3**
+**Topic:** AI for Regex & Parsing (Applying the Extractor Pattern to Code)
 **Duration:** ~60 minutes
 
 ### Learning Objectives
 By the end of this lesson, you will be able to:
 1. Use AI to generate complex Regular Expressions (Regex).
-2. Use AI to write Python parser logic (TextFSM substitute).
-3. "Explain" a complex Regex string found in legacy code.
+2. Use AI to write simple Python parsing logic for messy text files.
+3. "Explain" a complex Regex pattern found in someone else's code.
 
 ---
 
@@ -27,44 +27,45 @@ By the end of this lesson, you will be able to:
 
 ### The Regex Barrier
 
-Regex is write-only code. `^(\d{1,3}\.){3}\d{1,3}$` matches an IP, but it hurts to read.
-AI *loves* Regex. It is a pattern matching engine matching patterns.
+Regex is famously hard to read. `^[\w.-]+@[\w.-]+\.\w+$` matches an email address, but it hurts to read at a glance.
+AI *loves* Regex. It is a pattern-matching engine, matching patterns.
 
 ### Task 1: Generate Regex
 
-**Scenario:** You need to extract the Mac Address from a log line: `Host 0011.2233.4455 flapping`.
+**Scenario:** You have a text file of customer messages and want to pull out every phone number mentioned.
 
 **The Prompt:**
-> "Write a Regular Expression (Python flavor) to match a Cisco format mac address (xxxx.xxxx.xxxx) from a string."
+> "Write a Python Regular Expression to match a standard US phone number in formats like `(555) 123-4567` or `555-123-4567`."
 
 **The Output:**
-`r'[0-9a-fA-F]{4}\.[0-9a-fA-F]{4}\.[0-9a-fA-F]{4}'`
+`r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}'`
 
 ### Task 2: Explain Regex
 
-**Scenario:** You find this in a script: `r'^(?:[0-9a-fA-F]:?){12}$'`
+**Scenario:** You find this in a script someone shared with you: `r'^[\w.-]+@[\w.-]+\.\w+$'`
 
 **The Prompt:**
 > "Explain this regex pattern step by step."
 
 **The Output:**
 1. `^`: Start of string.
-2. `(?: ... )`: Non-capturing group.
-3. `[0-9a-fA-F]`: Hex character.
-4. `:?`: Optional colon.
-5. `{12}`: Repeat 12 times.
-**Summary:** It matches a standard Mac Address (like AA:BB:CC...).
+2. `[\w.-]+`: One or more letters, numbers, dots, or dashes (the username part).
+3. `@`: A literal @ symbol.
+4. `[\w.-]+`: The domain name.
+5. `\.\w+`: A dot followed by the extension (like .com).
+6. `$`: End of string.
+**Summary:** It matches a standard email address.
 
 ### Task 3: The "Parser Generator"
 
-**Scenario:** You have the output of `show cdp neighbors detail`. It's messy. You want a Dictionary.
+**Scenario:** You have a messy, exported text file of order confirmations. You want it as clean data.
 
-**The Strategy:** Don't ask for Regex. Ask for a **Function**.
+**The Strategy:** Don't ask for Regex directly. Ask for a **Function**.
 
 **The Prompt:**
-> **Task:** Write a Python function `parse_cdp(output_string)` that takes the text below and returns a list of dictionaries.
-> **Fields:** Device ID, IP Address, Platform.
-> **Example Input:** [Paste CLI Output].
+> **Task:** Write a Python function `parse_orders(text)` that takes the text below and returns a list of dictionaries.
+> **Fields:** Order Number, Customer Name, Total.
+> **Example Input:** [Paste sample text].
 
 **The Output:**
 The AI will likely write a function using `re.finditer` or simple string splitting to build your data structure.
@@ -73,22 +74,22 @@ The AI will likely write a function using `re.finditer` or simple string splitti
 
 ## Hands-On Exercise
 
-### Exercise: The "Log Scraper"
+### Exercise: The "Contact List Scraper"
 
-**Objective:** Parse an Apache Access Log.
+**Objective:** Parse a messy pasted list of contacts.
 
-**Log Sample:**
-`192.168.1.5 - - [10/Oct/2023:13:55:36] "GET /index.html HTTP/1.1" 200 2326`
+**Sample Text:**
+`Jane Doe, jane.doe@email.com, (555) 234-5678`
 
 **Step 1: The Prompt**
-> "Write a Python Regex to capture the IP, Timestamp, and HTTP Status Code from this log line."
+> "Write a Python Regex to capture the Name, Email, and Phone Number from this line."
 > [Paste Sample]
 
 **Step 2: The Test**
-> "Generate a Python script to test this regex against the sample."
+> "Generate a Python script to test this regex against the sample and print the results."
 
 **Reflection:**
-Writing that regex manually involves counting brackets and spaces. AI does it instantly.
+Writing that regex manually involves careful counting of characters and symbols. AI does it instantly.
 
 ---
 
@@ -97,10 +98,10 @@ Writing that regex manually involves counting brackets and spaces. AI does it in
 ### Question 1 (Analogy)
 **If Regex is a "Scalpel," what is AI?**
 
-A) The Surgeon who knows where to cut.  
-B) A hammer.  
-C) A rock.  
-D) A spoon.  
+A) The Surgeon who knows where to cut.
+B) A hammer.
+C) A rock.
+D) A spoon.
 
 **Correct Answer:** A
 
@@ -110,56 +111,56 @@ D) A spoon.
 ### Question 2 (Library)
 **What Python module handles Regex?**
 
-A) `os`  
-B) `re`  
-C) `sys`  
-D) `pandas`  
+A) `os`
+B) `re`
+C) `sys`
+D) `pandas`
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** `import re` is standard.
+- **B) ✓ Correct!** `import re` is the standard Python module for regex.
 
 ### Question 3 (Debugging)
-**Your Regex matches the IP `999.999.999.999`. What failed?**
+**Your regex matches an obviously invalid phone number like `999-999-9999` as valid. What's going on?**
 
-A) Nothing, that's a valid IP.  
-B) The Regex `\d{1,3}` allows any 3 digits (0-999). It didn't validate the 0-255 range.  
-C) The computer is broken.  
-D) AI hates numbers.  
-
-**Correct Answer:** B
-
-**Feedback:**
-- **B) ✓ Correct!** AI often provides "Syntactic" matches, not "Semantic" validation. You need to ask for "Strict IP validation" or handle logic in code.
-
-### Question 4 (TextFSM)
-**Can AI write TextFSM templates (used by Netmiko)?**
-
-A) No.  
-B) Yes! You can paste the raw CLI output and ask "Write a TextFSM template to parse this."  
-C) Only XML.  
-D) Only JSON.  
+A) Nothing, that's a valid number.
+B) The regex only checks the *shape* (digits and dashes), not whether the number is a real, assigned phone number.
+C) The computer is broken.
+D) AI hates numbers.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** This is a huge timesaver for creating custom Netmiko parsers.
+- **B) ✓ Correct!** AI often provides "Syntactic" matches (does it look like a phone number?), not "Semantic" validation (is it a real, working number?). Be aware of this limitation.
+
+### Question 4 (Practice)
+**Can AI help you write a parser for a messy, non-standard text export from an app you use?**
+
+A) No.
+B) Yes! You can paste a sample of the raw text and ask "Write a function to parse this into structured data."
+C) Only for XML files.
+D) Only for JSON files.
+
+**Correct Answer:** B
+
+**Feedback:**
+- **B) ✓ Correct!** This is a huge timesaver for turning any messy, repeated text format into usable data.
 
 ### Question 5 (Safety)
 **What is "ReDoS" (Regex Denial of Service)?**
 
-A) A fast regex.  
-B) A poorly written regex that takes infinite time to process specific inputs, crashing the CPU.  
-C) A red operating system.  
-D) A refund.  
+A) A fast regex.
+B) A poorly written regex that can take an extremely long time to process certain inputs, potentially freezing your program.
+C) A type of computer virus.
+D) A refund process.
 
 **Correct Answer:** B
 
 **Feedback:**
-- **B) ✓ Correct!** Another reason to "Critique" AI regex: "Is this efficient? Is it vulnerable to catastrophic backtracking?"
+- **B) ✓ Correct!** Another reason to "Critique" AI-generated regex: "Is this efficient? Could it hang on unusual input?"
 
 ---
 
 ### Summary
-Today you mastered the art of text extraction. You learned to generate **Regex**, **Parsers**, and **TextFSM** templates, turning the unstructured CLI world into structured data. Tomorrow, we look at the most hated part of coding: **Documentation**.
+Today you mastered the art of text extraction. You learned to generate **Regex** and simple **parsers**, turning messy real-world text into clean, structured data. Tomorrow, we look at the most skipped part of scripting: **Documentation**.

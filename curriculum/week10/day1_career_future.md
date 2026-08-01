@@ -34,9 +34,9 @@ If a task that previously took 4 hours now takes 15 minutes with AI, what do you
 - **The Right Answer**: Spend that time on **Strategic thinking, complex problem solving, or mentoring juniors.** This is how you move up the ladder.
 
 ### Skill Stacking: The Secret to Longevity
-Combine your deep domain expertise (e.g., Cisco Networking, Azure Security, Project Management) with AI fluency. 
-- *Traditional Profile*: "I am a Java Developer."
-- *AI-Augmented Profile*: "I am a Senior Backend Architect who uses AI-driven testing frameworks and LLM-assisted code generation to deliver production-ready features 40% faster than industry benchmarks."
+Combine your deep domain expertise (e.g., Accounting, Nursing, Marketing, Project Management) with AI fluency. 
+- *Traditional Profile*: "I am a Project Coordinator."
+- *AI-Augmented Profile*: "I am a Project Coordinator who uses AI-driven reporting and automated status updates to deliver client-ready summaries 40% faster than my team's previous benchmark."
 Which one is more valuable to a company?
 
 ## 2. Personal Branding in the AI Era
@@ -46,11 +46,11 @@ How you present yourself to employers and the industry must reflect your new cap
 ### The "AI-Ready" Resume
 Stop listing "Microsoft Word" as a skill. Start listing your AI achievements.
 **Example Project Descriptions**:
-- *Before*: "Created a script to monitor server uptime."
-- *After*: "Architected an AI-augmented monitoring pipeline that reduced 'False Positive' alerts by 60% through natural language log analysis and automated triage."
+- *Before*: "Tracked customer inquiries in a spreadsheet."
+- *After*: "Built an AI-assisted inquiry triage process that reduced response time by 60% through automated categorization and drafting."
 
 - *Before*: "Responsible for writing documentation."
-- *After*: "Deployed an internal AI Knowledge Base using RAG (Retrieval-Augmented Generation) to give support staff instant access to 10+ years of legacy documentation."
+- *After*: "Deployed an internal AI-powered knowledge tool using RAG (Retrieval-Augmented Generation) to give teammates instant, searchable access to years of internal documentation."
 
 ### The AI Portfolio
 Show, don't just tell. Maintain a "Prompt Library" or a GitHub repository of AI-assisted projects. This proves you are a "Practitioner," not just a "Prompt Guest."
@@ -127,7 +127,7 @@ Tasks involving high levels of empathy, complex human relationships, and long-te
 A) It used more buzzwords.
 B) It focused on the *outcomes* and the specific *technique* (RAG, log analysis) rather than just the task.
 C) it was longer.
-D) It mentioned "Cisco" which everyone likes.
+D) It mentioned a specific tool name, which everyone likes.
 
 **Correct Answer: B**
 

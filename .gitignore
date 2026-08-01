@@ -12,3 +12,4 @@ test_file.txt
 logs/
 staticfiles/
 media/
+*.zip

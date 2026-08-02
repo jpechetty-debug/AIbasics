@@ -11,9 +11,9 @@ week: 6
 # Week 6 - Day 3: Intro to RAG (Chat with Data)
 
 ## Overview
-**Week 6 – Day 3**
-**Topic:** Retrieval Augmented Generation (RAG) Concepts
-**Duration:** ~60 minutes
+**Week 6 – Day 3**  
+**Topic:** Retrieval Augmented Generation (RAG) Concepts  
+**Duration:** ~60 minutes  
 
 ### Learning Objectives
 By the end of this lesson, you will be able to:

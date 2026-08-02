@@ -13,9 +13,9 @@ week: 3
 # Week 3 - Day 3: The Extractor Pattern
 
 ## Overview
-**Week 3 – Day 3**
-**Topic:** The Extractor Pattern - Unstructured to Structured Data
-**Duration:** ~60 minutes
+**Week 3 – Day 3**  
+**Topic:** The Extractor Pattern - Unstructured to Structured Data  
+**Duration:** ~60 minutes  
 
 ### Learning Objectives
 By the end of this lesson, you will be able to:

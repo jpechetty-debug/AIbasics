@@ -11,9 +11,9 @@ week: 7
 # Week 7 - Day 1: The "Action" Layer (Function Calling)
 
 ## Overview
-**Week 7 – Day 1**
-**Topic:** Introduction to Function Calling (Tools)
-**Duration:** ~60 minutes
+**Week 7 – Day 1**  
+**Topic:** Introduction to Function Calling (Tools)  
+**Duration:** ~60 minutes  
 
 ### Learning Objectives
 By the end of this lesson, you will be able to:

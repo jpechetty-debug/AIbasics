@@ -26,12 +26,20 @@ from .utils import parse_quiz_content
 
 _anthropic_client = None
 
+_PLACEHOLDER_API_KEYS = {'your-key-here', 'your_key_here', 'changeme', ''}
+
 def get_anthropic_client():
-    """Lazy-load and return a singleton Anthropic client."""
+    """Lazy-load and return a singleton Anthropic client.
+
+    Treats unset AND placeholder key values (e.g. the literal
+    ".env.example" default) as "not configured" so callers get the
+    graceful 503 "offline" response instead of a raw API error when
+    someone copies .env.example to .env without swapping in a real key.
+    """
     global _anthropic_client
     if _anthropic_client is None:
         api_key = config('ANTHROPIC_API_KEY', default=None)
-        if api_key:
+        if api_key and api_key.strip().lower() not in _PLACEHOLDER_API_KEYS:
             _anthropic_client = anthropic.Anthropic(api_key=api_key)
     return _anthropic_client
 
@@ -120,6 +128,11 @@ Instructions:
                 'success': True,
                 'response': response_text
             })
+        except anthropic.AuthenticationError:
+            return JsonResponse({
+                'success': False,
+                'error': 'AI Tutor is temporarily offline (API key not configured).'
+            }, status=503)
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
@@ -178,6 +191,11 @@ class PromptPlaygroundView(LoginRequiredMixin, View):
                 'success': True,
                 'response': response.content[0].text
             })
+        except anthropic.AuthenticationError:
+            return JsonResponse({
+                'success': False,
+                'error': 'AI Playground is temporarily offline (API key not configured).'
+            }, status=503)
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
 

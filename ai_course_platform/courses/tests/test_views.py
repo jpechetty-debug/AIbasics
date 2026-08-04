@@ -102,14 +102,12 @@ class CourseViewsTest(TestCase):
         """AI Tutor POST returns successful JSON response when client is configured."""
         self.client.login(username='testadmin', password='Password123!')
         url = reverse('courses:ai_tutor', kwargs={'pk': self.lesson.pk})
-        with patch('courses.views.get_anthropic_client') as mock_get_client:
+        with patch('courses.views.get_gemini_client') as mock_get_client:
             mock_client = MagicMock()
-            # Mock the structure of Anthropic API response
-            mock_message = MagicMock()
-            mock_content = MagicMock()
-            mock_content.text = "This is a mock response from Anthropic API."
-            mock_message.content = [mock_content]
-            mock_client.messages.create.return_value = mock_message
+            # Mock the structure of Gemini API response
+            mock_response = MagicMock()
+            mock_response.text = "This is a mock response from Gemini API."
+            mock_client.models.generate_content.return_value = mock_response
             mock_get_client.return_value = mock_client
             
             response = self.client.post(
@@ -126,13 +124,11 @@ class CourseViewsTest(TestCase):
         """Prompt Playground POST returns successful response when client is configured."""
         self.client.login(username='testadmin', password='Password123!')
         url = reverse('courses:prompt_playground')
-        with patch('courses.views.get_anthropic_client') as mock_get_client:
+        with patch('courses.views.get_gemini_client') as mock_get_client:
             mock_client = MagicMock()
-            mock_message = MagicMock()
-            mock_content = MagicMock()
-            mock_content.text = "Playground mock response."
-            mock_message.content = [mock_content]
-            mock_client.messages.create.return_value = mock_message
+            mock_response = MagicMock()
+            mock_response.text = "Playground mock response."
+            mock_client.models.generate_content.return_value = mock_response
             mock_get_client.return_value = mock_client
             
             payload = {

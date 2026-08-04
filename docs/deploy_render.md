@@ -4,7 +4,7 @@ This guide provides step-by-step instructions for deploying the Django-based AI 
 
 ## 1. Prerequisites
 - A Render account (https://render.com)
-- An Anthropic API Key for the AI Tutor (https://console.anthropic.com)
+- A Gemini API Key for the AI Tutor (https://aistudio.google.com/app/apikey)
 - Your code pushed to a GitHub repository
 
 ## 2. Web Service Setup
@@ -21,7 +21,8 @@ Add the following **Environment Variables** in Render:
 - `DEBUG`: `False`
 - `ALLOWED_HOSTS`: `*` (or your specific `.onrender.com` domain)
 - `CSRF_TRUSTED_ORIGINS`: `https://your-app-name.onrender.com`
-- `ANTHROPIC_API_KEY`: Your Claude API key
+- `GEMINI_API_KEY`: Your Google Gemini API key
+- `GEMINI_MODEL`: `gemini-2.5-flash`
 - `PYTHON_VERSION`: `3.12`
 
 ## 4. Database

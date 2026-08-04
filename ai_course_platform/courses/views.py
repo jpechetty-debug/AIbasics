@@ -4,7 +4,9 @@ Views for the AI Course Platform.
 import json
 import re
 import markdown
-import anthropic
+from google import genai
+from google.genai import types as genai_types
+from google.genai import errors as genai_errors
 from decouple import config
 from pathlib import Path
 from django.shortcuts import render, get_object_or_404, redirect
@@ -24,23 +26,22 @@ from .models import Module, Lesson, UserProgress, QuizAttempt, Certificate
 from .utils import parse_quiz_content
 
 
-_anthropic_client = None
+_gemini_client = None
 
-_PLACEHOLDER_API_KEYS = {'your-key-here', 'your_key_here', 'changeme', ''}
+_PLACEHOLDER_API_KEYS = {'your-key-here', 'your_key_here', 'your_anthropic_api_key_here', 'your_gemini_api_key_here', 'changeme', ''}
 
-ANTHROPIC_MODEL = config('ANTHROPIC_MODEL', default='claude-3-haiku-20240307')
+GEMINI_MODEL = config('GEMINI_MODEL', default='gemini-2.5-flash')
 
-def get_anthropic_client():
-    """Lazy-load and return a singleton Anthropic client."""
-    global _anthropic_client
-    if _anthropic_client is None:
-        api_key = config('ANTHROPIC_API_KEY', default=None)
+def get_gemini_client():
+    """Lazy-load and return a singleton Gemini client."""
+    global _gemini_client
+    if _gemini_client is None:
+        api_key = config('GEMINI_API_KEY', default=None)
         if api_key:
             api_key = api_key.strip()
         if api_key and api_key.lower() not in _PLACEHOLDER_API_KEYS:
-            _anthropic_client = anthropic.Anthropic(api_key=api_key)
-    return _anthropic_client
-
+            _gemini_client = genai.Client(api_key=api_key)
+    return _gemini_client
 
 def throttle_public_ip(request, prefix='public_throttle_', limit=60):
     """Rate limiting based on IP address for public endpoints."""
@@ -67,7 +68,7 @@ def throttle_ai_tutor(user, prefix='ai_tutor_throttle_'):
 
 
 class AITutorView(LoginRequiredMixin, View):
-    """Handle chat queries for the AI Tutor using the real Anthropic API."""
+    """Handle chat queries for the AI Tutor using the real Gemini API."""
     def post(self, request, pk):
         try:
             data = json.loads(request.body)
@@ -88,7 +89,7 @@ class AITutorView(LoginRequiredMixin, View):
                     'error': 'Rate limit exceeded. You can send up to 100 messages per hour to the AI Tutor.'
                 }, status=429)
 
-            client = get_anthropic_client()
+            client = get_gemini_client()
             if not client:
                 return JsonResponse({
                     'success': False, 
@@ -111,22 +112,22 @@ Instructions:
 4. If you don't know the answer based on the context, say so and suggest they review the lesson again.
 """
 
-            response = client.messages.create(
-                model=ANTHROPIC_MODEL,
-                system=system_prompt,
-                max_tokens=500,
-                messages=[
-                    {"role": "user", "content": query}
-                ]
+            response = client.models.generate_content(
+                model=GEMINI_MODEL,
+                contents=query,
+                config=genai_types.GenerateContentConfig(
+                    system_instruction=system_prompt,
+                    max_output_tokens=500,
+                )
             )
             
-            response_text = response.content[0].text
+            response_text = response.text
             
             return JsonResponse({
                 'success': True,
                 'response': response_text
             })
-        except anthropic.APIError:
+        except genai_errors.APIError:
             return JsonResponse({
                 'success': False,
                 'error': 'AI Tutor is temporarily offline (API key not configured).'
@@ -169,27 +170,27 @@ class PromptPlaygroundView(LoginRequiredMixin, View):
                     'error': 'Rate limit exceeded. You can test up to 100 prompts per hour in the playground.'
                 }, status=429)
 
-            client = get_anthropic_client()
+            client = get_gemini_client()
             if not client:
                 return JsonResponse({
                     'success': False, 
                     'error': 'AI Playground is temporarily offline (API key not configured).'
                 }, status=503)
 
-            response = client.messages.create(
-                model=ANTHROPIC_MODEL,
-                system=system_prompt,
-                max_tokens=1000,
-                messages=[
-                    {"role": "user", "content": user_prompt}
-                ]
+            response = client.models.generate_content(
+                model=GEMINI_MODEL,
+                contents=user_prompt,
+                config=genai_types.GenerateContentConfig(
+                    system_instruction=system_prompt,
+                    max_output_tokens=1000,
+                )
             )
             
             return JsonResponse({
                 'success': True,
-                'response': response.content[0].text
+                'response': response.text
             })
-        except anthropic.APIError:
+        except genai_errors.APIError:
             return JsonResponse({
                 'success': False,
                 'error': 'AI Playground is temporarily offline (API key not configured).'

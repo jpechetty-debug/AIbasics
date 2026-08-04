@@ -1,1 +1,1 @@
-web: gunicorn ai_course_platform.wsgi --log-file -
+web: gunicorn ai_course_platform.wsgi --workers 4 --threads 4 --log-file -

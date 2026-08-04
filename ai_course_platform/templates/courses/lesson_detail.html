@@ -435,9 +435,10 @@
                     </svg>
                 </div>
                 <div class="${isUser ? 'bg-brand-900 text-white rounded-tr-none' : 'bg-slate-50 text-slate-700 rounded-tl-none border border-slate-100'} p-4 rounded-2xl">
-                    <p class="text-sm font-bold leading-relaxed">${text}</p>
+                    <p class="text-sm font-bold leading-relaxed message-content"></p>
                 </div>
             `;
+            div.querySelector('.message-content').textContent = text;
             chatMessages.appendChild(div);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         };

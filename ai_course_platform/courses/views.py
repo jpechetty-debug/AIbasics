@@ -4,9 +4,7 @@ Views for the AI Course Platform.
 import json
 import re
 import markdown
-from google import genai
-from google.genai import types as genai_types
-from google.genai import errors as genai_errors
+import anthropic
 from decouple import config
 from pathlib import Path
 from django.shortcuts import render, get_object_or_404, redirect
@@ -26,28 +24,22 @@ from .models import Module, Lesson, UserProgress, QuizAttempt, Certificate
 from .utils import parse_quiz_content
 
 
-_gemini_client = None
+_anthropic_client = None
 
 _PLACEHOLDER_API_KEYS = {'your-key-here', 'your_key_here', 'changeme', ''}
 
-GEMINI_MODEL = config('GEMINI_MODEL', default='gemini-2.5-flash')
+ANTHROPIC_MODEL = config('ANTHROPIC_MODEL', default='claude-3-haiku-20240307')
 
-def get_gemini_client():
-    """Lazy-load and return a singleton Gemini client.
-
-    Treats unset AND placeholder key values (e.g. the literal
-    ".env.example" default) as "not configured" so callers get the
-    graceful 503 "offline" response instead of a raw API error when
-    someone copies .env.example to .env without swapping in a real key.
-    """
-    global _gemini_client
-    if _gemini_client is None:
-        api_key = config('GEMINI_API_KEY', default=None)
+def get_anthropic_client():
+    """Lazy-load and return a singleton Anthropic client."""
+    global _anthropic_client
+    if _anthropic_client is None:
+        api_key = config('ANTHROPIC_API_KEY', default=None)
         if api_key:
             api_key = api_key.strip()
         if api_key and api_key.lower() not in _PLACEHOLDER_API_KEYS:
-            _gemini_client = genai.Client(api_key=api_key)
-    return _gemini_client
+            _anthropic_client = anthropic.Anthropic(api_key=api_key)
+    return _anthropic_client
 
 
 def throttle_public_ip(request, prefix='public_throttle_', limit=60):
@@ -96,7 +88,7 @@ class AITutorView(LoginRequiredMixin, View):
                     'error': 'Rate limit exceeded. You can send up to 100 messages per hour to the AI Tutor.'
                 }, status=429)
 
-            client = get_gemini_client()
+            client = get_anthropic_client()
             if not client:
                 return JsonResponse({
                     'success': False, 
@@ -119,22 +111,22 @@ Instructions:
 4. If you don't know the answer based on the context, say so and suggest they review the lesson again.
 """
 
-            response = client.models.generate_content(
-                model=GEMINI_MODEL,
-                contents=query,
-                config=genai_types.GenerateContentConfig(
-                    system_instruction=system_prompt,
-                    max_output_tokens=500,
-                ),
+            response = client.messages.create(
+                model=ANTHROPIC_MODEL,
+                system=system_prompt,
+                max_tokens=500,
+                messages=[
+                    {"role": "user", "content": query}
+                ]
             )
             
-            response_text = response.text
+            response_text = response.content[0].text
             
             return JsonResponse({
                 'success': True,
                 'response': response_text
             })
-        except genai_errors.ClientError:
+        except anthropic.APIError:
             return JsonResponse({
                 'success': False,
                 'error': 'AI Tutor is temporarily offline (API key not configured).'
@@ -177,27 +169,27 @@ class PromptPlaygroundView(LoginRequiredMixin, View):
                     'error': 'Rate limit exceeded. You can test up to 100 prompts per hour in the playground.'
                 }, status=429)
 
-            client = get_gemini_client()
+            client = get_anthropic_client()
             if not client:
                 return JsonResponse({
                     'success': False, 
                     'error': 'AI Playground is temporarily offline (API key not configured).'
                 }, status=503)
 
-            response = client.models.generate_content(
-                model=GEMINI_MODEL,
-                contents=user_prompt,
-                config=genai_types.GenerateContentConfig(
-                    system_instruction=system_prompt,
-                    max_output_tokens=1000,
-                ),
+            response = client.messages.create(
+                model=ANTHROPIC_MODEL,
+                system=system_prompt,
+                max_tokens=1000,
+                messages=[
+                    {"role": "user", "content": user_prompt}
+                ]
             )
             
             return JsonResponse({
                 'success': True,
-                'response': response.text
+                'response': response.content[0].text
             })
-        except genai_errors.ClientError:
+        except anthropic.APIError:
             return JsonResponse({
                 'success': False,
                 'error': 'AI Playground is temporarily offline (API key not configured).'
@@ -367,9 +359,28 @@ class ModuleDetailView(LoginRequiredMixin, DetailView, CourseMixin):
 class QuizParsingMixin:
     """Mixin to provide shared quiz parsing logic for both lessons and assessments."""
     
+    QUIZ_MARKERS = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
+
     def parse_quiz_content(self, content):
         """Robustly parse questions, options, feedback, and metadata from markdown content."""
         return parse_quiz_content(content)
+
+    def sanitize_quiz_data(self, quiz_data):
+        """Remove correct answers and feedback before sending to template context."""
+        if not quiz_data:
+            return quiz_data
+        
+        sanitized = []
+        for q in quiz_data:
+            safe_q = {
+                'number': q.get('number'),
+                'text': q.get('text'),
+                'options': q.get('options'),
+                'type': q.get('type')
+            }
+            sanitized.append(safe_q)
+        return sanitized
+
 
 
 class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseMixin):
@@ -407,7 +418,10 @@ class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseM
         # 2. Consolidated Performance: Parse daily quiz from the same raw_content
         daily_quiz = self.parse_daily_quiz(raw_content)
         context['daily_quiz'] = daily_quiz
-        context['daily_quiz_json'] = json.dumps(daily_quiz) if daily_quiz else 'null'
+        
+        # Strip answers before serializing to JSON for the template
+        safe_daily_quiz = self.sanitize_quiz_data(daily_quiz)
+        context['daily_quiz_json'] = json.dumps(safe_daily_quiz) if safe_daily_quiz else 'null'
         
         # Metadata and Navigation
         context['module_title'] = lesson.module.title
@@ -438,8 +452,7 @@ class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseM
                     content = parts[2]
             
             # If there's a daily quiz, hide it from main content to avoid duplication
-            quiz_markers = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
-            for marker in quiz_markers:
+            for marker in self.QUIZ_MARKERS:
                 if marker in content:
                     content = content.split(marker)[0]
                     break
@@ -479,9 +492,8 @@ class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseM
         """Detect and parse daily quiz section from content string."""
         try:
             # Look for quiz sections
-            quiz_markers = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
             quiz_content = ""
-            for marker in quiz_markers:
+            for marker in self.QUIZ_MARKERS:
                 if marker in content:
                     quiz_content = content.split(marker)[1]
                     break
@@ -523,7 +535,10 @@ class AssessmentView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseMix
         context['module_slug'] = lesson.module.slug
             
         context['questions'] = questions
-        context['questions_json'] = json.dumps(questions)
+        
+        # Strip answers before serializing to JSON for the template
+        safe_questions = self.sanitize_quiz_data(questions)
+        context['questions_json'] = json.dumps(safe_questions)
         
         # Grouped modules for sidebar
         context['phases'] = self.get_grouped_modules(self.request.user)
@@ -580,9 +595,8 @@ def submit_quiz(request, pk):
         
         # If it's a daily lesson, we need to extract the quiz section first
         if lesson.content_type == 'lesson':
-            quiz_markers = ["## Interactive Daily Quiz", "## 📝 Daily Quiz", "## Knowledge Check", "## Quiz"]
             quiz_content = ""
-            for marker in quiz_markers:
+            for marker in QuizParsingMixin.QUIZ_MARKERS:
                 if marker in content:
                     quiz_content = content.split(marker)[1]
                     break

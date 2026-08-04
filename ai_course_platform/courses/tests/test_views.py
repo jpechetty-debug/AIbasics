@@ -1,6 +1,7 @@
 """
 Unit tests for course views, authentication, progress, and certificates.
 """
+import json
 from unittest.mock import patch, MagicMock
 from django.test import TestCase, Client
 from django.urls import reverse
@@ -101,45 +102,49 @@ class CourseViewsTest(TestCase):
         """AI Tutor POST returns successful JSON response when client is configured."""
         self.client.login(username='testadmin', password='Password123!')
         url = reverse('courses:ai_tutor', kwargs={'pk': self.lesson.pk})
-        
-        mock_response = MagicMock()
-        mock_response.text = 'AI is Artificial Intelligence.'
-        
-        with patch('courses.views.get_gemini_client') as mock_get_client:
+        with patch('courses.views.get_anthropic_client') as mock_get_client:
             mock_client = MagicMock()
-            mock_client.models.generate_content.return_value = mock_response
+            # Mock the structure of Anthropic API response
+            mock_message = MagicMock()
+            mock_content = MagicMock()
+            mock_content.text = "This is a mock response from Anthropic API."
+            mock_message.content = [mock_content]
+            mock_client.messages.create.return_value = mock_message
             mock_get_client.return_value = mock_client
             
             response = self.client.post(
                 url,
-                data={'query': 'What is AI?'},
+                data=json.dumps({'query': 'What is a neural network?'}),
                 content_type='application/json'
             )
             self.assertEqual(response.status_code, 200)
-            data = response.json()
-            self.assertTrue(data['success'])
-            self.assertEqual(data['response'], 'AI is Artificial Intelligence.')
+            data = json.loads(response.content)
+            self.assertTrue(data.get('success'))
+            self.assertIn('mock response', data.get('response'))
 
     def test_prompt_playground_success_with_mock(self):
         """Prompt Playground POST returns successful response when client is configured."""
         self.client.login(username='testadmin', password='Password123!')
         url = reverse('courses:prompt_playground')
-        
-        mock_response = MagicMock()
-        mock_response.text = 'Generated response from Gemini.'
-        
-        with patch('courses.views.get_gemini_client') as mock_get_client:
+        with patch('courses.views.get_anthropic_client') as mock_get_client:
             mock_client = MagicMock()
-            mock_client.models.generate_content.return_value = mock_response
+            mock_message = MagicMock()
+            mock_content = MagicMock()
+            mock_content.text = "Playground mock response."
+            mock_message.content = [mock_content]
+            mock_client.messages.create.return_value = mock_message
             mock_get_client.return_value = mock_client
             
+            payload = {
+                'prompt': 'Write a haiku about AI.',
+                'system': 'You are a poet.'
+            }
             response = self.client.post(
                 url,
-                data={'system': 'You are helpful.', 'prompt': 'Hello'},
+                data=json.dumps(payload),
                 content_type='application/json'
             )
             self.assertEqual(response.status_code, 200)
-            data = response.json()
-            self.assertTrue(data['success'])
-            self.assertEqual(data['response'], 'Generated response from Gemini.')
-
+            data = json.loads(response.content)
+            self.assertTrue(data.get('success'))
+            self.assertIn('Playground mock response.', data.get('response'))

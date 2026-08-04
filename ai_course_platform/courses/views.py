@@ -67,7 +67,7 @@ def throttle_ai_tutor(user, prefix='ai_tutor_throttle_'):
 
 
 class AITutorView(LoginRequiredMixin, View):
-    """Handle chat queries for the AI Tutor using the real Gemini API."""
+    """Handle chat queries for the AI Tutor using the real Anthropic API."""
     def post(self, request, pk):
         try:
             data = json.loads(request.body)

@@ -30,7 +30,7 @@ _gemini_client = None
 
 _PLACEHOLDER_API_KEYS = {'your-key-here', 'your_key_here', 'your_anthropic_api_key_here', 'your_gemini_api_key_here', 'changeme', ''}
 
-GEMINI_MODEL = config('GEMINI_MODEL', default='gemini-2.5-flash')
+GEMINI_MODEL = config('GEMINI_MODEL', default='gemini-3.6-flash')
 
 def get_gemini_client():
     """Lazy-load and return a singleton Gemini client."""

@@ -464,7 +464,7 @@
                 if (data.success) {
                     addMessage(data.response);
                 } else {
-                    addMessage("I'm sorry, I'm having trouble connecting to my brain right now. Please try again later.");
+                    addMessage(data.error || "I'm sorry, I'm having trouble connecting to my brain right now. Please try again later.");
                 }
             })
             .catch(error => {

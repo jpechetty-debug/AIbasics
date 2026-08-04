@@ -1,6 +1,7 @@
 """
 Unit tests for course views, authentication, progress, and certificates.
 """
+from unittest.mock import patch, MagicMock
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -96,14 +97,49 @@ class CourseViewsTest(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn('System prompt too long', response.json()['error'])
 
-    def test_ai_tutor_api_key_missing_response(self):
-        """AI Tutor POST gracefully handles missing API key with 503 status."""
+    def test_ai_tutor_success_with_mock(self):
+        """AI Tutor POST returns successful JSON response when client is configured."""
         self.client.login(username='testadmin', password='Password123!')
         url = reverse('courses:ai_tutor', kwargs={'pk': self.lesson.pk})
-        response = self.client.post(
-            url,
-            data={'query': 'What is AI?'},
-            content_type='application/json'
-        )
-        self.assertEqual(response.status_code, 503)
-        self.assertFalse(response.json()['success'])
+        
+        mock_response = MagicMock()
+        mock_response.text = 'AI is Artificial Intelligence.'
+        
+        with patch('courses.views.get_gemini_client') as mock_get_client:
+            mock_client = MagicMock()
+            mock_client.models.generate_content.return_value = mock_response
+            mock_get_client.return_value = mock_client
+            
+            response = self.client.post(
+                url,
+                data={'query': 'What is AI?'},
+                content_type='application/json'
+            )
+            self.assertEqual(response.status_code, 200)
+            data = response.json()
+            self.assertTrue(data['success'])
+            self.assertEqual(data['response'], 'AI is Artificial Intelligence.')
+
+    def test_prompt_playground_success_with_mock(self):
+        """Prompt Playground POST returns successful response when client is configured."""
+        self.client.login(username='testadmin', password='Password123!')
+        url = reverse('courses:prompt_playground')
+        
+        mock_response = MagicMock()
+        mock_response.text = 'Generated response from Gemini.'
+        
+        with patch('courses.views.get_gemini_client') as mock_get_client:
+            mock_client = MagicMock()
+            mock_client.models.generate_content.return_value = mock_response
+            mock_get_client.return_value = mock_client
+            
+            response = self.client.post(
+                url,
+                data={'system': 'You are helpful.', 'prompt': 'Hello'},
+                content_type='application/json'
+            )
+            self.assertEqual(response.status_code, 200)
+            data = response.json()
+            self.assertTrue(data['success'])
+            self.assertEqual(data['response'], 'Generated response from Gemini.')
+

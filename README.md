@@ -63,7 +63,7 @@ This platform is designed to bridge the gap between everyday life and work and t
    ```bash
    cp ai_course_platform/.env.example ai_course_platform/.env
    ```
-   Replace the `ANTHROPIC_API_KEY` placeholder with a real key if you want the AI Tutor and Prompt Playground to be fully live — otherwise they gracefully report as offline.
+   Replace the `GEMINI_API_KEY` placeholder with a real key if you want the AI Tutor and Prompt Playground to be fully live — otherwise they gracefully report as offline.
 
 5. **Initialize Database & Load Curriculum**:
    ```bash

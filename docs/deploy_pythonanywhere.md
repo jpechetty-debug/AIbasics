@@ -23,7 +23,8 @@ Create `ai_course_platform/.env`:
 SECRET_KEY=your-production-secret-key
 DEBUG=False
 ALLOWED_HOSTS=yourusername.pythonanywhere.com
-ANTHROPIC_API_KEY=your-anthropic-api-key
+GEMINI_API_KEY=your-gemini-api-key
+GEMINI_MODEL=gemini-2.5-flash
 ```
 
 ## 4. Database & Static Files

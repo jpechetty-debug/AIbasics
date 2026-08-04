@@ -18,6 +18,7 @@ This platform is designed to bridge the gap between everyday life and work and t
 
 - **Backend**: Python / Django
 - **Frontend**: HTML5 / Vanilla CSS
+- **AI Integration**: Google Gemini API (gemini-3.6-flash)
 - **Content**: Markdown-driven curriculum
 - **Database**: SQLite (default) / PostgreSQL
 - **Config**: Python-Decouple for environment management

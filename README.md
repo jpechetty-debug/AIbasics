@@ -63,7 +63,7 @@ This platform is designed to bridge the gap between everyday life and work and t
    ```bash
    cp ai_course_platform/.env.example ai_course_platform/.env
    ```
-   Replace the `GEMINI_API_KEY` placeholder with a real key if you want the AI Tutor and Prompt Playground to be fully live — otherwise they gracefully report as offline.
+   Replace the `ANTHROPIC_API_KEY` placeholder with a real key if you want the AI Tutor and Prompt Playground to be fully live — otherwise they gracefully report as offline.
 
 5. **Initialize Database & Load Curriculum**:
    ```bash
@@ -85,7 +85,7 @@ This platform is designed to bridge the gap between everyday life and work and t
 
 ## 🌐 Deployment
 
-For deploying the platform to a live environment (e.g., PythonAnywhere), refer to the detailed [Deployment Guide](docs/deploy_pythonanywhere.md).
+For deploying the platform to a live environment (e.g., Render), refer to the detailed [Deployment Guide](docs/deploy_render.md).
 
 Key Production Considerations:
 - **DEBUG**: Ensure `DEBUG=False` in production.

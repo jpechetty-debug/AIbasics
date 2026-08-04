@@ -13,7 +13,7 @@
         <div class="p-8">
             <h3
                 class="text-[0.65rem] font-black text-slate-400 uppercase tracking-[0.2em] mb-8 flex items-center gap-2">
-                <span class="w-2 h-2 bg-netadmin-400 rounded-full"></span>
+                <span class="w-2 h-2 bg-brand-400 rounded-full"></span>
                 Operations Guide
             </h3>
 
@@ -32,11 +32,11 @@
                     <div class="mb-4">
                         <div class="flex items-center gap-3 group cursor-pointer">
                             <div
-                                class="w-8 h-8 rounded-lg {% if module == lesson.module %}bg-netadmin-900 text-netadmin-400{% else %}bg-slate-50 text-slate-400{% endif %} flex items-center justify-center font-black text-xs shadow-sm transition-all group-hover:scale-110">
+                                class="w-8 h-8 rounded-lg {% if module == lesson.module %}bg-brand-900 text-brand-400{% else %}bg-slate-50 text-slate-400{% endif %} flex items-center justify-center font-black text-xs shadow-sm transition-all group-hover:scale-110">
                                 {{ module.order }}
                             </div>
                             <a href="{% url 'courses:module_detail' module.slug %}"
-                                class="text-sm font-black {% if module == lesson.module %}text-netadmin-900{% else %}text-slate-500 hover:text-netadmin-900 transition-colors{% endif %}">
+                                class="text-sm font-black {% if module == lesson.module %}text-brand-900{% else %}text-slate-500 hover:text-brand-900 transition-colors{% endif %}">
                                 {{ module.title }}
                             </a>
                         </div>
@@ -45,9 +45,9 @@
                         <div class="ml-4 pl-4 border-l-2 border-slate-100 space-y-2 mt-3">
                             {% for mod_lesson in module.lessons.all %}
                             <a href="{% if mod_lesson.content_type == 'assessment' %}{% url 'courses:assessment' mod_lesson.pk %}{% else %}{% url 'courses:lesson_detail' mod_lesson.pk %}{% endif %}"
-                                class="flex items-center gap-3 p-3 rounded-xl text-sm transition-all group {% if mod_lesson == lesson %}bg-netadmin-900 text-white shadow-xl translate-x-1{% else %}text-slate-500 hover:bg-slate-50 hover:text-netadmin-900{% endif %}">
+                                class="flex items-center gap-3 p-3 rounded-xl text-sm transition-all group {% if mod_lesson == lesson %}bg-brand-900 text-white shadow-xl translate-x-1{% else %}text-slate-500 hover:bg-slate-50 hover:text-brand-900{% endif %}">
                                 <div
-                                    class="w-2 h-2 rounded-full {% if mod_lesson == lesson %}bg-netadmin-400{% else %}bg-slate-300 group-hover:bg-netadmin-400{% endif %} transition-colors">
+                                    class="w-2 h-2 rounded-full {% if mod_lesson == lesson %}bg-brand-400{% else %}bg-slate-300 group-hover:bg-brand-400{% endif %} transition-colors">
                                 </div>
                                 <span class="truncate font-bold">{{ mod_lesson.title|truncatechars:28 }}</span>
                             </a>
@@ -65,7 +65,7 @@
 
     <!-- Mobile Sidebar Toggle -->
     <div class="lg:hidden fixed bottom-6 left-6 z-40">
-        <button id="sidebar-toggle" class="w-14 h-14 bg-netadmin-900 text-netadmin-400 rounded-2xl flex items-center justify-center shadow-2xl active:scale-95 transition-all">
+        <button id="sidebar-toggle" class="w-14 h-14 bg-brand-900 text-brand-400 rounded-2xl flex items-center justify-center shadow-2xl active:scale-95 transition-all">
             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"></path>
             </svg>
@@ -79,25 +79,25 @@
             <nav class="mb-12">
                 <ol
                     class="flex items-center gap-4 text-xs font-black uppercase tracking-[0.15em] text-slate-400 flex-wrap">
-                    <li><a href="{% url 'courses:dashboard' %}" class="hover:text-netadmin-900 transition-colors">HQ</a>
+                    <li><a href="{% url 'courses:dashboard' %}" class="hover:text-brand-900 transition-colors">HQ</a>
                     </li>
                     <li><svg class="w-3 h-3 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7">
                             </path>
                         </svg></li>
                     <li><a href="{% url 'courses:module_detail' module_slug %}"
-                            class="hover:text-netadmin-900 transition-colors">{{ module_title }}</a></li>
+                            class="hover:text-brand-900 transition-colors">{{ module_title }}</a></li>
                     <li><svg class="w-3 h-3 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7">
                             </path>
                         </svg></li>
-                    <li class="text-netadmin-400">Day {{ lesson.order }}</li>
+                    <li class="text-brand-400">Day {{ lesson.order }}</li>
                 </ol>
             </nav>
 
             <!-- Lesson Summary / Quick Look -->
-            <div class="mb-16 bg-gradient-to-br from-netadmin-900 to-slate-800 rounded-[2.5rem] p-8 lg:p-12 shadow-2xl relative overflow-hidden group">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-netadmin-400/10 blur-3xl rounded-full -mr-20 -mt-20 group-hover:bg-netadmin-400/20 transition-all duration-700"></div>
+            <div class="mb-16 bg-gradient-to-br from-brand-900 to-slate-800 rounded-[2.5rem] p-8 lg:p-12 shadow-2xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-400/10 blur-3xl rounded-full -mr-20 -mt-20 group-hover:bg-brand-400/20 transition-all duration-700"></div>
                 <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
                     <div>
                         <h1 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight">
@@ -105,12 +105,12 @@
                         </h1>
                         <div class="flex flex-wrap items-center gap-4 text-sm mb-8">
                             <div class="flex items-center gap-2 px-3 py-1 bg-white/10 rounded-lg text-slate-300 font-bold">
-                                <svg class="w-4 h-4 text-netadmin-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 {{ lesson.duration|default:"30-60 min" }}
                             </div>
-                            <div class="px-3 py-1 bg-netadmin-400/20 text-netadmin-400 border border-netadmin-400/30 rounded-lg font-black uppercase text-[0.65rem] tracking-widest">
+                            <div class="px-3 py-1 bg-brand-400/20 text-brand-400 border border-brand-400/30 rounded-lg font-black uppercase text-[0.65rem] tracking-widest">
                                 {{ lesson.difficulty|default:"Standard" }}
                             </div>
                         </div>
@@ -119,8 +119,8 @@
                         </p>
                     </div>
                     <div class="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-sm">
-                        <h3 class="text-[0.65rem] font-black text-netadmin-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-                            <span class="w-2 h-2 bg-netadmin-400 rounded-full animate-pulse"></span>
+                        <h3 class="text-[0.65rem] font-black text-brand-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                            <span class="w-2 h-2 bg-brand-400 rounded-full animate-pulse"></span>
                             Mission Objectives
                         </h3>
                         <ul class="space-y-4">
@@ -195,8 +195,8 @@
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
                         <div class="flex items-center gap-4">
                             <div
-                                class="w-16 h-16 bg-netadmin-900 rounded-3xl flex items-center justify-center shadow-xl rotate-3 group-hover:rotate-0 transition-transform">
-                                <svg class="w-8 h-8 text-netadmin-400" fill="none" stroke="currentColor"
+                                class="w-16 h-16 bg-brand-900 rounded-3xl flex items-center justify-center shadow-xl rotate-3 group-hover:rotate-0 transition-transform">
+                                <svg class="w-8 h-8 text-brand-400" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
@@ -204,7 +204,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h2 class="text-3xl font-black text-netadmin-900 tracking-tight">Knowledge Check</h2>
+                                <h2 class="text-3xl font-black text-brand-900 tracking-tight">Knowledge Check</h2>
                                 <p class="text-slate-500 font-bold text-sm">Verify your session objectives</p>
                             </div>
                         </div>
@@ -220,8 +220,8 @@
                         <div class="question-block group/q" data-question="{{ q.number }}">
                             <div class="flex gap-6 mb-6">
                                 <span
-                                    class="text-4xl font-black text-slate-100 group-hover/q:text-netadmin-400/20 transition-colors leading-none italic">{{ q.number|stringformat:"02d" }}</span>
-                                <p class="text-xl font-bold text-netadmin-900 pt-1 leading-relaxed">{{ q.text }}</p>
+                                    class="text-4xl font-black text-slate-100 group-hover/q:text-brand-400/20 transition-colors leading-none italic">{{ q.number|stringformat:"02d" }}</span>
+                                <p class="text-xl font-bold text-brand-900 pt-1 leading-relaxed">{{ q.text }}</p>
                             </div>
 
                             <div class="grid grid-cols-1 gap-4 ml-0 sm:ml-16">
@@ -231,14 +231,14 @@
                                     <input type="radio" name="q{{ q.number }}" value="{{ opt.letter }}"
                                         class="hidden peer">
                                     <div
-                                        class="w-10 h-10 rounded-xl bg-white border-2 border-slate-200 flex items-center justify-center mr-4 font-black transition-all peer-checked:bg-netadmin-900 peer-checked:border-netadmin-900 peer-checked:text-netadmin-400 group-hover/opt:border-blue-300">
+                                        class="w-10 h-10 rounded-xl bg-white border-2 border-slate-200 flex items-center justify-center mr-4 font-black transition-all peer-checked:bg-brand-900 peer-checked:border-brand-900 peer-checked:text-brand-400 group-hover/opt:border-blue-300">
                                         {{ opt.letter }}
                                     </div>
                                     <span class="text-slate-700 font-bold leading-relaxed">{{ opt.text }}</span>
 
                                     <!-- Indicator -->
                                     <div class="absolute right-6 opacity-0 peer-checked:opacity-100 transition-opacity">
-                                        <div class="w-2 h-2 rounded-full bg-netadmin-400"></div>
+                                        <div class="w-2 h-2 rounded-full bg-brand-400"></div>
                                     </div>
                                 </label>
                                 {% endfor %}
@@ -251,9 +251,9 @@
 
                         <div class="pt-8 flex flex-col items-center gap-6">
                             <button type="submit" id="submit-btn"
-                                class="bg-netadmin-900 hover:bg-slate-800 text-white px-12 py-5 rounded-[2rem] font-black text-lg transition-all shadow-2xl hover:scale-105 active:scale-95 flex items-center justify-center gap-4 group">
+                                class="bg-brand-900 hover:bg-slate-800 text-white px-12 py-5 rounded-[2rem] font-black text-lg transition-all shadow-2xl hover:scale-105 active:scale-95 flex items-center justify-center gap-4 group">
                                 <span>Verify Knowledge</span>
-                                <svg class="w-6 h-6 text-netadmin-400 group-hover:translate-x-1 transition-transform"
+                                <svg class="w-6 h-6 text-brand-400 group-hover:translate-x-1 transition-transform"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -273,7 +273,7 @@
                 <div class="flex items-center gap-4">
                     {% if user.is_authenticated %}
                     <button id="mark-complete-btn"
-                        class="h-16 px-10 rounded-[2rem] font-black transition-all flex items-center gap-3 shadow-xl hover:scale-105 active:scale-95 {% if is_completed %}bg-emerald-500 text-white cursor-default{% else %}bg-netadmin-900 text-white hover:bg-slate-800{% endif %}"
+                        class="h-16 px-10 rounded-[2rem] font-black transition-all flex items-center gap-3 shadow-xl hover:scale-105 active:scale-95 {% if is_completed %}bg-emerald-500 text-white cursor-default{% else %}bg-brand-900 text-white hover:bg-slate-800{% endif %}"
                         {% if is_completed %}disabled{% endif %}>
                         {% if is_completed %}
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
@@ -283,7 +283,7 @@
                         </svg>
                         Validated
                         {% else %}
-                        <svg class="w-6 h-6 text-netadmin-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
@@ -292,7 +292,7 @@
                     </button>
                     {% else %}
                     <a href="{% url 'users:login' %}?next={{ request.path }}"
-                        class="h-16 px-10 flex items-center justify-center bg-netadmin-900 text-white rounded-[2rem] font-black transition-all shadow-xl hover:scale-105">
+                        class="h-16 px-10 flex items-center justify-center bg-brand-900 text-white rounded-[2rem] font-black transition-all shadow-xl hover:scale-105">
                         Log Mission Data
                     </a>
                     {% endif %}
@@ -301,7 +301,7 @@
                 <div class="flex items-center gap-4">
                     {% if prev_lesson %}
                     <a href="{% if prev_lesson.content_type == 'assessment' %}{% url 'courses:assessment' prev_lesson.pk %}{% else %}{% url 'courses:lesson_detail' prev_lesson.pk %}{% endif %}"
-                        class="w-16 h-16 bg-white border-2 border-slate-100 rounded-3xl flex items-center justify-center text-slate-400 hover:text-netadmin-900 hover:border-netadmin-900 transition-all group">
+                        class="w-16 h-16 bg-white border-2 border-slate-100 rounded-3xl flex items-center justify-center text-slate-400 hover:text-brand-900 hover:border-brand-900 transition-all group">
                         <svg class="w-6 h-6 group-hover:-translate-x-1 transition-transform" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -316,7 +316,7 @@
 
                     {% if next_lesson %}
                     <a href="{% if next_lesson.content_type == 'assessment' %}{% url 'courses:assessment' next_lesson.pk %}{% else %}{% url 'courses:lesson_detail' next_lesson.pk %}{% endif %}"
-                        class="h-16 px-8 bg-netadmin-400 text-netadmin-900 rounded-[1.5rem] flex items-center justify-center font-black group hover:bg-netadmin-500 transition-all shadow-lg hover:scale-105">
+                        class="h-16 px-8 bg-brand-400 text-brand-900 rounded-[1.5rem] flex items-center justify-center font-black group hover:bg-brand-500 transition-all shadow-lg hover:scale-105">
                         <span class="mr-4">Next Intel</span>
                         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -338,16 +338,16 @@
 
 <!-- AI Tutor Sidebar -->
 <div id="ai-tutor-panel" class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-500 ease-in-out border-l border-slate-100 flex flex-col">
-    <div class="bg-netadmin-900 p-6 flex items-center justify-between">
+    <div class="bg-brand-900 p-6 flex items-center justify-between">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-netadmin-400 rounded-xl flex items-center justify-center shadow-lg">
-                <svg class="w-6 h-6 text-netadmin-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-10 h-10 bg-brand-400 rounded-xl flex items-center justify-center shadow-lg">
+                <svg class="w-6 h-6 text-brand-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
             </div>
             <div>
                 <h3 class="text-white font-black tracking-tight leading-none">AI Study Buddy</h3>
-                <span class="text-netadmin-400/60 text-[0.6rem] font-black uppercase tracking-widest">Active Intelligence</span>
+                <span class="text-brand-400/60 text-[0.6rem] font-black uppercase tracking-widest">Active Intelligence</span>
             </div>
         </div>
         <button id="close-ai-tutor" class="text-white/50 hover:text-white transition-colors">
@@ -358,17 +358,17 @@
     <div class="flex-1 overflow-y-auto p-6 space-y-6" id="ai-chat-messages">
         <!-- AI Welcome Message -->
         <div class="flex items-start gap-3">
-            <div class="w-8 h-8 rounded-lg bg-netadmin-400/20 flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-netadmin-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            <div class="w-8 h-8 rounded-lg bg-brand-400/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
             </div>
             <div class="bg-slate-50 p-4 rounded-2xl rounded-tl-none border border-slate-100">
                 <p class="text-sm text-slate-700 font-bold leading-relaxed">
-                    Hello! I'm your AI Study Buddy. I've analyzed this lesson on <span class="text-netadmin-900">{{ lesson.title }}</span>. How can I help you today?
+                    Hello! I'm your AI Study Buddy. I've analyzed this lesson on <span class="text-brand-900">{{ lesson.title }}</span>. How can I help you today?
                 </p>
                 <div class="mt-4 flex flex-wrap gap-2">
-                    <button class="ai-suggestion-btn text-[0.65rem] font-black uppercase tracking-widest bg-white border border-slate-200 px-3 py-2 rounded-lg hover:border-netadmin-400 transition-colors">Explain concepts</button>
-                    <button class="ai-suggestion-btn text-[0.65rem] font-black uppercase tracking-widest bg-white border border-slate-200 px-3 py-2 rounded-lg hover:border-netadmin-400 transition-colors">Quick summary</button>
-                    <button class="ai-suggestion-btn text-[0.65rem] font-black uppercase tracking-widest bg-white border border-slate-200 px-3 py-2 rounded-lg hover:border-netadmin-400 transition-colors">Real-world usage</button>
+                    <button class="ai-suggestion-btn text-[0.65rem] font-black uppercase tracking-widest bg-white border border-slate-200 px-3 py-2 rounded-lg hover:border-brand-400 transition-colors">Explain concepts</button>
+                    <button class="ai-suggestion-btn text-[0.65rem] font-black uppercase tracking-widest bg-white border border-slate-200 px-3 py-2 rounded-lg hover:border-brand-400 transition-colors">Quick summary</button>
+                    <button class="ai-suggestion-btn text-[0.65rem] font-black uppercase tracking-widest bg-white border border-slate-200 px-3 py-2 rounded-lg hover:border-brand-400 transition-colors">Real-world usage</button>
                 </div>
             </div>
         </div>
@@ -376,8 +376,8 @@
     
     <div class="p-6 border-t border-slate-100 bg-slate-50/50">
         <form id="ai-chat-form" class="relative">
-            <input type="text" id="ai-chat-input" placeholder="Ask me anything about this lesson..." class="w-full bg-white border-2 border-slate-100 rounded-2xl py-4 pl-6 pr-14 font-bold text-sm focus:border-netadmin-400 outline-none transition-all placeholder:text-slate-300">
-            <button type="submit" class="absolute right-3 top-3 w-10 h-10 bg-netadmin-900 text-netadmin-400 rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg">
+            <input type="text" id="ai-chat-input" placeholder="Ask me anything about this lesson..." class="w-full bg-white border-2 border-slate-100 rounded-2xl py-4 pl-6 pr-14 font-bold text-sm focus:border-brand-400 outline-none transition-all placeholder:text-slate-300">
+            <button type="submit" class="absolute right-3 top-3 w-10 h-10 bg-brand-900 text-brand-400 rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
             </button>
         </form>
@@ -429,12 +429,12 @@
             const div = document.createElement('div');
             div.className = `flex items-start gap-3 ${isUser ? 'flex-row-reverse' : ''}`;
             div.innerHTML = `
-                <div class="w-8 h-8 rounded-lg ${isUser ? 'bg-netadmin-900' : 'bg-netadmin-400/20'} flex items-center justify-center flex-shrink-0">
-                    <svg class="w-4 h-4 ${isUser ? 'text-white' : 'text-netadmin-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-8 h-8 rounded-lg ${isUser ? 'bg-brand-900' : 'bg-brand-400/20'} flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 h-4 ${isUser ? 'text-white' : 'text-brand-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         ${isUser ? '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>' : '<path d="M13 10V3L4 14h7v7l9-11h-7z"></path>'}
                     </svg>
                 </div>
-                <div class="${isUser ? 'bg-netadmin-900 text-white rounded-tr-none' : 'bg-slate-50 text-slate-700 rounded-tl-none border border-slate-100'} p-4 rounded-2xl">
+                <div class="${isUser ? 'bg-brand-900 text-white rounded-tr-none' : 'bg-slate-50 text-slate-700 rounded-tl-none border border-slate-100'} p-4 rounded-2xl">
                     <p class="text-sm font-bold leading-relaxed">${text}</p>
                 </div>
             `;
@@ -510,7 +510,7 @@
                             </svg>
                             Validated
                         `;
-                        markCompleteBtn.classList.remove('bg-netadmin-900', 'hover:bg-slate-800');
+                        markCompleteBtn.classList.remove('bg-brand-900', 'hover:bg-slate-800');
                         markCompleteBtn.classList.add('bg-emerald-500', 'cursor-default');
                         markCompleteBtn.disabled = true;
                     }

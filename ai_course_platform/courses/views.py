@@ -30,7 +30,7 @@ _gemini_client = None
 
 _PLACEHOLDER_API_KEYS = {'your-key-here', 'your_key_here', 'changeme', ''}
 
-GEMINI_MODEL = config('GEMINI_MODEL', default='gemini-2.0-flash')
+GEMINI_MODEL = config('GEMINI_MODEL', default='gemini-2.5-flash')
 
 def get_gemini_client():
     """Lazy-load and return a singleton Gemini client.
@@ -93,7 +93,7 @@ class AITutorView(LoginRequiredMixin, View):
             if not throttle_ai_tutor(request.user, prefix='ai_tutor_throttle_'):
                 return JsonResponse({
                     'success': False,
-                    'error': 'Rate limit exceeded. You can send up to 20 messages per hour to the AI Tutor.'
+                    'error': 'Rate limit exceeded. You can send up to 100 messages per hour to the AI Tutor.'
                 }, status=429)
 
             client = get_gemini_client()
@@ -174,7 +174,7 @@ class PromptPlaygroundView(LoginRequiredMixin, View):
             if not throttle_ai_tutor(request.user, prefix='playground_throttle_'):
                 return JsonResponse({
                     'success': False,
-                    'error': 'Rate limit exceeded. You can test up to 20 prompts per hour in the playground.'
+                    'error': 'Rate limit exceeded. You can test up to 100 prompts per hour in the playground.'
                 }, status=429)
 
             client = get_gemini_client()
@@ -491,7 +491,8 @@ class LessonDetailView(LoginRequiredMixin, DetailView, QuizParsingMixin, CourseM
             
             return self.parse_quiz_content(quiz_content)
         except Exception as e:
-            print(f"Error parsing daily quiz: {e}")
+            import logging
+            logging.warning(f"Error parsing daily quiz: {e}")
             return None
 
 

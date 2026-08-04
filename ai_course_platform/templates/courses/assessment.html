@@ -7,21 +7,21 @@
     <!-- Breadcrumb -->
     <nav class="mb-12">
         <ol class="flex items-center gap-4 text-xs font-black uppercase tracking-[0.15em] text-slate-400 flex-wrap">
-            <li><a href="{% url 'courses:dashboard' %}" class="hover:text-netadmin-900 transition-colors">HQ</a></li>
+            <li><a href="{% url 'courses:dashboard' %}" class="hover:text-brand-900 transition-colors">HQ</a></li>
             <li><svg class="w-3 h-3 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path>
                 </svg></li>
             <li><a href="{% url 'courses:module_detail' module_slug %}"
-                    class="hover:text-netadmin-900 transition-colors">{{ module_title }}</a></li>
+                    class="hover:text-brand-900 transition-colors">{{ module_title }}</a></li>
             <li><svg class="w-3 h-3 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path>
                 </svg></li>
-            <li class="text-netadmin-400">Final Assessment</li>
+            <li class="text-brand-400">Final Assessment</li>
         </ol>
     </nav>
 
     <!-- Header -->
-    <div class="relative bg-netadmin-900 rounded-[3rem] p-10 lg:p-14 mb-16 shadow-2xl overflow-hidden group">
+    <div class="relative bg-brand-900 rounded-[3rem] p-10 lg:p-14 mb-16 shadow-2xl overflow-hidden group">
         <div class="absolute inset-0 grid-bg opacity-20"></div>
         <div
             class="absolute -top-24 -right-24 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-all duration-1000">
@@ -38,7 +38,7 @@
                     {{ lesson.difficulty|default:"Advanced" }}
                 </span>
                 <div class="flex items-center gap-2 text-slate-400 text-xs font-bold px-2">
-                    <svg class="w-4 h-4 text-netadmin-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     <span>{{ lesson.duration|default:"30-60 min" }}</span>
@@ -58,7 +58,7 @@
     {% if previous_attempts %}
     <div class="bg-white rounded-[2.5rem] shadow-xl p-10 mb-16 border border-slate-100">
         <h3 class="text-xl font-black text-slate-900 mb-8 flex items-center gap-3">
-            <span class="w-8 h-1 bg-netadmin-400 rounded-full"></span>
+            <span class="w-8 h-1 bg-brand-400 rounded-full"></span>
             Mission Logs
         </h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -106,11 +106,11 @@
             data-question="{{ q.number }}">
             <div class="flex gap-8 mb-8">
                 <span
-                    class="text-5xl font-black text-slate-100 group-hover:text-netadmin-400/20 transition-colors italic leading-none">{{ q.number|stringformat:"02d" }}</span>
+                    class="text-5xl font-black text-slate-100 group-hover:text-brand-400/20 transition-colors italic leading-none">{{ q.number|stringformat:"02d" }}</span>
                 <div class="pt-2">
-                    <p class="text-2xl font-bold text-netadmin-900 leading-tight mb-2">{{ q.text }}</p>
+                    <p class="text-2xl font-bold text-brand-900 leading-tight mb-2">{{ q.text }}</p>
                     {% if q.type == 'multiple' %}
-                    <span class="text-xs font-black uppercase tracking-widest text-netadmin-500">Multiselect Protocol
+                    <span class="text-xs font-black uppercase tracking-widest text-brand-500">Multiselect Protocol
                         Required</span>
                     {% endif %}
                 </div>
@@ -127,14 +127,14 @@
                     {% endif %}
 
                     <div
-                        class="w-12 h-12 rounded-2xl bg-white border-2 border-slate-200 flex items-center justify-center mr-6 font-black text-lg transition-all peer-checked:bg-netadmin-900 peer-checked:border-netadmin-900 peer-checked:text-netadmin-400 group-hover/opt:border-blue-300">
+                        class="w-12 h-12 rounded-2xl bg-white border-2 border-slate-200 flex items-center justify-center mr-6 font-black text-lg transition-all peer-checked:bg-brand-900 peer-checked:border-brand-900 peer-checked:text-brand-400 group-hover/opt:border-blue-300">
                         {{ opt.letter }}
                     </div>
                     <span class="text-slate-700 font-bold text-lg leading-relaxed">{{ opt.text }}</span>
 
                     <!-- Indicator -->
                     <div class="absolute right-8 opacity-0 peer-checked:opacity-100 transition-opacity">
-                        <div class="w-3 h-3 rounded-full bg-netadmin-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
+                        <div class="w-3 h-3 rounded-full bg-brand-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
                     </div>
                 </label>
                 {% endfor %}
@@ -169,8 +169,8 @@
             </a>
 
             <button type="submit" id="submit-btn"
-                class="bg-netadmin-900 hover:bg-slate-800 text-white px-12 py-5 rounded-[2rem] font-black text-xl transition-all shadow-2xl hover:scale-105 active:scale-95 flex items-center justify-center gap-4 group">
-                <svg class="w-6 h-6 text-netadmin-400 group-hover:rotate-12 transition-transform" fill="none"
+                class="bg-brand-900 hover:bg-slate-800 text-white px-12 py-5 rounded-[2rem] font-black text-xl transition-all shadow-2xl hover:scale-105 active:scale-95 flex items-center justify-center gap-4 group">
+                <svg class="w-6 h-6 text-brand-400 group-hover:rotate-12 transition-transform" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -183,7 +183,7 @@
 
     <!-- Results Modal -->
     <div id="results-modal"
-        class="hidden fixed inset-0 bg-netadmin-900/95 backdrop-blur-xl flex items-center justify-center z-50 p-4">
+        class="hidden fixed inset-0 bg-brand-900/95 backdrop-blur-xl flex items-center justify-center z-50 p-4">
         <div
             class="bg-white rounded-[3rem] shadow-2xl max-w-xl w-full p-12 text-center border border-white/20 relative overflow-hidden group">
             <div class="absolute inset-0 grid-bg opacity-5"></div>
@@ -192,10 +192,10 @@
                 class="w-28 h-28 mx-auto mb-10 rounded-[2rem] flex items-center justify-center shadow-2xl rotate-3 group-hover:rotate-0 transition-transform">
             </div>
 
-            <h2 id="result-title" class="text-3xl font-black mb-4 text-netadmin-900 uppercase tracking-tighter"></h2>
+            <h2 id="result-title" class="text-3xl font-black mb-4 text-brand-900 uppercase tracking-tighter"></h2>
             <div class="relative py-6 mb-8">
-                <p id="result-score" class="text-7xl font-black text-netadmin-900"></p>
-                <div class="w-24 h-1.5 bg-netadmin-400 mx-auto rounded-full mt-4"></div>
+                <p id="result-score" class="text-7xl font-black text-brand-900"></p>
+                <div class="w-24 h-1.5 bg-brand-400 mx-auto rounded-full mt-4"></div>
             </div>
 
             <p id="result-message" class="text-slate-500 font-bold text-lg mb-10 leading-relaxed"></p>
@@ -204,7 +204,7 @@
                 <button onclick="location.reload()"
                     class="h-16 px-8 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition font-black uppercase tracking-widest text-xs">Re-Attempt</button>
                 <a href="{% url 'courses:module_detail' module_slug %}"
-                    class="h-16 px-10 rounded-2xl bg-netadmin-900 hover:bg-slate-800 text-white transition font-black flex items-center gap-3 shadow-xl">
+                    class="h-16 px-10 rounded-2xl bg-brand-900 hover:bg-slate-800 text-white transition font-black flex items-center gap-3 shadow-xl">
                     <span>Continue Mission</span>
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

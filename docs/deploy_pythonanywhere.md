@@ -94,5 +94,10 @@ application = get_wsgi_application()
 2. Click the green **Reload yourusername.pythonanywhere.com** button at the top.
 3. Visit your site at `https://yourusername.pythonanywhere.com`!
 
+## 8. Final Verification
+Once the app is running, you should populate the initial data and verify it works:
+1. In your Bash console, run `python manage.py seed_demo_data` to populate the 10-week curriculum.
+2. Log in yourself at `/users/login/` (with `test` / `test12345`).
+
 > [!NOTE] 
 > **Database:** By default, this setup uses SQLite, which is fully persistent on PythonAnywhere. If you wish to use MySQL or PostgreSQL, PythonAnywhere offers MySQL on the free tier, and PostgreSQL on paid tiers. Update the `DATABASE_URL` in your `.env` to connect to it.

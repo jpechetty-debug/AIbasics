@@ -22,7 +22,7 @@ Add the following **Environment Variables** in Render:
 - `ALLOWED_HOSTS`: `*` (or your specific `.onrender.com` domain)
 - `CSRF_TRUSTED_ORIGINS`: `https://your-app-name.onrender.com`
 - `GEMINI_API_KEY`: Your Google Gemini API key
-- `GEMINI_MODEL`: `gemini-2.5-flash`
+- `GEMINI_MODEL`: `gemini-3.6-flash`
 - `PYTHON_VERSION`: `3.12`
 
 ## 4. Database
